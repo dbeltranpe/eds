@@ -18,6 +18,9 @@ public class Trabajador
 	@Column(name="id_trabajador")
 	private Long id;
 	
+	@Column(name="identificacion")
+	private int identificacion;
+
 	@Column(name="nombres")
 	private String nombres;
 	
@@ -43,10 +46,16 @@ public class Trabajador
 	@OneToOne(cascade = CascadeType.ALL)
 	private Usuario usuario;
 	
+	@JoinColumn(name="id_nmn_trabajador",unique=true)
+	@OneToOne(cascade = CascadeType.ALL)
+	private NominaTrabajador nominaTrabajador;
+	
 	public Trabajador()
 	{
 		usuario = new Usuario();
 		usuario.setEnabled(true);
+		
+		nominaTrabajador = new NominaTrabajador();
 	}
 
 	public Long getId() 
@@ -137,6 +146,26 @@ public class Trabajador
 	public void setTelefono(String telefono) 
 	{
 		this.telefono = telefono;
+	}
+	
+	public int getIdentificacion() 
+	{
+		return identificacion;
+	}
+
+	public void setIdentificacion(int identificacion) 
+	{
+		this.identificacion = identificacion;
+	}
+
+	public NominaTrabajador getNominaTrabajador() 
+	{
+		return nominaTrabajador;
+	}
+
+	public void setNominaTrabajador(NominaTrabajador nominaTrabajador) 
+	{
+		this.nominaTrabajador = nominaTrabajador;
 	}
 
 
