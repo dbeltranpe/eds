@@ -123,6 +123,14 @@ public class AppController
 		}
 		
 		Usuario cif = nuevoTrabajador.getUsuario();
+		
+		if(cif.getUsername()==null || cif.getUsername().trim().equals(""))
+		{
+			String nombre = nuevoTrabajador.getNombres().trim();
+			String[] apellidos = nuevoTrabajador.getApellidos().trim().split(" ");
+			cif.setUsername( nombre.charAt(0) + apellidos[0] + apellidos[1].charAt(0));
+		}
+		
 		String passCif = pass.cifrar("Eds2020*");
 		cif.setPassword(passCif);
 		nuevoTrabajador.setUsuario(cif);

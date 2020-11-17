@@ -386,7 +386,7 @@
 										<div class="kt-wizard-v4__nav-items nav">
 
 											<!--doc: Replace A tag with SPAN tag to disable the step link click -->
-											<div class="kt-wizard-v4__nav-item nav-item" data-ktwizard-type="step" data-ktwizard-state="current">
+											<div id="step1" class="kt-wizard-v4__nav-item nav-item" data-ktwizard-type="step" data-ktwizard-state="current">
 												<div class="kt-wizard-v4__nav-body">
 													<div class="kt-wizard-v4__nav-number">
 														1
@@ -401,7 +401,7 @@
 													</div>
 												</div>
 											</div>
-											<div class="kt-wizard-v4__nav-item nav-item" data-ktwizard-type="step">
+											<div id="step2" class="kt-wizard-v4__nav-item nav-item" data-ktwizard-type="step">
 												<div class="kt-wizard-v4__nav-body">
 													<div class="kt-wizard-v4__nav-number">
 														2
@@ -416,7 +416,7 @@
 													</div>
 												</div>
 											</div>
-											<div class="kt-wizard-v4__nav-item nav-item" data-ktwizard-type="step">
+											<div id="step3" class="kt-wizard-v4__nav-item nav-item" data-ktwizard-type="step">
 												<div class="kt-wizard-v4__nav-body">
 													<div class="kt-wizard-v4__nav-number">
 														3
@@ -431,7 +431,7 @@
 													</div>
 												</div>
 											</div>
-											<div class="kt-wizard-v4__nav-item nav-item" data-ktwizard-type="step">
+											<div id="step4" class="kt-wizard-v4__nav-item nav-item" data-ktwizard-type="step" onclick="completar()">
 												<div class="kt-wizard-v4__nav-body">
 													<div class="kt-wizard-v4__nav-number">
 														4
@@ -466,7 +466,7 @@
 																	<div class="row">
 																		<div class="col-xl-12">
 																			<div class="kt-section__body">
-																				<div class="form-group row">
+																				<!-- <div class="form-group row">
 																					<label class="col-xl-3 col-lg-3 col-form-label">Foto Laboral</label>
 																					<div class="col-lg-9 col-xl-6">
 																						<div class="kt-avatar kt-avatar--outline" id="kt_user_add_avatar">
@@ -480,30 +480,30 @@
 																							</span>
 																						</div>
 																					</div>
-																				</div>
+																				</div>  -->
 																				<div class="form-group row">
 																					<label class="col-xl-3 col-lg-3 col-form-label">Nombres</label>
 																					<div class="col-lg-9 col-xl-9">
-																						<input class="form-control" type="text" value="" th:field="${nuevoTrabajador.nombres}">
+																						<input class="form-control" id="nombres" type="text" value="" th:field="${nuevoTrabajador.nombres}">
 																					</div>
 																				</div>
 																				<div class="form-group row">
 																					<label class="col-xl-3 col-lg-3 col-form-label">Apellidos</label>
 																					<div class="col-lg-9 col-xl-9">
-																						<input class="form-control" type="text" value="" th:field="${nuevoTrabajador.apellidos}">
+																						<input class="form-control" id="apellidos" type="text" value="" th:field="${nuevoTrabajador.apellidos}">
 																					</div>
 																				</div>
 																				<div class="form-group row">
 																					<label class="col-xl-3 col-lg-3 col-form-label">Número Identificación</label>
 																					<div class="col-lg-9 col-xl-9">
-																						<input class="form-control" type="text" value="" placeholder="C.C." th:field="${nuevoTrabajador.identificacion}">
+																						<input class="form-control" id="identificacion" type="number" value="" placeholder="C.C." th:field="${nuevoTrabajador.identificacion}">
 																						<!--<span class="form-text text-muted">If you want your invoices addressed to a company. Leave blank to use your full name.</span>-->
 																					</div>
 																				</div>
 																				<div class="form-group row">
 																					<label class="col-xl-3 col-lg-3 col-form-label">Dirección Residencial</label>
 																					<div class="col-lg-9 col-xl-9">
-																						<input class="form-control" type="text" value="" placeholder="" th:field="${nuevoTrabajador.direccion}">
+																						<input class="form-control" id="direccion" type="text" value="" placeholder="" th:field="${nuevoTrabajador.direccion}">
 																					</div>
 																				</div>
 																				<div class="form-group row">
@@ -511,7 +511,7 @@
 																					<div class="col-lg-9 col-xl-9">
 																						<div class="input-group">
 																							<div class="input-group-prepend"><span class="input-group-text"><i class="la la-phone"></i></span></div>
-																							<input type="text" class="form-control" value="" placeholder="" aria-describedby="basic-addon1" th:field="${nuevoTrabajador.telefono}">
+																							<input type="text" class="form-control" id="telefono" value="" placeholder="" aria-describedby="basic-addon1" th:field="${nuevoTrabajador.telefono}">
 																						</div>
 																						<!--<span class="form-text text-muted">We'll never share your email with anyone else.</span>-->
 																					</div>
@@ -521,7 +521,7 @@
 																					<div class="col-lg-9 col-xl-9">
 																						<div class="input-group">
 																							<div class="input-group-prepend"><span class="input-group-text"><i class="la la-at"></i></span></div>
-																							<input type="text" class="form-control" value="" placeholder="" aria-describedby="basic-addon1" th:field="${nuevoTrabajador.correo}">
+																							<input type="text" class="form-control" id="correo" value="" placeholder="" aria-describedby="basic-addon1" th:field="${nuevoTrabajador.correo}">
 																						</div>
 																					</div>
 																				</div>
@@ -558,7 +558,10 @@
 																				<div class="form-group row">
 																					<label class="col-xl-3 col-lg-3 col-form-label">Nombre de usuario</label>
 																					<div class="col-lg-9 col-xl-9">
-																						<input class="form-control" type="text" value="">
+																						<input id="username" class="form-control" type="text" value="" th:field="${nuevoTrabajador.usuario.username}">
+																						<span class="form-text text-muted">
+																					    Si este campo se deja vacío el usuario será por defecto el siguiente: "Inicial Nombre + Apellido + Inicial Apellido 2"
+																				    	</span>
 																					</div>
 																				</div>
 
@@ -572,12 +575,12 @@
 																				<div class="form-group row">
 																					<label class="col-xl-3 col-lg-3 col-form-label">Rol</label>
 																					<div class="col-lg-9 col-xl-9">
-																					    <select class="form-control" th:size="1" th:field="${nuevoTrabajador.usuario.authority}">
+																					    <select id="rol" class="form-control" th:size="1" th:field="${nuevoTrabajador.usuario.authority}">
 																							<option th:each="rol : ${roles}" th:value="${rol.id}" th:text="${rol.authority}"></option>
 																						</select>
 																					</div>
 																				</div>
-																				<div class="form-group form-group-last row">
+																				<!--  <div class="form-group form-group-last row">
 																					<label class="col-xl-3 col-lg-3 col-form-label">Communication</label>
 																					<div class="col-lg-9 col-xl-6">
 																						<div class="kt-checkbox-inline">
@@ -591,19 +594,19 @@
 																							</label>
 																						</div>
 																					</div>
-																				</div>
+																				</div> -->
 																				<div class="kt-separator kt-separator--border-dashed kt-separator--portlet-fit kt-separator--space-lg"></div>
 																				<div class="form-group row">
 																					<div class="col-lg-9 col-xl-6">
-																						<h3 class="kt-section__title kt-section__title-md">Configuración de cuenta de usuario</h3>
+																						<h3 class="kt-section__title kt-section__title-md">Seguridad</h3>
 																					</div>
 																				</div>
 																				<div class="form-group row">
-																					<label class="col-xl-3 col-lg-3 col-form-label">Verificación Login</label>
+																					<label class="col-xl-3 col-lg-3 col-form-label">Contraseña</label>
 																					<div class="col-lg-9 col-xl-6">
-																						<button type="button" class="btn btn-label-brand btn-bold btn-sm kt-margin-t-5 kt-margin-b-5">Verificar Correo</button>
+																						<!-- <button type="button" class="btn btn-label-brand btn-bold btn-sm kt-margin-t-5 kt-margin-b-5">Verificar Correo</button> -->
 																						<span class="form-text text-muted">
-																							Después de ingresar se activará su cuenta.
+																							La contraseña por defecto será Eds2020* y podrá ser cambiada por cada usuario.
 																						</span>
 																					</div>
 																				</div>
@@ -623,29 +626,26 @@
 																<div class="kt-wizard-v4__form">
 																	<div class="form-group">
 																		<label>Salario Base</label>
-																		<input type="text" class="form-control" name="address1" placeholder="" value="" th:field="${nuevoTrabajador.nominaTrabajador.salarioBase}">
+																		<input id="salariobase" type="number" min="0" class="form-control" name="address1" placeholder="" value="" th:field="${nuevoTrabajador.nominaTrabajador.salarioBase}">
 																		<span class="form-text text-muted">Ingrese el valor del salario señalado en el contrato.</span>
 																	</div>
 																	<div class="form-group">
-																		<div class="kt-checkbox-inline">
-																			<label class="kt-checkbox">
-																				<input type="checkbox" checked=""> Auxilio de Transporte
-																				<span></span>
-																			</label>
-																		</div>
+																		<label>Auxilio de Transporte</label>
+																		<input id="auxiliotransporte" type="number" min="0" class="form-control" name="address1" placeholder="" value="" th:field="${nuevoTrabajador.nominaTrabajador.auxilioTransporte}">
+																		<span class="form-text text-muted">Ingrese el valor del auxilio de transporte.</span>
 																	</div>
 																	<div class="row">
 																		<div class="col-xl-6">
 																			<div class="form-group">
 																				<label>Descuento Mensual</label>
-																				<input type="number" class="form-control" name="postcode" placeholder="" value="" th:field="${nuevoTrabajador.nominaTrabajador.descuentosSalario}">
+																				<input id="descuentos" type="number" min="0" class="form-control" name="postcode" placeholder="" value="" th:field="${nuevoTrabajador.nominaTrabajador.descuentosSalario}">
 																				<span class="form-text text-muted">Ingrese si hay descuentos mensuales desde un inicio.</span>
 																			</div>
 																		</div>
 																		<div class="col-xl-6">
 																			<div class="form-group">
 																				<label>Ganancias Extra</label>
-																				<input type="number" class="form-control" name="state" placeholder="" value="" th:field="${nuevoTrabajador.nominaTrabajador.gananciasExtra}">
+																				<input id="extras" type="number" min="0" class="form-control" name="state" placeholder="" value="" th:field="${nuevoTrabajador.nominaTrabajador.gananciasExtra}">
 																				<span class="form-text text-muted">Incluya el valor de valores extra si hay desde un inicio.</span>
 																			</div>
 																		</div>
@@ -684,10 +684,12 @@
 																			Detalles de Perfil
 																		</div>
 																		<div class="kt-wizard-v4__review-content">
-																			Nombre Completo: 
-																			<!--  <span class="kt-widget13__text" th:text="${trabajadorNuevo.nombres} + ' ' + ${trabajadorNuevo.apellidos}"> </span> -->
-																			<br /> Identificación: 
-																			<br /> Correo: 
+																			Nombres: <span id="nombresText"> </span><br>
+																			Apellidos: <span id="apellidosText">  </span><br>
+																			Identificación: <span id="identificacionText">  </span><br>
+																			Dirección: <span id="direccionText">  </span><br>
+																			Teléfono: <span id="telefonoText">  </span><br>
+																			Correo: <span id="correoText">  </span><br>
 																		</div>
 																	</div>
 																	<div class="kt-wizard-v4__review-item">
@@ -695,8 +697,8 @@
 																			Cuenta
 																		</div>
 																		<div class="kt-wizard-v4__review-content">
-																			Nombre de Usuario:
-																			<br /> Rol:
+																			Nombre de Usuario: <span id="usernameText"> </span><br>
+																			Rol: <span id="rolText"> </span><br>
 																		</div>
 																	</div>
 																	<div class="kt-wizard-v4__review-item">
@@ -704,30 +706,77 @@
 																			Información Laboral
 																		</div>
 																		<div class="kt-wizard-v4__review-content">
-																			Salario Base: 
-																			<br /> Auxilio de Transporte: 
-																			<br /> Descuentos (Iniciales): 
-																			<br /> Extras (Iniciales): 
+																			Salario Base: <span id="salariobaseText"> </span><br>
+																			Auxilio de Transporte: <span id="auxilioTransporteText"> </span><br>
+																			Descuentos: <span id="descuentosText"> </span><br>
+																			Extras: <span id="extrasText"> </span><br>
 																		</div>
 																	</div>
+																	
+																	<!-- <div class="kt-wizard-v4__review-item">
+																		<div class="kt-wizard-v4__review-title">
+																			Revisa
+																		</div>
+																		<div class="kt-wizard-v4__review-content">
+																			<button type="submit" class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u">Procesar Información</button>
+																		</div>
+																	</div>  -->
+																	
 																</div>
 															</div>
+															
+															
+															
 														</div>
 
 														<!--end: Form Wizard Step 4-->
 
-														<!--begin: Form Actions -->
+														<!--begin: Form Actions-->
 														<div class="kt-form__actions">
-															<div class="btn btn-secondary btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-prev">
+														    
+															<!-- <div id="opcAtras" class="btn btn-secondary btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-prev">
 																Anterior
-															</div>
+															</div>-->
 															<div class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-submit">
 																Procesar Información
-															</div>
-															<div class="btn btn-brand btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-next">
+															</div>  
+															<!-- <div id="opcAdelante" class="btn btn-brand btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-next" onClick="validar()">
 																Siguiente
-															</div>
-														</div>
+															</div>-->
+														</div> 
+														
+														<script>
+														
+														function completar()
+														{
+															document.getElementById("nombresText").textContent = document.getElementById('nombres').value;
+															document.getElementById("apellidosText").textContent = document.getElementById('apellidos').value;
+															document.getElementById("identificacionText").textContent = document.getElementById('identificacion').value;
+															document.getElementById("direccionText").textContent = document.getElementById('direccion').value;
+															document.getElementById("telefonoText").textContent = document.getElementById('telefono').value;
+															document.getElementById("correoText").textContent = document.getElementById('correo').value;
+															
+															if(document.getElementById('username').value != "")
+															{
+																document.getElementById("usernameText").textContent = document.getElementById('username').value;
+															}
+															else
+															{
+																ap = document.getElementById('apellidos').value.split(" ");
+																document.getElementById("usernameText").textContent = document.getElementById('nombres').value.charAt(0) + ap[0] + ap[1].charAt(0);
+															}
+															
+															var sel = document.getElementById("rol");
+															var text= sel.options[sel.selectedIndex].text;
+															document.getElementById("rolText").textContent = text;
+															
+															document.getElementById("salariobaseText").textContent = document.getElementById('salariobase').value;
+															document.getElementById("auxilioTransporteText").textContent = document.getElementById('auxiliotransporte').value;
+															document.getElementById("descuentosText").textContent = document.getElementById('descuentos').value;
+															document.getElementById("extrasText").textContent = document.getElementById('extras').value;
+														}
+														
+														</script>
 
 														<!--end: Form Actions -->
 													</form>
