@@ -78,7 +78,8 @@ public class AppController
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Usuario user = userRepository.findByUsername(auth.getName()).get();
 		Trabajador trabajador = trabajadorRepository.findByUsuario(user).get();
-	
+		
+		model.addAttribute("trabajadorList", trabajadorServiceAPI.listar());
 		model.addAttribute("trabajador", trabajador);
 		return "adminListUser";
 	}
