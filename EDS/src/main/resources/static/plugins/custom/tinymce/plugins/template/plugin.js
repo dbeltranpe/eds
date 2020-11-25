@@ -447,7 +447,7 @@
           if (change.name === 'template') {
             var newTemplateTitle = api.getData().template;
             findTemplate(templates, newTemplateTitle).each(function (t) {
-              api.block('Loading...');
+              api.block('Cargando...');
               getTemplateContent(t).then(function (previewHtml) {
                 updateDialog(api, t, previewHtml);
               }).catch(function () {
@@ -533,7 +533,7 @@
           template: '',
           preview: ''
         }));
-        dialogApi.block('Loading...');
+        dialogApi.block('Cargando...');
         getTemplateContent(templates[0]).then(function (previewHtml) {
           updateDialog(dialogApi, templates[0], previewHtml);
         }).catch(function () {

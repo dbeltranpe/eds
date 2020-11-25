@@ -294,74 +294,72 @@
 							<!--end: Quick panel toggler -->
 
 							<!--begin: User bar -->
-							<div class="kt-header__topbar-item kt-header__topbar-item--user">
-								<div class="kt-header__topbar-wrapper" data-toggle="dropdown"
-									data-offset="10px,0px">
-									<span class="kt-header__topbar-welcome">Hola,</span> <span
-										class="kt-header__topbar-username">Mireya</span> <span
-										class="kt-header__topbar-icon"><b>M</b></span> <img alt="Pic"
-										src="/media/users/user1.jpg"
-										th:src="@{/media/users/user1.jpg}" class="kt-hidden" />
-								</div>
-								<div
-									class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-xl">
-
-									<!--begin: Head -->
-									<div
-										class="kt-user-card kt-user-card--skin-dark kt-notification-item-padding-x"
-										th:style="'background-image: url(' + @{/media/misc/bg-1.jpg} + ')'">
-										<div class="kt-user-card__avatar">
-											<img class="kt-hidden" alt="Pic"
-												src="/media/users/300_25.jpg"
-												th:src="@{/media/users/300_25.jpg}" />
-
-											<!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
-											<span
-												class="kt-badge kt-badge--lg kt-badge--rounded kt-badge--bold kt-font-success">S</span>
-										</div>
-										<div class="kt-user-card__name">Mireya Malagón</div>
+								<div class="kt-header__topbar-item kt-header__topbar-item--user">
+									<div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,0px">
+										<span class="kt-header__topbar-welcome">Hola,</span>
+										<span class="kt-header__topbar-username" th:text="${trabajador.nombres}"></span>
+										<span class="kt-header__topbar-icon"><b th:text="${#strings.substring(trabajador.nombres,0,1)} "></b></span>
+										<img alt="Pic" src="/media/users/user1.jpg" th:src="@{/media/users/user1.jpg}" class="kt-hidden" />
 									</div>
+									<div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-xl">
 
-									<!--end: Head -->
+										<!--begin: Head -->
+										<div class="kt-user-card kt-user-card--skin-dark kt-notification-item-padding-x" th:style="'background-image: url(' + @{/media/misc/bg-1.jpg} + ')'">
+											<div class="kt-user-card__avatar">
+												<img class="kt-hidden" alt="Pic" src="/media/users/300_25.jpg" th:src="@{/media/users/300_25.jpg}" />
 
-									<!--begin: Navigation -->
-									<div class="kt-notification">
-										<a href="custom/apps/user/profile-1/personal-information.html"
-											class="kt-notification__item">
-											<div class="kt-notification__item-icon">
-												<i class="flaticon2-calendar-3 kt-font-success"></i>
+												<!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
+												<span class="kt-badge kt-badge--lg kt-badge--rounded kt-badge--bold kt-font-success" th:text="${#strings.substring(trabajador.nombres,0,1)}"></span>
 											</div>
-											<div class="kt-notification__item-details">
-												<div class="kt-notification__item-title kt-font-bold">
-													Mi Perfil</div>
-												<div class="kt-notification__item-time">Cuenta, datos
-													e información.</div>
+											<div class="kt-user-card__name">
+												<span class="kt-widget13__text kt-widget13__text--bold" th:text="${trabajador.nombres} + ' ' + ${trabajador.apellidos}"></span>
 											</div>
-										</a> <a href="custom/apps/user/profile-3.html"
-											class="kt-notification__item">
-											<div class="kt-notification__item-icon">
-												<i class="flaticon2-mail kt-font-warning"></i>
-											</div>
-											<div class="kt-notification__item-details">
-												<div class="kt-notification__item-title kt-font-bold">
-													Cambio de Contraseña</div>
-												<div class="kt-notification__item-time">Solicita un
-													cambio de contraseña</div>
-											</div>
-										</a>
-
-										<div class="kt-notification__custom kt-space-between">
-											<a href="custom/user/login-v2.html" target="_blank"
-												class="btn btn-label btn-label-brand btn-sm btn-bold">Cerrar
-												Sesión</a>
 										</div>
+
+										<!--end: Head -->
+
+										<!--begin: Navigation -->
+										<div class="kt-notification">
+											<a th:href="@{/detalleUser}" class="kt-notification__item">
+												<div class="kt-notification__item-icon">
+													<i class="flaticon2-calendar-3 kt-font-success"></i>
+												</div>
+												<div class="kt-notification__item-details">
+													<div class="kt-notification__item-title kt-font-bold">
+														Mi Perfil
+													</div>
+													<div class="kt-notification__item-time">
+														Cuenta, datos e información.
+													</div>
+												</div>
+											</a>
+											<!-- <a href="custom/apps/user/profile-3.html" class="kt-notification__item">  -->
+											
+											<button type="button" class="btn btn-bold btn-label-brand btn-sm" style="width:100%" data-toggle="modal" data-target="#kt_modal_4">
+												<div class="kt-notification__item-icon">
+													<i class="flaticon2-mail kt-font-warning"></i>
+												</div>
+												<div class="kt-notification__item-details">
+													<div class="kt-notification__item-title kt-font-bold">
+														Cambio de Contraseña
+													</div>
+													<div class="kt-notification__item-time">
+														Solicita un cambio de contraseña
+													</div>
+												</div>
+											</button> 
+											
+											
+											<form th:action="@{/logout}" class="kt-notification__custom kt-space-between" method="post">
+												<button type="submit" class="btn btn-label btn-label-brand btn-sm btn-bold">Cerrar Sesión</a>
+											</form>
+										</div>
+
+										<!--end: Navigation -->
 									</div>
-
-									<!--end: Navigation -->
 								</div>
-							</div>
 
-							<!--end: User bar -->
+								<!--end: User bar -->
 						</div>
 
 						<!-- end:: Header Topbar -->
@@ -412,7 +410,35 @@
 						</div>
 
 						<!-- end:: Subheader -->
-
+						
+						<div class="modal fade" id="kt_modal_4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+												<div class="modal-dialog modal-lg" role="document">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="exampleModalLabel">Cambio de Contraseña</h5>
+															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+															</button>
+														</div>
+														<form  method="post" th:action="@{/cambioPassword}" th:object="${cambioPassword}">
+															<div class="modal-body">
+																	<div class="form-group">
+																		<label for="recipient-name" class="form-control-label">Ingrese su contraseña actual:</label>
+																		<input type="text" class="form-control" id="passActual" th:field="${cambioPassword.passwordActual}">
+																	</div>
+																	<div class="form-group">
+																		<label for="message-text" class="form-control-label">Ingrese la contraseña nueva:</label>
+																		<input type="text" class="form-control" id="passNueva" th:field="${cambioPassword.passwordNueva}">
+																	</div>
+															</div>
+															<div class="modal-footer">
+																<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+																<button type="submit" class="btn btn-primary">Cambiar Contraseña</button>
+															</div>
+														</form>
+													</div>
+												</div>
+						    </div>
+						    
 						<!-- begin:: Content -->
 						<div class="kt-container  kt-grid__item kt-grid__item--fluid">
 						
@@ -457,9 +483,7 @@
 																<i class="flaticon2-correct kt-font-success"></i>
 																</p>
 																<div class="kt-widget__action">
-																	<button type="button"
-																		class="btn btn-brand btn-sm btn-upper">Ver
-																		Detalle</button>
+																	<a class="btn btn-brand btn-sm btn-upper" th:href="@{'/adminDetalleUser/' + ${trabajador.id}}">Ver Detalle</a>
 																</div>
 															</div>
 															<div class="kt-widget__subhead">
