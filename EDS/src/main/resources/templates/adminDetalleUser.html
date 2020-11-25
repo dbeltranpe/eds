@@ -267,22 +267,22 @@
 								<div class="kt-header__topbar-item kt-header__topbar-item--user">
 									<div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,0px">
 										<span class="kt-header__topbar-welcome">Hola,</span>
-										<span class="kt-header__topbar-username">Mireya</span>
-										<span class="kt-header__topbar-icon"><b>M</b></span>
-										<img alt="Pic" src="/media/users/user1.jpg" th:scr="@{/media/users/user1.jpg}" class="kt-hidden" />
+										<span class="kt-header__topbar-username" th:text="${trabajador.nombres}"></span>
+										<span class="kt-header__topbar-icon"><b th:text="${#strings.substring(trabajador.nombres,0,1)} "></b></span>
+										<img alt="Pic" src="/media/users/user1.jpg" th:src="@{/media/users/user1.jpg}" class="kt-hidden" />
 									</div>
 									<div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-xl">
 
 										<!--begin: Head -->
 										<div class="kt-user-card kt-user-card--skin-dark kt-notification-item-padding-x" th:style="'background-image: url(' + @{/media/misc/bg-1.jpg} + ')'">
 											<div class="kt-user-card__avatar">
-												<img class="kt-hidden" alt="Pic" src="/media/users/300_25.jpg" th:scr="@{/media/users/300_25.jpg}"/>
+												<img class="kt-hidden" alt="Pic" src="/media/users/300_25.jpg" th:src="@{/media/users/300_25.jpg}" />
 
 												<!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
-												<span class="kt-badge kt-badge--lg kt-badge--rounded kt-badge--bold kt-font-success">S</span>
+												<span class="kt-badge kt-badge--lg kt-badge--rounded kt-badge--bold kt-font-success" th:text="${#strings.substring(trabajador.nombres,0,1)}"></span>
 											</div>
 											<div class="kt-user-card__name">
-												Mireya Malagón
+												<span class="kt-widget13__text kt-widget13__text--bold" th:text="${trabajador.nombres} + ' ' + ${trabajador.apellidos}"></span>
 											</div>
 										</div>
 
@@ -290,7 +290,7 @@
 
 										<!--begin: Navigation -->
 										<div class="kt-notification">
-											<a href="custom/apps/user/profile-1/personal-information.html" class="kt-notification__item">
+											<a th:href="@{/detalleUser}" class="kt-notification__item">
 												<div class="kt-notification__item-icon">
 													<i class="flaticon2-calendar-3 kt-font-success"></i>
 												</div>
@@ -303,7 +303,9 @@
 													</div>
 												</div>
 											</a>
-											<a href="custom/apps/user/profile-3.html" class="kt-notification__item">
+											<!-- <a href="custom/apps/user/profile-3.html" class="kt-notification__item">  -->
+											
+											<button type="button" class="btn btn-bold btn-label-brand btn-sm" style="width:100%" data-toggle="modal" data-target="#kt_modal_4">
 												<div class="kt-notification__item-icon">
 													<i class="flaticon2-mail kt-font-warning"></i>
 												</div>
@@ -315,11 +317,12 @@
 														Solicita un cambio de contraseña
 													</div>
 												</div>
-											</a>
-
-											<div class="kt-notification__custom kt-space-between">
-												<a href="custom/user/login-v2.html" target="_blank" class="btn btn-label btn-label-brand btn-sm btn-bold">Cerrar Sesión</a>
-											</div>
+											</button> 
+											
+											
+											<form th:action="@{/logout}" class="kt-notification__custom kt-space-between" method="post">
+												<button type="submit" class="btn btn-label btn-label-brand btn-sm btn-bold">Cerrar Sesión</a>
+											</form>
 										</div>
 
 										<!--end: Navigation -->
@@ -373,6 +376,34 @@
 							</div>
 
 							<!-- end:: Subheader -->
+							
+							<div class="modal fade" id="kt_modal_4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+												<div class="modal-dialog modal-lg" role="document">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="exampleModalLabel">Cambio de Contraseña</h5>
+															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+															</button>
+														</div>
+														<form  method="post" th:action="@{/cambioPassword}" th:object="${cambioPassword}">
+															<div class="modal-body">
+																	<div class="form-group">
+																		<label for="recipient-name" class="form-control-label">Ingrese su contraseña actual:</label>
+																		<input type="text" class="form-control" id="passActual" th:field="${cambioPassword.passwordActual}">
+																	</div>
+																	<div class="form-group">
+																		<label for="message-text" class="form-control-label">Ingrese la contraseña nueva:</label>
+																		<input type="text" class="form-control" id="passNueva" th:field="${cambioPassword.passwordNueva}">
+																	</div>
+															</div>
+															<div class="modal-footer">
+																<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+																<button type="submit" class="btn btn-primary">Cambiar Contraseña</button>
+															</div>
+														</form>
+													</div>
+												</div>
+						    </div>
 
 							<!-- begin:: Content -->
 							<div class="kt-container  kt-grid__item kt-grid__item--fluid">
@@ -406,15 +437,26 @@
 														<div class="kt-widget__content">
 															<div class="kt-widget__section">
 																<a href="#" class="kt-widget__username">
-																	Luca Doncic
+																	<span class="kt-widget13__text kt-widget13__text--bold" th:text="${userDetalle.nombres} + ' ' + ${userDetalle.apellidos}"></span>
 																</a>
 															</div>
 														</div>
 													</div>
 													<div class="kt-widget__body">
-														<a href="#" class="kt-widget__item kt-widget__item--active">
-															Ver Horario
-														</a>
+													  <div th:if="${param.passError}" class="alert alert-danger" role="alert">La contraseña actual indicada no es la correcta y por ende no se ha cambiado la contraseña</div>
+										              <div th:if="${param.passExito}" class="alert alert-success" role="alert">Ha modificado correctamente la contraseña.</div>
+														
+														<div th:if="${userDetalle.usuario.enabled}">
+														   <form  method="post" th:action="@{'/retirarTrabajador/' + ${userDetalle.id}}">
+																<button type="submit" class="btn btn-primary" style="width:100%">
+																	Retirar Trabajador
+																</button>
+															</form>
+														</div>
+														<div th:unless="${userDetalle.usuario.enabled}">
+														   El trabajador está inhabilitado
+														</div>
+														
 													</div>
 												</div>
 
@@ -431,32 +473,32 @@
 													<div class="kt-widget1__item">
 														<div class="kt-widget1__info">
 															<h3 class="kt-widget1__title">Nombre Completo</h3>
-															<span class="kt-widget1__desc">Luca Doncic</span>
+															<span class="kt-widget1__desc" th:text="${userDetalle.nombres} + ' ' + ${userDetalle.apellidos}"></span>
 														</div>
 													</div>
 													<div class="kt-widget1__item">
 														<div class="kt-widget1__info">
 															<h3 class="kt-widget1__title">Identificación</h3>
-															<span class="kt-widget1__desc">1020842759</span>
+															<span class="kt-widget1__desc" th:text="${userDetalle.identificacion}"></span>
 														</div>
 													</div>
 													<div class="kt-widget1__item">
 														<div class="kt-widget1__info">
 															<h3 class="kt-widget1__title">Teléfono</h3>
-															<span class="kt-widget1__desc">8832425</span>
+															<span class="kt-widget1__desc" th:text="${userDetalle.telefono}"></span>
 														</div>
 													</div>
 													<div class="kt-widget1__item">
 														<div class="kt-widget1__info">
 															<h3 class="kt-widget1__title">Correo</h3>
-															<span class="kt-widget1__desc">ldc@gmail.com</span>
+															<span class="kt-widget1__desc" th:text="${userDetalle.correo}"></span>
 														</div>
 													</div>
 												</div>
 											</div>
 										</div>
-
-										<!--Begin::Portlet-->
+										
+									<!-- 
 										<div class="kt-portlet">
 											<div class="kt-portlet__head kt-portlet__head--noborder">
 												<div class="kt-portlet__head-label">
@@ -465,7 +507,7 @@
 												</div>
 											</div>
 											<div class="kt-portlet__body">
-												<!--begin::Widget -->
+												
 												<div class="kt-widget__files">
 													<div class="kt-widget__media">
 														<img class="kt-widget__img kt-hidden-" src="/media/files/pdf.svg" th:src="@{/media/files/pdf.svg}" alt="image">
@@ -474,12 +516,11 @@
 														Cédula Ciudadanía.pdf
 													</span>
 												</div>
-												<!--end::Widget -->
+												
 											</div>
 										</div>
-										<!--End::Portlet-->
-
-										<!--Begin::Portlet-->
+										
+										
 										<div class="kt-portlet">
 											<div class="kt-portlet__head kt-portlet__head--noborder">
 												<div class="kt-portlet__head-label">
@@ -488,7 +529,6 @@
 												</div>
 											</div>
 											<div class="kt-portlet__body">
-												<!--begin::Widget -->
 												<div class="kt-widget__files">
 													<div class="kt-widget__media">
 														<img class="kt-widget__img kt-hidden-" src="/media/files/pdf.svg" th:src="@{/media/files/pdf.svg}" alt="image">
@@ -497,13 +537,13 @@
 														Certificado EPS.pdf
 													</span>
 												</div>
-												<!--end::Widget -->
 											</div>
 										</div>
-										<!--End::Portlet-->
-
-										<!--end:: Portlet-->
+										 -->
+										
 									</div>
+									
+									 
 
 									<!--End:: App Aside-->
 
@@ -546,11 +586,11 @@
 																		<div class="kt-widget28__tab-items">
 																			<div class="kt-widget28__tab-item">
 																				<span>username</span>
-																				<span>ccoot</span>
+																				<span th:text="${userDetalle.usuario.username}"></span>
 																			</div>
 																			<div class="kt-widget28__tab-item">
 																				<span>email</span>
-																				<span>ccot@gmail.com</span>
+																				<span th:text="${userDetalle.correo}"></span>
 																			</div>
 																			<!--<div class="kt-widget28__tab-item">
 																				<span>Total Charges</span>
@@ -566,19 +606,19 @@
 																		<div class="kt-widget28__tab-items">
 																			<div class="kt-widget28__tab-item">
 																				<span>Nombres</span>
-																				<span>Carlos Esteban</span>
+																				<span th:text="${userDetalle.nombres}"></span>
 																			</div>
 																			<div class="kt-widget28__tab-item">
 																				<span>Apellidos</span>
-																				<span>Carvajal Martínez</span>
+																				<span th:text="${userDetalle.apellidos}"></span>
 																			</div>
 																			<div class="kt-widget28__tab-item">
 																				<span>Dirección</span>
-																				<span>Carrera 5 este</span>
+																				<span th:text="${userDetalle.direccion}" ></span>
 																			</div>
 																			<div class="kt-widget28__tab-item">
 																				<span>Tel</span>
-																				<span>8832425</span>
+																				<span th:text="${userDetalle.telefono}"></span>
 																			</div>
 																		</div>
 																	</div>
@@ -586,19 +626,19 @@
 																		<div class="kt-widget28__tab-items">
 																			<div class="kt-widget28__tab-item">
 																				<span>Salario Base</span>
-																				<span>$3,450.000</span>
+																				<span th:text="${'$' + #numbers.formatDecimal(userDetalle.nominaTrabajador.salarioBase, 0, 'COMMA', 2, 'POINT')}"></span>
 																			</div>
 																			<div class="kt-widget28__tab-item">
 																				<span>Auxilio Transporte</span>
-																				<span>$220,000</span>
+																				<span th:text="${'$' + #numbers.formatDecimal(userDetalle.nominaTrabajador.auxilioTransporte, 0, 'COMMA', 2, 'POINT')}"></span>
 																			</div>
 																			<div class="kt-widget28__tab-item">
 																				<span>Descuentos</span>
-																				<span>$0.00</span>
+																				<span th:text="${'$' + #numbers.formatDecimal(userDetalle.nominaTrabajador.descuentosSalario, 0, 'COMMA', 2, 'POINT') }"></span>
 																			</div>
 																			<div class="kt-widget28__tab-item">
 																				<span>Extras</span>
-																				<span>$0.00</span>
+																				<span th:text="${'$' + #numbers.formatDecimal(userDetalle.nominaTrabajador.gananciasExtra, 0, 'COMMA', 2, 'POINT')}"></span>
 																			</div>
 																		</div>
 																	</div>
@@ -620,7 +660,7 @@
 													<div class="kt-portlet__head kt-portlet__head--noborder">
 														<div class="kt-portlet__head-label">
 															<h3 class="kt-portlet__head-title">
-																Información Extra
+																Información
 															</h3>
 														</div>
 													</div>
@@ -629,15 +669,12 @@
 														<!--begin::Widget 7-->
 														<div class="kt-widget7 kt-widget7--skin-light">
 															<div class="kt-widget7__desc">
-																Lorem ipsum dolor sit amet,consectetuer edipiscing elit,sed diam nonummy euismod tinciduntut laoreet doloremagna
+																Módulo de información y detalle del trabajador. Los certificados de afiliación a la salud y documentos de identidad se encuentran en el repositorio web.
 															</div>
 															<div class="kt-widget7__content">
-																<div class="kt-widget7__userpic">
-																	<img th:src="@{/media/users/default.jpg}" alt="">
-																</div>
 																<div class="kt-widget7__info">
 																	<h3 class="kt-widget7__username">
-																		Luca Docic
+																		E.D.S. San Antonio
 																	</h3>
 																	<span class="kt-widget7__time">
 																	</span>

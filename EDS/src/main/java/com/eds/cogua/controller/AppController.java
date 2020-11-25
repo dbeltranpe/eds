@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,6 +25,7 @@ import com.eds.cogua.repository.AuthorityRepository;
 import com.eds.cogua.repository.TrabajadorRepository;
 import com.eds.cogua.repository.UsuarioRepository;
 import com.eds.cogua.service.api.TrabajadorServiceAPI;
+import com.eds.cogua.util.CambioPassword;
 import com.eds.cogua.util.PassGenerator;
 
 @Controller
@@ -50,6 +52,43 @@ public class AppController
 		return "login-1";
 	}
 	
+	@PostMapping({"/cambioPassword"})
+	public String cambioPassword(Model model, @ModelAttribute("cambioPassword") CambioPassword cambioPassword, BindingResult result) 
+	{
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Usuario user = userRepository.findByUsername(auth.getName()).get();
+		Trabajador trabajador = trabajadorRepository.findByUsuario(user).get();
+		
+		String toReturn = "";
+		if(pass.match(cambioPassword.getPasswordActual(), user.getPassword()))
+		{
+			user.setPassword(pass.cifrar(cambioPassword.getPasswordNueva()));
+			trabajador.setUsuario(user);
+			trabajadorRepository.save(trabajador);
+			toReturn = "detalleUser?passExito";
+		}
+		else
+		{
+			toReturn = "detalleUser?passError";
+		}
+	
+		model.addAttribute("trabajador", trabajador);
+		
+		return toReturn;
+	}
+	
+	@GetMapping({"/detalleUser"})
+	public String detalleUser(Model model) 
+	{
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Usuario user = userRepository.findByUsername(auth.getName()).get();
+		Trabajador trabajador = trabajadorRepository.findByUsuario(user).get();
+	
+		model.addAttribute("trabajador", trabajador);
+		model.addAttribute("cambioPassword", new CambioPassword());
+		return "detalleUser";
+	}
+	
 	@GetMapping({"/admin"})
 	public String admin(Model model) 
 	{
@@ -58,17 +97,42 @@ public class AppController
 		Trabajador trabajador = trabajadorRepository.findByUsuario(user).get();
 	
 		model.addAttribute("trabajador", trabajador);
+		model.addAttribute("cambioPassword", new CambioPassword());
 		return "admin";
 	}
 	
-	@GetMapping({"/adminDetalleUser"})
-	public String adminDetalleUser(Model model) 
+	@GetMapping({"/adminDetalleUser/{id}"})
+	public String adminDetalleUser(Model model, @PathVariable(name="id") Long id) 
 	{
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Usuario user = userRepository.findByUsername(auth.getName()).get();
 		Trabajador trabajador = trabajadorRepository.findByUsuario(user).get();
-	
+		
+		Trabajador userDetalle = trabajadorServiceAPI.obtener(id);
+		
 		model.addAttribute("trabajador", trabajador);
+		model.addAttribute("userDetalle", userDetalle);
+		model.addAttribute("cambioPassword", new CambioPassword());
+		return "adminDetalleUser";
+	}
+	
+	@PostMapping({"/retirarTrabajador/{id}"})
+	public String retirarTrabajador(Model model, @PathVariable(name="id") Long id) 
+	{
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Usuario user = userRepository.findByUsername(auth.getName()).get();
+		Trabajador trabajador = trabajadorRepository.findByUsuario(user).get();
+		
+		Trabajador userDetalle = trabajadorServiceAPI.obtener(id);
+		Usuario usu = userDetalle.getUsuario();
+		usu.setEnabled(false);
+		userDetalle.setUsuario(usu);
+		
+		trabajadorRepository.save(userDetalle);
+		
+		model.addAttribute("trabajador", trabajador);
+		model.addAttribute("userDetalle", userDetalle);
+		model.addAttribute("cambioPassword", new CambioPassword());
 		return "adminDetalleUser";
 	}
 	
@@ -81,6 +145,7 @@ public class AppController
 		
 		model.addAttribute("trabajadorList", trabajadorServiceAPI.listar());
 		model.addAttribute("trabajador", trabajador);
+		model.addAttribute("cambioPassword", new CambioPassword());
 		return "adminListUser";
 	}
 	
@@ -101,6 +166,7 @@ public class AppController
 		model.addAttribute("trabajador", trabajador);
 		model.addAttribute("nuevoTrabajador", new Trabajador());
 		model.addAttribute("roles", roles);
+		model.addAttribute("cambioPassword", new CambioPassword());
 		
 		return "adminAddUser";
 	}
