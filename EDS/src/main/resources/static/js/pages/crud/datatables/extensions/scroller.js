@@ -6,80 +6,41 @@ var KTDatatablesExtensionsScroller = function() {
 
 		// begin first table
 		table.DataTable({
+		    "language": {"url": "//cdn.datatables.net/plug-ins/1.10.22/i18n/Spanish.json"},
 			responsive: true,
-			ajax: 'https://keenthemes.com/metronic/tools/preview/api/datatables/demos/server.php',
+			"ajax": {
+ 			 "url": "/registrosNominas",
+  			 "dataSrc": ""
+			},
 			deferRender: true,
 			scrollY: '500px',
 			scrollCollapse: true,
-			scroller: true,
-			columns: [
-				{data: 'RecordID', visible: false},
-				{data: 'OrderID'},
-				{data: 'ShipCity'},
-				{data: 'ShipAddress'},
-				{data: 'CompanyAgent'},
-				{data: 'CompanyName'},
-				{data: 'ShipDate'},
-				{data: 'Status'},
-				{data: 'Type'},
-				{data: 'Actions', responsivePriority: -1},
+			scroller: false,
+			columns: 
+			[
+				{data: 'id', visible: false},
+				{data: 'trabajador.nombres'},
+				{data: 'trabajador.apellidos'},
+				{data: 'fecha', render: function ( data, ) { moment.locale('es'); return moment(data).locale('es').format("MM/YYYY"); }}, 
+				{data: 'vrTotalDevengado',  render: function ( data, ) { return '$ ' + (data).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'); }},
+				{data: 'vrTotalDesc' ,  render: function ( data ) { return '$ ' + (data).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'); }},
+				{data: 'vrNetoPagar',  render: function ( data ) { return '$ ' + (data).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'); }},
+				{data: 'id'}
 			],
-			columnDefs: [
+			columnDefs: 
+			[
 				{
+					targets: -1, 
+        			data: null,
 					targets: -1,
-					title: 'Actions',
+					title: 'Detalle',
 					orderable: false,
-					render: function(data, type, full, meta) {
-						return `
-                        <span class="dropdown">
-                            <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown" aria-expanded="true">
-                              <i class="la la-ellipsis-h"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="#"><i class="la la-edit"></i> Edit Details</a>
-                                <a class="dropdown-item" href="#"><i class="la la-leaf"></i> Update Status</a>
-                                <a class="dropdown-item" href="#"><i class="la la-print"></i> Generate Report</a>
-                            </div>
-                        </span>
-                        <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
-                          <i class="la la-edit"></i>
-                        </a>`;
-					},
-				},
-				{
-					targets: -3,
-					render: function(data, type, full, meta) {
-						var status = {
-							1: {'title': 'Pending', 'class': 'kt-badge--brand'},
-							2: {'title': 'Delivered', 'class': ' kt-badge--danger'},
-							3: {'title': 'Canceled', 'class': ' kt-badge--primary'},
-							4: {'title': 'Success', 'class': ' kt-badge--success'},
-							5: {'title': 'Info', 'class': ' kt-badge--info'},
-							6: {'title': 'Danger', 'class': ' kt-badge--danger'},
-							7: {'title': 'Warning', 'class': ' kt-badge--warning'},
-						};
-						if (typeof status[data] === 'undefined') {
-							return data;
-						}
-						return '<span class="kt-badge ' + status[data].class + ' kt-badge--inline kt-badge--pill">' + status[data].title + '</span>';
-					},
-				},
-				{
-					targets: -2,
-					render: function(data, type, full, meta) {
-						var status = {
-							1: {'title': 'Online', 'state': 'danger'},
-							2: {'title': 'Retail', 'state': 'primary'},
-							3: {'title': 'Direct', 'state': 'success'},
-						};
-						if (typeof status[data] === 'undefined') {
-							return data;
-						}
-						return '<span class="kt-badge kt-badge--' + status[data].state + ' kt-badge--dot"></span>&nbsp;' +
-							'<span class="kt-font-bold kt-font-' + status[data].state + '">' + status[data].title + '</span>';
-					},
-				},
-			],
+					render: function(data, type, full, meta) 
+					{
+						return ' <a href="/nominaTrabajadorId/'+ data +'" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View"> <i class="la la-edit"></i> </a>';
+					}
+				}
+			]
 		});
 	};
 
