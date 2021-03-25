@@ -12,5 +12,4 @@ public interface GenericServiceAPI<T,ID extends Serializable>
 	public T obtener(ID id);
 	
 	public List<T> listar();
-	
 }
