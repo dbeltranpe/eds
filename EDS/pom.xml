@@ -69,6 +69,30 @@
 		</dependency>
 		<!-- *** -->
 		
+<<<<<<< HEAD
+=======
+		<!-- Escritura y Lectura Archivos de Excel -->
+		<dependency>
+    		<groupId>org.apache.poi</groupId>
+    		<artifactId>poi</artifactId>
+    		<version>5.0.0</version>
+		</dependency>
+		
+		<!-- Escritura y Lectura Archivos de Excel -->
+		<dependency>
+    		<groupId>org.apache.poi</groupId>
+   			<artifactId>poi-ooxml</artifactId>
+    		<version>5.0.0</version>
+		</dependency>
+		
+		<!-- Envío de correos -->
+		<dependency>
+   			<groupId>org.springframework.boot</groupId>
+   			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+		
+		<!-- PDF -->
+>>>>>>> bbb78430451d4da34b7c5e240cf8c6730d393deb
 		<dependency>
 		    <groupId>com.lowagie</groupId>
 		    <artifactId>itext</artifactId>

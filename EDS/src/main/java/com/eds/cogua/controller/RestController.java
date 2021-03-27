@@ -21,4 +21,8 @@ public class RestController
 		return registroNominaService.listar();
 	}
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> bbb78430451d4da34b7c5e240cf8c6730d393deb

@@ -3,6 +3,7 @@ package com.eds.cogua.util;
 import java.util.Map;
 
 import com.eds.cogua.entity.RegistroNomina;
+<<<<<<< HEAD
 import com.lowagie.text.Document;
 import com.lowagie.text.Rectangle;
 import com.lowagie.text.pdf.BaseFont;
@@ -15,13 +16,24 @@ import com.lowagie.text.pdf.PdfWriter;
 import java.awt.Color;
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
+=======
+import com.lowagie.text.pdf.BaseFont;
+import com.lowagie.text.pdf.PdfContentByte;
+import com.lowagie.text.pdf.PdfReader;
+import com.lowagie.text.pdf.PdfStamper;
+import java.awt.Color;
+import java.io.ByteArrayOutputStream;
+>>>>>>> bbb78430451d4da34b7c5e240cf8c6730d393deb
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.ZoneId;
 import java.time.format.TextStyle;
 import java.time.temporal.TemporalAdjusters;
+<<<<<<< HEAD
 import java.util.Base64;
+=======
+>>>>>>> bbb78430451d4da34b7c5e240cf8c6730d393deb
 import java.util.HashMap;
 import java.util.Locale;
 

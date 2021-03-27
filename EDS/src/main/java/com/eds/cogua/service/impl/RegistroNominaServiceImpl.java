@@ -20,4 +20,8 @@ public class RegistroNominaServiceImpl extends GenericServiceImpl<RegistroNomina
 		return registroNominaDaoAPI;
 	}
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> bbb78430451d4da34b7c5e240cf8c6730d393deb

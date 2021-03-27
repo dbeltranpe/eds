@@ -1,4 +1,8 @@
 package com.eds.cogua.repository;
+<<<<<<< HEAD
+=======
+
+>>>>>>> bbb78430451d4da34b7c5e240cf8c6730d393deb
 import java.util.Date;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -25,4 +29,8 @@ public interface RegistroNominaRepository extends CrudRepository<RegistroNomina,
             @Param("P_USUARIO")String pUsuario
     );
 	
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> bbb78430451d4da34b7c5e240cf8c6730d393deb
