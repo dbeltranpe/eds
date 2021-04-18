@@ -30,15 +30,19 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 import com.eds.cogua.entity.Authority;
+import com.eds.cogua.entity.CalculoCombustible;
 import com.eds.cogua.entity.Cliente;
 import com.eds.cogua.entity.Trabajador;
 import com.eds.cogua.entity.RegistroNomina;
 import com.eds.cogua.entity.Usuario;
 import com.eds.cogua.repository.AuthorityRepository;
+import com.eds.cogua.repository.CalculoCombustibleRepository;
 import com.eds.cogua.repository.ClienteRepository;
 import com.eds.cogua.repository.TrabajadorRepository;
 import com.eds.cogua.repository.UsuarioRepository;
 import com.eds.cogua.repository.RegistroNominaRepository;
+import com.eds.cogua.repository.TanquesRepository;
+import com.eds.cogua.service.api.CalculoCombustibleServiceAPI;
 import com.eds.cogua.service.api.ClienteServiceAPI;
 import com.eds.cogua.service.api.TrabajadorServiceAPI;
 import com.eds.cogua.util.CambioPassword;
@@ -72,7 +76,16 @@ public class AppController
 	private ClienteServiceAPI clienteServiceAPI;
 	
 	@Autowired
+	private CalculoCombustibleServiceAPI calculoCombustibleServiceAPI;
+	
+	@Autowired
+	private CalculoCombustibleRepository calculoCombustibleRepository;
+	
+	@Autowired
 	private EnvioCorreos envioCorreos;
+	
+	@Autowired
+	private TanquesRepository tanquesRepository;
 
 	private PassGenerator pass = new PassGenerator();
 
@@ -289,21 +302,21 @@ public class AppController
 	{
 		if(result.hasErrors())
 		{
-			model.addAttribute("nuevoCliente", new Cliente());
-
 			Authority userRole1 = authorityRepository.findByAuthority("ROLE_ISLERO");
 			Authority userRole2 = authorityRepository.findByAuthority("ROLE_GEROP");
 			Authority userRole3 = authorityRepository.findByAuthority("ROLE_AUXPATIO");
 			Authority userRole4 = authorityRepository.findByAuthority("ROLE_ADMIN");
 			List<Authority> roles = Arrays.asList(userRole1, userRole2, userRole3, userRole4);
+			
 			model.addAttribute("roles", roles);
-
-			return "addClient";
+			model.addAttribute("cambioPassword", new CambioPassword());
+			
+			return "dashBoardClientes";
 		}
 
 		if(!clienteReposiory.findByIdentificacion(nuevoCliente.getIdentificacion()).isEmpty())
-		{
-			return "addClient";
+		{			
+			return "dashBoardClientes";
 		}
 		else
 		{
@@ -323,9 +336,10 @@ public class AppController
 
 		model.addAttribute("trabajador", trabajador);
 		model.addAttribute("nuevoCliente", new Cliente());
+		model.addAttribute("cambioPassword", new CambioPassword());
 		model.addAttribute("roles", roles);
 
-		return "addClient";
+		return "dashBoardClientes";
 	}
 
 	@GetMapping({"/detalleClient/{id}"})
@@ -580,5 +594,153 @@ public class AppController
 		}
 		return ResponseEntity.ok().contentType(MediaType.APPLICATION_PDF).body(bytes);
 	}
+	
+	@GetMapping({"/calculoOP"})
+	public String gestionCombustible(Model model)
+	{
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Usuario user = userRepository.findByUsername(auth.getName()).get();
+		Trabajador trabajador = trabajadorRepository.findByUsuario(user).get();
+		
+		model.addAttribute("nuevoCalculoCombustible", new CalculoCombustible());
+		model.addAttribute("trabajador", trabajador);
+		model.addAttribute("cambioPassword", new CambioPassword());
+		
+		return "calculoOP";
+	}
+	
+	@PostMapping({"/calcularCombustible"})
+	public String calcularCombustible(Model model, @ModelAttribute("nuevoCalculoCombustible") CalculoCombustible nuevocalculoCombustible)
+	{
+		
+		String medidaTanque1 = nuevocalculoCombustible.getMedidaTanque1() + "";
+		medidaTanque1.trim();
+		String medidaTanque2 = nuevocalculoCombustible.getMedidaTanque2() + "";
+		medidaTanque2.trim();
+		
+		char [] medidaTanque1BD = medidaTanque1.toCharArray();
+		char [] medidaTanque2BD = medidaTanque2.toCharArray();
+		
+		String punto = ".";
+		char charPunto = punto.charAt(0);
+		String sNumCompleto = "";
+		
+		int numeroCompleto = 0;
+		List<Object[]> galon = null;
+		List<Object[]> galonT3 = null;
+		double combustibleActual = 0;
+		
+		if(!medidaTanque1.isEmpty() && Double.parseDouble(medidaTanque1) != 0) 
+		{
+			for (int i = 0; i < medidaTanque1BD.length; i++) 
+			{
+				if(medidaTanque1BD[i] != charPunto)
+				{
+					sNumCompleto += medidaTanque1BD[i];
+				}
+			}
+			
+			numeroCompleto = Integer.parseInt(sNumCompleto);
+			
+			int modulo = numeroCompleto % 10;
+			int numeroConsultaDB = 0;
+			
+			if(numeroCompleto % 10 != 0)
+			{
+				int faltante = 10 - modulo;
+				numeroConsultaDB = numeroCompleto + faltante;
+			}
+			else
+			{
+				numeroConsultaDB = numeroCompleto;
+			}
+			
+			galon = tanquesRepository.galonAltutaTanque1(numeroConsultaDB);
+			
+			combustibleActual = ((int) galon.get(0)[0] * nuevocalculoCombustible.getMedidaTanque1()) / (numeroConsultaDB/10);
+			
+			nuevocalculoCombustible.setMedidaFinalGalones(combustibleActual);
+		}
+		else
+		{
+			
+			for (int i = 0; i < medidaTanque2BD.length; i++) 
+			{
+				if(medidaTanque2BD[i] != charPunto)
+				{
+					sNumCompleto += medidaTanque2BD[i];
+				}
+			}
+			
+			numeroCompleto = Integer.parseInt(sNumCompleto);
+			
+			int modulo = numeroCompleto % 10;
+			int numeroConsultaDB = 0;
+			
+			if(numeroCompleto % 10 != 0)
+			{
+				int faltante = 10 - modulo;
+				numeroConsultaDB = numeroCompleto + faltante;
+			}
+			else
+			{
+				numeroConsultaDB = numeroCompleto;
+			}
 
+			galon = tanquesRepository.galonAltutaTanque2(numeroConsultaDB);
+			galonT3 = tanquesRepository.galonAltutaTanque3(numeroConsultaDB);
+			
+			combustibleActual = ((int) galon.get(0)[0] * nuevocalculoCombustible.getMedidaTanque2()) / (numeroConsultaDB/10);
+			combustibleActual += ((int) galonT3.get(0)[0] * nuevocalculoCombustible.getMedidaTanque2()) / (numeroConsultaDB/10);
+			
+			nuevocalculoCombustible.setMedidaFinalGalones(combustibleActual);
+		}
+		
+		List<Object[]> ultimoRegistro = calculoCombustibleRepository.ultimoRegistro();
+		
+		LocalDate date =  LocalDate.now();
+		nuevocalculoCombustible.setFecha(date.toString());
+		double inventarioLibros = 0;
+		double diferencia = 0;
+		
+		if(!ultimoRegistro.isEmpty())
+		{
+			inventarioLibros = (double) ultimoRegistro.get(0)[0] + nuevocalculoCombustible.getCombustibleRecibido() - nuevocalculoCombustible.getCantidadVendida();
+			nuevocalculoCombustible.setIventarioLibros(inventarioLibros);
+			
+			diferencia = inventarioLibros - combustibleActual;
+			nuevocalculoCombustible.setDiferencia(diferencia);
+			
+			nuevocalculoCombustible.setTotalVendido(0);
+			
+			nuevocalculoCombustible.setMedidaAnterior((double) ultimoRegistro.get(0)[0]);
+		}
+		else
+		{
+			inventarioLibros = nuevocalculoCombustible.getCantidadVendida();
+			nuevocalculoCombustible.setIventarioLibros(inventarioLibros);
+			
+			diferencia = inventarioLibros - combustibleActual;
+			nuevocalculoCombustible.setDiferencia(diferencia);
+		}
+		
+		calculoCombustibleServiceAPI.guardar(nuevocalculoCombustible);
+		
+		return "calculoOP";
+	}
+	
+	@GetMapping({"/eliminarOP/{id}"})
+	public String eliminarOP(Model model, @PathVariable(name="id") Long id)
+	{
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Usuario user = userRepository.findByUsername(auth.getName()).get();
+		Trabajador trabajador = trabajadorRepository.findByUsuario(user).get();
+		
+		calculoCombustibleServiceAPI.eliminar(id);
+		
+		model.addAttribute("trabajador", trabajador);
+		model.addAttribute("cambioPassword", new CambioPassword());
+		
+		return "calculoOP";
+	}
 }
