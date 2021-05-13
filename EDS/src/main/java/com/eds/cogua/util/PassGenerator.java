@@ -8,8 +8,13 @@ public class PassGenerator
 	
 	public PassGenerator()
 	{
-		bCryptPasswordEncoder = new BCryptPasswordEncoder(4);
+		bCryptPasswordEncoder = new BCryptPasswordEncoder(10);
 		
+	}
+	
+	public boolean match(String pPass1, String pPass2)
+	{
+		return bCryptPasswordEncoder.matches(pPass1, pPass2);
 	}
 	
 	public String cifrar(String pTexto)

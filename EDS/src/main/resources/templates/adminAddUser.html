@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<!-- begin::Head -->
+<head>
+	<base href="../../../">
+	<meta charset="utf-8" />
+	<title>Gestión Trabajadores</title>
+	<meta name="description" content="Add user example">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!--begin::Fonts -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700">
+
+	<!--end::Fonts -->
+
+	<!--begin::Page Custom Styles(used by this page) -->
+	<link href="/css/pages/wizard/wizard-4.css" th:href="@{/css/pages/wizard/wizard-4.css}" rel="stylesheet" type="text/css" />
+
+	<!--end::Page Custom Styles -->
+
+	<!--begin::Global Theme Styles(used by all pages) -->
+	<link href="/plugins/global/plugins.bundle.css" th:href="@{/plugins/global/plugins.bundle.css}" rel="stylesheet" type="text/css" />
+	<link href="/css/style.bundle.css" th:href="@{/css/style.bundle.css}" rel="stylesheet" type="text/css" />
+
+	<!--end::Global Theme Styles -->
+
+	<!--begin::Layout Skins(used by all pages) -->
+
+	<!--end::Layout Skins -->
+	<link rel="shortcut icon" href="/media/logos/favicon.ico" th:href="@{/media/logos/favicon.ico}" />
+</head>
+
+<!-- end::Head -->
+
+<!-- begin::Body -->
+<body th:style="'background-image: url( ' + @{/media/demos/demo4/footer.jpg} +  '); background-position: center top; background-size: 100% 350px;'" class="kt-page--loading-enabled kt-page--loading kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header--minimize-menu kt-header-mobile--fixed kt-subheader--enabled kt-subheader--transparent kt-page--loading">
+
+	<!-- begin::Page loader -->
+
+	<!-- end::Page Loader -->
+
+	<!-- begin:: Page -->
+
+	<!-- begin:: Header Mobile -->
+	<div id="kt_header_mobile" class="kt-header-mobile  kt-header-mobile--fixed ">
+		<div class="kt-header-mobile__logo">
+			<a href="index.html">
+				<img alt="Logo" src="/media/logos/logo.png"
+				th:src="@{/media/logos/logo.png}">
+			</a>
+		</div>
+		<div class="kt-header-mobile__toolbar">
+			<button class="kt-header-mobile__toolbar-toggler" id="kt_header_mobile_toggler"><span></span></button>
+			<button class="kt-header-mobile__toolbar-topbar-toggler" id="kt_header_mobile_topbar_toggler"><i class="flaticon-more-1"></i></button>
+		</div>
+	</div>
+
+	<!-- end:: Header Mobile -->
+	<div class="kt-grid kt-grid--hor kt-grid--root">
+		<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-page">
+			<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" id="kt_wrapper">
+
+				<!-- begin:: Header -->
+				<div id="kt_header" class="kt-header  kt-header--fixed " data-ktheader-minimize="on">
+					<div class="kt-container ">
+
+						<!-- begin:: Brand -->
+						<div class="kt-header__brand   kt-grid__item" id="kt_header_brand">
+							<a class="kt-header__brand-logo" href="?page=index">
+								<img alt="Logo" src="/media/logos/logo.png" th:src="@{/media/logos/logo.png}" class="kt-header__brand-logo-default" />
+								<img alt="Logo" src="/media/logos/logo.png" th:src="@{/media/logos/logo.png}" class="kt-header__brand-logo-sticky" />
+							</a>
+						</div>
+
+						<!-- end:: Brand -->
+
+				<!-- begin: Header Menu -->
+						<button class="kt-header-menu-wrapper-close"
+							id="kt_header_menu_mobile_close_btn">
+							<i class="la la-close"></i>
+						</button>
+						<div
+							class="kt-header-menu-wrapper kt-grid__item kt-grid__item--fluid"
+							id="kt_header_menu_wrapper">
+							<div id="kt_header_menu"
+								class="kt-header-menu kt-header-menu-mobile ">
+								<ul class="kt-menu__nav ">
+
+									<li th:if="${trabajador.usuario.authority[0].authority == 'ROLE_ADMIN'}"
+										class="kt-menu__item"
+										data-ktmenu-submenu-toggle="click" aria-haspopup="true"><a
+										th:href="@{/admin}" class="kt-menu__link"><span
+											class="kt-menu__link-text">Dashboard Administración</span><i
+											class="kt-menu__ver-arrow la la-angle-right"></i></a></li>
+									
+									<li th:if="${trabajador.usuario.authority[0].authority == 'ROLE_GEROP'}"
+										class="kt-menu__item"
+										data-ktmenu-submenu-toggle="click" aria-haspopup="true"><a
+										th:href="@{/dashBoardClientes}" class="kt-menu__link"><span
+											class="kt-menu__link-text">Dashboard Clientes</span><i
+											class="kt-menu__ver-arrow la la-angle-right"></i></a></li>
+											
+									<li th:if="${(trabajador.usuario.authority[0].authority == 'ROLE_ISLERO') || (trabajador.usuario.authority[0].authority == 'ROLE_AUXPATIO')}"
+										class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel  "
+										data-ktmenu-submenu-toggle="click" aria-haspopup="true"><a
+										th:href="@{/inicio}" class="kt-menu__link"><span
+											class="kt-menu__link-text">Inicio</span><i
+											class="kt-menu__ver-arrow la la-angle-right"></i></a></li>
+											
+									<li th:if="${(trabajador.usuario.authority[0].authority == 'ROLE_ISLERO') || (trabajador.usuario.authority[0].authority == 'ROLE_AUXPATIO')}"
+										class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel  "
+										data-ktmenu-submenu-toggle="click" aria-haspopup="true"><a
+										th:href="@{/calculoOP}" class="kt-menu__link"><span
+											class="kt-menu__link-text">Cálculo de Gasolina</span><i
+											class="kt-menu__ver-arrow la la-angle-right"></i></a></li>
+						
+									<li th:if="${trabajador.usuario.authority[0].authority == 'ROLE_ADMIN'}"
+										class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel"
+										data-ktmenu-submenu-toggle="click" aria-haspopup="true"><a
+										href="javascript:;" class="kt-menu__link kt-menu__toggle"><span
+											class="kt-menu__link-text">Nómina</span><i
+											class="kt-menu__ver-arrow la la-angle-right"></i></a>
+										<div
+											class="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--left">
+											<ul class="kt-menu__subnav">
+
+												<li class="kt-menu__item " aria-haspopup="true"><a
+													href="#" th:href="@{/adminCalculoNomina}" class="kt-menu__link "><span
+														class="kt-menu__link-icon"><svg
+																xmlns="http://www.w3.org/2000/svg"
+																xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+																height="24px" viewBox="0 0 24 24" version="1.1"
+																class="kt-svg-icon">
+													<g stroke="none" stroke-width="1" fill="none"
+																	fill-rule="evenodd">
+														<rect x="0" y="0" width="24" height="24" />
+														<path
+																	d="M4,9.67471899 L10.880262,13.6470401 C10.9543486,13.689814 11.0320333,13.7207107 11.1111111,13.740321 L11.1111111,21.4444444 L4.49070127,17.526473 C4.18655139,17.3464765 4,17.0193034 4,16.6658832 L4,9.67471899 Z M20,9.56911707 L20,16.6658832 C20,17.0193034 19.8134486,17.3464765 19.5092987,17.526473 L12.8888889,21.4444444 L12.8888889,13.6728275 C12.9050191,13.6647696 12.9210067,13.6561758 12.9368301,13.6470401 L20,9.56911707 Z"
+																	fill="#000000" />
+														<path
+																	d="M4.21611835,7.74669402 C4.30015839,7.64056877 4.40623188,7.55087574 4.5299008,7.48500698 L11.5299008,3.75665466 C11.8237589,3.60013944 12.1762411,3.60013944 12.4700992,3.75665466 L19.4700992,7.48500698 C19.5654307,7.53578262 19.6503066,7.60071528 19.7226939,7.67641889 L12.0479413,12.1074394 C11.9974761,12.1365754 11.9509488,12.1699127 11.9085461,12.2067543 C11.8661433,12.1699127 11.819616,12.1365754 11.7691509,12.1074394 L4.21611835,7.74669402 Z"
+																	fill="#000000" opacity="0.3" />
+													</g>
+												</svg></span><span class="kt-menu__link-text">Cálculo de Nómina</span></a></li>
+
+													<!-- 	<li class="kt-menu__item " aria-haspopup="true"><a
+													href="#" th:href="@{/adminHorasExtras}" class="kt-menu__link "><span
+														class="kt-menu__link-icon"><svg
+																xmlns="http://www.w3.org/2000/svg"
+																xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+																height="24px" viewBox="0 0 24 24" version="1.1"
+																class="kt-svg-icon">
+													<g stroke="none" stroke-width="1" fill="none"
+																	fill-rule="evenodd">
+														<rect x="0" y="0" width="24" height="24" />
+														<path
+																	d="M6,2 L18,2 C18.5522847,2 19,2.44771525 19,3 L19,12 C19,12.5522847 18.5522847,13 18,13 L6,13 C5.44771525,13 5,12.5522847 5,12 L5,3 C5,2.44771525 5.44771525,2 6,2 Z M7.5,5 C7.22385763,5 7,5.22385763 7,5.5 C7,5.77614237 7.22385763,6 7.5,6 L13.5,6 C13.7761424,6 14,5.77614237 14,5.5 C14,5.22385763 13.7761424,5 13.5,5 L7.5,5 Z M7.5,7 C7.22385763,7 7,7.22385763 7,7.5 C7,7.77614237 7.22385763,8 7.5,8 L10.5,8 C10.7761424,8 11,7.77614237 11,7.5 C11,7.22385763 10.7761424,7 10.5,7 L7.5,7 Z"
+																	fill="#000000" opacity="0.3" />
+														<path
+																	d="M3.79274528,6.57253826 L12,12.5 L20.2072547,6.57253826 C20.4311176,6.4108595 20.7436609,6.46126971 20.9053396,6.68513259 C20.9668779,6.77033951 21,6.87277228 21,6.97787787 L21,17 C21,18.1045695 20.1045695,19 19,19 L5,19 C3.8954305,19 3,18.1045695 3,17 L3,6.97787787 C3,6.70173549 3.22385763,6.47787787 3.5,6.47787787 C3.60510559,6.47787787 3.70753836,6.51099993 3.79274528,6.57253826 Z"
+																	fill="#000000" />
+													</g>
+												</svg></span><span class="kt-menu__link-text">Consulta Horas Extras</span></a></li>  --> 
+
+												<li class="kt-menu__item " aria-haspopup="true"><a
+													href="#" th:href="@{/adminConsultaNomina}" class="kt-menu__link "><span
+														class="kt-menu__link-icon"><svg
+																xmlns="http://www.w3.org/2000/svg"
+																xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+																height="24px" viewBox="0 0 24 24" version="1.1"
+																class="kt-svg-icon">
+													<g stroke="none" stroke-width="1" fill="none"
+																	fill-rule="evenodd">
+														<rect x="0" y="0" width="24" height="24" />
+														<path
+																	d="M8,3 L8,3.5 C8,4.32842712 8.67157288,5 9.5,5 L14.5,5 C15.3284271,5 16,4.32842712 16,3.5 L16,3 L18,3 C19.1045695,3 20,3.8954305 20,5 L20,21 C20,22.1045695 19.1045695,23 18,23 L6,23 C4.8954305,23 4,22.1045695 4,21 L4,5 C4,3.8954305 4.8954305,3 6,3 L8,3 Z"
+																	fill="#000000" opacity="0.3" />
+														<path
+																	d="M11,2 C11,1.44771525 11.4477153,1 12,1 C12.5522847,1 13,1.44771525 13,2 L14.5,2 C14.7761424,2 15,2.22385763 15,2.5 L15,3.5 C15,3.77614237 14.7761424,4 14.5,4 L9.5,4 C9.22385763,4 9,3.77614237 9,3.5 L9,2.5 C9,2.22385763 9.22385763,2 9.5,2 L11,2 Z"
+																	fill="#000000" />
+														<rect fill="#000000" opacity="0.3" x="10" y="9" width="7"
+																	height="2" rx="1" />
+														<rect fill="#000000" opacity="0.3" x="7" y="9" width="2"
+																	height="2" rx="1" />
+														<rect fill="#000000" opacity="0.3" x="7" y="13" width="2"
+																	height="2" rx="1" />
+														<rect fill="#000000" opacity="0.3" x="10" y="13" width="7"
+																	height="2" rx="1" />
+														<rect fill="#000000" opacity="0.3" x="7" y="17" width="2"
+																	height="2" rx="1" />
+														<rect fill="#000000" opacity="0.3" x="10" y="17" width="7"
+																	height="2" rx="1" />
+													</g>
+												</svg></span><span class="kt-menu__link-text">Consulta de Nómina</span></a></li>
+											</ul>
+										</div></li>
+
+									<li th:if="${(trabajador.usuario.authority[0].authority == 'ROLE_ADMIN') || (trabajador.usuario.authority[0].authority == 'ROLE_AUXPATIO')}"
+										class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel"
+										data-ktmenu-submenu-toggle="click" aria-haspopup="true"><a
+										href="javascript:;" class="kt-menu__link kt-menu__toggle"><span
+											class="kt-menu__link-text">Gestión de Trabajadores</span><i
+											class="kt-menu__ver-arrow la la-angle-right"></i></a>
+										<div
+											class="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--left">
+											<ul class="kt-menu__subnav">
+
+												<li class="kt-menu__item " aria-haspopup="true" th:if="${(trabajador.usuario.authority[0].authority == 'ROLE_ADMIN')}"><a
+													href="#" th:href="@{/adminAdicionTrabajador}" class="kt-menu__link "><span
+														class="kt-menu__link-icon"><svg
+																xmlns="http://www.w3.org/2000/svg"
+																xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+																height="24px" viewBox="0 0 24 24" version="1.1"
+																class="kt-svg-icon">
+													<g stroke="none" stroke-width="1" fill="none"
+																	fill-rule="evenodd">
+														<rect x="0" y="0" width="24" height="24" />
+														<path
+																	d="M6,2 L18,2 C19.6568542,2 21,3.34314575 21,5 L21,19 C21,20.6568542 19.6568542,22 18,22 L6,22 C4.34314575,22 3,20.6568542 3,19 L3,5 C3,3.34314575 4.34314575,2 6,2 Z M12,11 C13.1045695,11 14,10.1045695 14,9 C14,7.8954305 13.1045695,7 12,7 C10.8954305,7 10,7.8954305 10,9 C10,10.1045695 10.8954305,11 12,11 Z M7.00036205,16.4995035 C6.98863236,16.6619875 7.26484009,17 7.4041679,17 C11.463736,17 14.5228466,17 16.5815,17 C16.9988413,17 17.0053266,16.6221713 16.9988413,16.5 C16.8360465,13.4332455 14.6506758,12 11.9907452,12 C9.36772908,12 7.21569918,13.5165724 7.00036205,16.4995035 Z"
+																	fill="#000000" />
+													</g>
+												</svg></span><span class="kt-menu__link-text">Adición Trabajador</span></a></li>
+
+												<li class="kt-menu__item " aria-haspopup="true" th:if="${(trabajador.usuario.authority[0].authority == 'ROLE_ADMIN') || (trabajador.usuario.authority[0].authority == 'ROLE_AUXPATIO')}"><a
+													href="#" th:href="@{/adminListUser}" class="kt-menu__link "><span
+														class="kt-menu__link-icon"><svg
+																xmlns="http://www.w3.org/2000/svg"
+																xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+																height="24px" viewBox="0 0 24 24" version="1.1"
+																class="kt-svg-icon">
+													<g stroke="none" stroke-width="1" fill="none"
+																	fill-rule="evenodd">
+														<rect x="0" y="0" width="24" height="24" />
+														<path
+																	d="M6,2 L18,2 C18.5522847,2 19,2.44771525 19,3 L19,12 C19,12.5522847 18.5522847,13 18,13 L6,13 C5.44771525,13 5,12.5522847 5,12 L5,3 C5,2.44771525 5.44771525,2 6,2 Z M7.5,5 C7.22385763,5 7,5.22385763 7,5.5 C7,5.77614237 7.22385763,6 7.5,6 L13.5,6 C13.7761424,6 14,5.77614237 14,5.5 C14,5.22385763 13.7761424,5 13.5,5 L7.5,5 Z M7.5,7 C7.22385763,7 7,7.22385763 7,7.5 C7,7.77614237 7.22385763,8 7.5,8 L10.5,8 C10.7761424,8 11,7.77614237 11,7.5 C11,7.22385763 10.7761424,7 10.5,7 L7.5,7 Z"
+																	fill="#000000" opacity="0.3" />
+														<path
+																	d="M3.79274528,6.57253826 L12,12.5 L20.2072547,6.57253826 C20.4311176,6.4108595 20.7436609,6.46126971 20.9053396,6.68513259 C20.9668779,6.77033951 21,6.87277228 21,6.97787787 L21,17 C21,18.1045695 20.1045695,19 19,19 L5,19 C3.8954305,19 3,18.1045695 3,17 L3,6.97787787 C3,6.70173549 3.22385763,6.47787787 3.5,6.47787787 C3.60510559,6.47787787 3.70753836,6.51099993 3.79274528,6.57253826 Z"
+																	fill="#000000" />
+													</g>
+												</svg></span><span class="kt-menu__link-text">Consulta & Detalle</span></a></li>
+											</ul>
+										</div></li>
+										
+										<li th:if="${(trabajador.usuario.authority[0].authority == 'ROLE_ADMIN') || (trabajador.usuario.authority[0].authority == 'ROLE_GEROP')}"
+										class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel"
+										data-ktmenu-submenu-toggle="click" aria-haspopup="true"><a
+										href="javascript:;" class="kt-menu__link kt-menu__toggle"><span
+											class="kt-menu__link-text">Gestión de Clientes</span><i
+											class="kt-menu__ver-arrow la la-angle-right"></i></a>
+										<div
+											class="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--left">
+											<ul class="kt-menu__subnav">
+												<li class="kt-menu__item " aria-haspopup="true" th:if="${(trabajador.usuario.authority[0].authority == 'ROLE_ADMIN')}">
+													<a href="#" th:href="@{/dashBoardClientes}"
+													class="kt-menu__link "><span class="kt-menu__link-icon"><svg
+																xmlns="http://www.w3.org/2000/svg"
+																xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+																height="24px" viewBox="0 0 24 24" version="1.1"
+																class="kt-svg-icon">
+													<g stroke="none" stroke-width="1" fill="none"
+																	fill-rule="evenodd">
+														<rect x="0" y="0" width="24" height="24" />
+														<path
+																	d="M4,9.67471899 L10.880262,13.6470401 C10.9543486,13.689814 11.0320333,13.7207107 11.1111111,13.740321 L11.1111111,21.4444444 L4.49070127,17.526473 C4.18655139,17.3464765 4,17.0193034 4,16.6658832 L4,9.67471899 Z M20,9.56911707 L20,16.6658832 C20,17.0193034 19.8134486,17.3464765 19.5092987,17.526473 L12.8888889,21.4444444 L12.8888889,13.6728275 C12.9050191,13.6647696 12.9210067,13.6561758 12.9368301,13.6470401 L20,9.56911707 Z"
+																	fill="#000000" />
+														<path
+																	d="M4.21611835,7.74669402 C4.30015839,7.64056877 4.40623188,7.55087574 4.5299008,7.48500698 L11.5299008,3.75665466 C11.8237589,3.60013944 12.1762411,3.60013944 12.4700992,3.75665466 L19.4700992,7.48500698 C19.5654307,7.53578262 19.6503066,7.60071528 19.7226939,7.67641889 L12.0479413,12.1074394 C11.9974761,12.1365754 11.9509488,12.1699127 11.9085461,12.2067543 C11.8661433,12.1699127 11.819616,12.1365754 11.7691509,12.1074394 L4.21611835,7.74669402 Z"
+																	fill="#000000" opacity="0.3" />
+													</g>
+												</svg></span><span class="kt-menu__link-text">Dashboard Clientes</span></a></li>
+
+												<li class="kt-menu__item " aria-haspopup="true"><a
+													href="#" th:href="@{/adicionCliente}"
+													class="kt-menu__link "><span class="kt-menu__link-icon"><svg
+																xmlns="http://www.w3.org/2000/svg"
+																xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+																height="24px" viewBox="0 0 24 24" version="1.1"
+																class="kt-svg-icon">
+													<g stroke="none" stroke-width="1" fill="none"
+																	fill-rule="evenodd">
+														<rect x="0" y="0" width="24" height="24" />
+														<path
+																	d="M6,2 L18,2 C19.6568542,2 21,3.34314575 21,5 L21,19 C21,20.6568542 19.6568542,22 18,22 L6,22 C4.34314575,22 3,20.6568542 3,19 L3,5 C3,3.34314575 4.34314575,2 6,2 Z M12,11 C13.1045695,11 14,10.1045695 14,9 C14,7.8954305 13.1045695,7 12,7 C10.8954305,7 10,7.8954305 10,9 C10,10.1045695 10.8954305,11 12,11 Z M7.00036205,16.4995035 C6.98863236,16.6619875 7.26484009,17 7.4041679,17 C11.463736,17 14.5228466,17 16.5815,17 C16.9988413,17 17.0053266,16.6221713 16.9988413,16.5 C16.8360465,13.4332455 14.6506758,12 11.9907452,12 C9.36772908,12 7.21569918,13.5165724 7.00036205,16.4995035 Z"
+																	fill="#000000" />
+													</g>
+												</svg></span><span class="kt-menu__link-text">Adición Cliente</span></a></li>
+
+												<li class="kt-menu__item " aria-haspopup="true"><a
+													href="#" th:href="@{/clientList}" class="kt-menu__link "><span
+														class="kt-menu__link-icon"><svg
+																xmlns="http://www.w3.org/2000/svg"
+																xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+																height="24px" viewBox="0 0 24 24" version="1.1"
+																class="kt-svg-icon">
+													<g stroke="none" stroke-width="1" fill="none"
+																	fill-rule="evenodd">
+														<rect x="0" y="0" width="24" height="24" />
+														<path
+																	d="M6,2 L18,2 C18.5522847,2 19,2.44771525 19,3 L19,12 C19,12.5522847 18.5522847,13 18,13 L6,13 C5.44771525,13 5,12.5522847 5,12 L5,3 C5,2.44771525 5.44771525,2 6,2 Z M7.5,5 C7.22385763,5 7,5.22385763 7,5.5 C7,5.77614237 7.22385763,6 7.5,6 L13.5,6 C13.7761424,6 14,5.77614237 14,5.5 C14,5.22385763 13.7761424,5 13.5,5 L7.5,5 Z M7.5,7 C7.22385763,7 7,7.22385763 7,7.5 C7,7.77614237 7.22385763,8 7.5,8 L10.5,8 C10.7761424,8 11,7.77614237 11,7.5 C11,7.22385763 10.7761424,7 10.5,7 L7.5,7 Z"
+																	fill="#000000" opacity="0.3" />
+														<path
+																	d="M3.79274528,6.57253826 L12,12.5 L20.2072547,6.57253826 C20.4311176,6.4108595 20.7436609,6.46126971 20.9053396,6.68513259 C20.9668779,6.77033951 21,6.87277228 21,6.97787787 L21,17 C21,18.1045695 20.1045695,19 19,19 L5,19 C3.8954305,19 3,18.1045695 3,17 L3,6.97787787 C3,6.70173549 3.22385763,6.47787787 3.5,6.47787787 C3.60510559,6.47787787 3.70753836,6.51099993 3.79274528,6.57253826 Z"
+																	fill="#000000" />
+													</g>
+												</svg></span><span class="kt-menu__link-text">Consulta & Detalle</span></a></li>
+											</ul>
+										</div></li>
+								</ul>
+							</div>
+						</div>
+
+						<!-- end: Header Menu -->
+
+						
+					<!-- begin:: Header Topbar -->
+						<div class="kt-header__topbar kt-grid__item">
+
+							<!--begin: User bar -->
+								<div class="kt-header__topbar-item kt-header__topbar-item--user">
+									<div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,0px">
+										<span class="kt-header__topbar-welcome">Hola,</span>
+										<span class="kt-header__topbar-username" th:text="${trabajador.nombres}"></span>
+										<span class="kt-header__topbar-icon"><b th:text="${#strings.substring(trabajador.nombres,0,1)} "></b></span>
+										<img alt="Pic" src="/media/users/user1.jpg" th:src="@{/media/users/user1.jpg}" class="kt-hidden" />
+									</div>
+									<div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-xl">
+
+										<!--begin: Head -->
+										<div class="kt-user-card kt-user-card--skin-dark kt-notification-item-padding-x" th:style="'background-image: url(' + @{/media/misc/bg-1.jpg} + ')'">
+											<div class="kt-user-card__avatar">
+												<img class="kt-hidden" alt="Pic" src="/media/users/300_25.jpg" th:src="@{/media/users/300_25.jpg}" />
+
+												<!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
+												<span class="kt-badge kt-badge--lg kt-badge--rounded kt-badge--bold kt-font-success" th:text="${#strings.substring(trabajador.nombres,0,1)}"></span>
+											</div>
+											<div class="kt-user-card__name">
+												<span class="kt-widget13__text kt-widget13__text--bold" th:text="${trabajador.nombres} + ' ' + ${trabajador.apellidos}"></span>
+											</div>
+										</div>
+
+										<!--end: Head -->
+
+										<!--begin: Navigation -->
+										<div class="kt-notification">
+											<a th:href="@{'/adminDetalleUser/' + ${trabajador.id} }" class="kt-notification__item">
+												<div class="kt-notification__item-icon">
+													<i class="flaticon2-calendar-3 kt-font-success"></i>
+												</div>
+												<div class="kt-notification__item-details">
+													<div class="kt-notification__item-title kt-font-bold">
+														Mi Perfil
+													</div>
+													<div class="kt-notification__item-time">
+														Cuenta, datos e información.
+													</div>
+												</div>
+											</a>
+											<!-- <a href="custom/apps/user/profile-3.html" class="kt-notification__item">  -->
+											
+											<button type="button" class="btn btn-bold btn-label-brand btn-sm" style="width:100%" data-toggle="modal" data-target="#kt_modal_4">
+												<div class="kt-notification__item-icon">
+													<i class="flaticon2-mail kt-font-warning"></i>
+												</div>
+												<div class="kt-notification__item-details">
+													<div class="kt-notification__item-title kt-font-bold">
+														Cambio de Contraseña
+													</div>
+													<div class="kt-notification__item-time">
+														Solicita un cambio de contraseña
+													</div>
+												</div>
+											</button> 
+											
+											
+											<form th:action="@{/logout}" class="kt-notification__custom kt-space-between" method="post">
+												<button type="submit" class="btn btn-label btn-label-brand btn-sm btn-bold">Cerrar Sesión</a>
+											</form>
+										</div>
+
+										<!--end: Navigation -->
+									</div>
+								</div>
+
+								<!--end: User bar -->
+						</div>
+
+						<!-- end:: Header Topbar -->
+						</div>
+					</div>
+
+					<!-- end:: Header -->
+					<div class="kt-body kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-grid--stretch" id="kt_body">
+						<div class="kt-content kt-content--fit-top  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
+
+							<!-- begin:: Subheader -->
+							<div class="kt-subheader   kt-grid__item" id="kt_subheader">
+								<div class="kt-container ">
+									<div class="kt-subheader__main">
+										<h3 class="kt-subheader__title">
+										Gestión de Trabajadores </h3>
+										<div class="kt-subheader__breadcrumbs">
+											<a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
+											<span class="kt-subheader__breadcrumbs-separator"></span>
+											<a href="" class="kt-subheader__breadcrumbs-link">
+											Adición de Trabajadores </a>
+										</div>
+									</div>
+									<div class="kt-subheader__toolbar">
+										<div class="kt-subheader__wrapper">
+											<a href="#" class="btn kt-subheader__btn-secondary">
+												Visitar Sitio Web
+											</a>
+											<div class="dropdown dropdown-inline" data-toggle="kt-tooltip" title="Acciones Rápidas" data-placement="top">
+												<a href="#" class="btn btn-danger kt-subheader__btn-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+													Opciones
+												</a>
+												<div class="dropdown-menu dropdown-menu-right">
+													<!--<a class="dropdown-item" href="#"><i class="la la-plus"></i> Cambiar Mensaje</a>-->
+													<div class="dropdown-divider"></div>
+													<a class="dropdown-item" href="#"><i class="la la-cog"></i> Configuración</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- end:: Subheader -->
+							
+							<div class="modal fade" id="kt_modal_4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+												<div class="modal-dialog modal-lg" role="document">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="exampleModalLabel">Cambio de Contraseña</h5>
+															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+															</button>
+														</div>
+														<form th:action="@{/cambioPassword}" th:object="${cambioPassword}" method="post">
+															<div class="modal-body">
+																	<div class="form-group">
+																		<label for="recipient-name" class="form-control-label">Ingrese su contraseña actual:</label>
+																		<input type="text" class="form-control" id="passActual" th:field="${cambioPassword.passwordActual}">
+																	</div>
+																	<div class="form-group">
+																		<label for="message-text" class="form-control-label">Ingrese la contraseña nueva:</label>
+																		<input type="text" class="form-control" id="passNueva" th:field="${cambioPassword.passwordNueva}">
+																	</div>
+															</div>
+															<div class="modal-footer">
+																<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+																<button type="submit" class="btn btn-primary">Cambiar Contraseña</button>
+															</div>
+														</form>
+													</div>
+												</div>
+						    </div>
+
+							<!-- begin:: Content -->
+							<div class="kt-container  kt-grid__item kt-grid__item--fluid">
+								<div class="kt-wizard-v4" id="kt_user_add_user" data-ktwizard-state="step-first">
+
+									<!--begin: Form Wizard Nav -->
+									<div class="kt-wizard-v4__nav">
+										<div class="kt-wizard-v4__nav-items nav">
+
+											<!--doc: Replace A tag with SPAN tag to disable the step link click -->
+											<div id="step1" class="kt-wizard-v4__nav-item nav-item" data-ktwizard-type="step" data-ktwizard-state="current">
+												<div class="kt-wizard-v4__nav-body">
+													<div class="kt-wizard-v4__nav-number">
+														1
+													</div>
+													<div class="kt-wizard-v4__nav-label">
+														<div class="kt-wizard-v4__nav-label-title">
+															Perfil
+														</div>
+														<div class="kt-wizard-v4__nav-label-desc">
+															Información Personal Usuario
+														</div>
+													</div>
+												</div>
+											</div>
+											<div id="step2" class="kt-wizard-v4__nav-item nav-item" data-ktwizard-type="step">
+												<div class="kt-wizard-v4__nav-body">
+													<div class="kt-wizard-v4__nav-number">
+														2
+													</div>
+													<div class="kt-wizard-v4__nav-label">
+														<div class="kt-wizard-v4__nav-label-title">
+															Cuenta
+														</div>
+														<div class="kt-wizard-v4__nav-label-desc">
+															Usuario y Configuración
+														</div>
+													</div>
+												</div>
+											</div>
+											<div id="step3" class="kt-wizard-v4__nav-item nav-item" data-ktwizard-type="step">
+												<div class="kt-wizard-v4__nav-body">
+													<div class="kt-wizard-v4__nav-number">
+														3
+													</div>
+													<div class="kt-wizard-v4__nav-label">
+														<div class="kt-wizard-v4__nav-label-title">
+															Información Laboral
+														</div>
+														<div class="kt-wizard-v4__nav-label-desc">
+															Contrato y Salario
+														</div>
+													</div>
+												</div>
+											</div>
+											<div id="step4" class="kt-wizard-v4__nav-item nav-item" data-ktwizard-type="step" onclick="completar()">
+												<div class="kt-wizard-v4__nav-body">
+													<div class="kt-wizard-v4__nav-number">
+														4
+													</div>
+													<div class="kt-wizard-v4__nav-label">
+														<div class="kt-wizard-v4__nav-label-title">
+															Completar Adición
+														</div>
+														<div class="kt-wizard-v4__nav-label-desc">
+															Revisar y Subir
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<!--end: Form Wizard Nav -->
+									<div class="kt-portlet">
+										<div class="kt-portlet__body kt-portlet__body--fit">
+											<div class="kt-grid">
+												<div class="kt-grid__item kt-grid__item--fluid kt-wizard-v4__wrapper">
+
+													<!--begin: Form Wizard Form-->
+													<form class="kt-form" id="kt_user_add_form" th:action="@{/crear_trabajador}" th:object="${nuevoTrabajador}" method="post">
+													
+														<input type="hidden" th:field="${nuevoTrabajador.id}" />
+														<input type="hidden" th:field="${nuevoTrabajador.nominaTrabajador.id}" />
+														<input type="hidden" th:field="${nuevoTrabajador.usuario.id}" />
+
+														<!--begin: Form Wizard Step 1-->
+														<div class="kt-wizard-v4__content" data-ktwizard-type="step-content" data-ktwizard-state="current">
+															<div class="kt-heading kt-heading--md">Detalles Perfil Usuario:</div>
+															<div class="kt-section kt-section--first">
+																<div class="kt-wizard-v4__form">
+																	<div class="row">
+																		<div class="col-xl-12">
+																			<div class="kt-section__body">
+																				<!-- <div class="form-group row">
+																					<label class="col-xl-3 col-lg-3 col-form-label">Foto Laboral</label>
+																					<div class="col-lg-9 col-xl-6">
+																						<div class="kt-avatar kt-avatar--outline" id="kt_user_add_avatar">
+																							<div class="kt-avatar__holder" th:style="'background-image: url(' + @{/media/users/default.jpg} +  ')'"></div>
+																							<label class="kt-avatar__upload" data-toggle="kt-tooltip" title="Change avatar">
+																								<i class="fa fa-pen"></i>
+																								<input type="file" name="kt_user_add_user_avatar">
+																							</label>
+																							<span class="kt-avatar__cancel" data-toggle="kt-tooltip" title="Cancel avatar">
+																								<i class="fa fa-times"></i>
+																							</span>
+																						</div>
+																					</div>
+																				</div>  -->
+																				<div class="form-group row">
+																					<label class="col-xl-3 col-lg-3 col-form-label">Nombres</label>
+																					<div class="col-lg-9 col-xl-9">
+																						<input class="form-control" id="nombres" type="text" value="" th:field="${nuevoTrabajador.nombres}">
+																					</div>
+																				</div>
+																				<div class="form-group row">
+																					<label class="col-xl-3 col-lg-3 col-form-label">Apellidos</label>
+																					<div class="col-lg-9 col-xl-9">
+																						<input class="form-control" id="apellidos" type="text" value="" th:field="${nuevoTrabajador.apellidos}">
+																					</div>
+																				</div>
+																				<div class="form-group row">
+																					<label class="col-xl-3 col-lg-3 col-form-label">Número Identificación</label>
+																					<div class="col-lg-9 col-xl-9">
+																						<input class="form-control" id="identificacion" type="number" min="0" value="" placeholder="C.C." th:field="${nuevoTrabajador.identificacion}">
+																						<!--<span class="form-text text-muted">If you want your invoices addressed to a company. Leave blank to use your full name.</span>-->
+																					</div>
+																				</div>
+																				<div class="form-group row">
+																					<label class="col-xl-3 col-lg-3 col-form-label">Dirección Residencial</label>
+																					<div class="col-lg-9 col-xl-9">
+																						<input class="form-control" id="direccion" type="text" value="" placeholder="" th:field="${nuevoTrabajador.direccion}">
+																					</div>
+																				</div>
+																				<div class="form-group row">
+																					<label class="col-xl-3 col-lg-3 col-form-label">Número Telefónico</label>
+																					<div class="col-lg-9 col-xl-9">
+																						<div class="input-group">
+																							<div class="input-group-prepend"><span class="input-group-text"><i class="la la-phone"></i></span></div>
+																							<input type="text" class="form-control" id="telefono" value="" placeholder="" aria-describedby="basic-addon1" th:field="${nuevoTrabajador.telefono}">
+																						</div>
+																						<!--<span class="form-text text-muted">We'll never share your email with anyone else.</span>-->
+																					</div>
+																				</div>
+																				<div class="form-group row">
+																					<label class="col-xl-3 col-lg-3 col-form-label">Correo Electrónico</label>
+																					<div class="col-lg-9 col-xl-9">
+																						<div class="input-group">
+																							<div class="input-group-prepend"><span class="input-group-text"><i class="la la-at"></i></span></div>
+																							<input type="text" class="form-control" id="correo" value="" placeholder="" aria-describedby="basic-addon1" th:field="${nuevoTrabajador.correo}">
+																						</div>
+																					</div>
+																				</div>
+																				<div class="form-group row">
+																					<label class="col-xl-3 col-lg-3 col-form-label">Descripción</label>
+																					<div class="col-lg-9 col-xl-9">
+																							<input type="text" class="form-control" id="descripcion" value="" placeholder="" aria-describedby="basic-addon1" th:field="${nuevoTrabajador.descripcion}">
+																					</div>
+																				</div>
+																				<!--<div class="form-group form-group-last row">
+																					<label class="col-xl-3 col-lg-3 col-form-label">Company Site</label>
+																					<div class="col-lg-9 col-xl-9">
+																						<div class="input-group">
+																							<input type="text" class="form-control" placeholder="Username" value="loop">
+																							<div class="input-group-append"><span class="input-group-text">.com</span></div>
+																						</div>
+																					</div>
+																				</div>-->
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+
+														<!--end: Form Wizard Step 1-->
+
+														<!--begin: Form Wizard Step 2-->
+														<div class="kt-wizard-v4__content" data-ktwizard-type="step-content">
+															<div class="kt-section kt-section--first">
+																<div class="kt-wizard-v4__form">
+																	<div class="row">
+																		<div class="col-xl-12">
+																			<div class="kt-section__body">
+																				<div class="form-group row">
+																					<div class="col-lg-9 col-xl-6">
+																						<h3 class="kt-section__title kt-section__title-md">Detalles cuenta usuario</h3>
+																					</div>
+																				</div>
+																				<div class="form-group row">
+																					<label class="col-xl-3 col-lg-3 col-form-label">Nombre de usuario</label>
+																					<div class="col-lg-9 col-xl-9">
+																						<input id="username" class="form-control" type="text" value="" th:field="${nuevoTrabajador.usuario.username}">
+																						<span class="form-text text-muted">
+																					    Si este campo se deja vacío el usuario será por defecto el siguiente: "Inicial Nombre + Apellido + Inicial Apellido 2"
+																				    	</span>
+																					</div>
+																				</div>
+
+																				<!--<div class="form-group row">
+																					<label class="col-xl-3 col-lg-3 col-form-label">Contraseña</label>
+																					<div class="col-lg-9 col-xl-9">
+																						<input class="form-control" type="password" value="">
+																					</div>
+																				</div>-->
+
+																				<div class="form-group row">
+																					<label class="col-xl-3 col-lg-3 col-form-label">Rol</label>
+																					<div class="col-lg-9 col-xl-9">
+																					    <select id="rol" class="form-control" th:size="1" th:field="${nuevoTrabajador.usuario.authority}">
+																							<option th:each="rol : ${roles}" th:value="${rol.id}" th:text="${rol.authority}"></option>
+																						</select>
+																					</div>
+																				</div>
+																				<!--  <div class="form-group form-group-last row">
+																					<label class="col-xl-3 col-lg-3 col-form-label">Communication</label>
+																					<div class="col-lg-9 col-xl-6">
+																						<div class="kt-checkbox-inline">
+																							<label class="kt-checkbox">
+																								<input type="checkbox" checked=""> Correo Personal
+																								<span></span>
+																							</label>
+																							<label class="kt-checkbox">
+																								<input type="checkbox" checked=""> Cuenta de Google
+																								<span></span>
+																							</label>
+																						</div>
+																					</div>
+																				</div> -->
+																				<div class="kt-separator kt-separator--border-dashed kt-separator--portlet-fit kt-separator--space-lg"></div>
+																				<div class="form-group row">
+																					<div class="col-lg-9 col-xl-6">
+																						<h3 class="kt-section__title kt-section__title-md">Seguridad</h3>
+																					</div>
+																				</div>
+																				<div class="form-group row">
+																					<label class="col-xl-3 col-lg-3 col-form-label">Contraseña</label>
+																					<div class="col-lg-9 col-xl-6">
+																						<!-- <button type="button" class="btn btn-label-brand btn-bold btn-sm kt-margin-t-5 kt-margin-b-5">Verificar Correo</button> -->
+																						<span class="form-text text-muted">
+																							La contraseña por defecto será Eds2020* y podrá ser cambiada por cada usuario.
+																						</span>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+
+														<!--end: Form Wizard Step 2-->
+
+														<!--begin: Form Wizard Step 3-->
+														<div class="kt-wizard-v4__content" data-ktwizard-type="step-content">
+															<div class="kt-heading kt-heading--md">Ingreso Datos Contractuales</div>
+															<div class="kt-form__section kt-form__section--first">
+																<div class="kt-wizard-v4__form">
+																	<div class="row">
+																		<div class="col-xl-12">
+																			<div class="form-group">
+																				<label>Salario Base</label>
+																				<input id="salariobase" type="number" min="0" class="form-control" name="salarioBase" placeholder="" value="" th:field="${nuevoTrabajador.nominaTrabajador.salarioBase}">
+																				<span class="form-text text-muted">Ingrese el valor del salario señalado en el contrato.</span>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="row">
+																		<div class="col-xl-6">
+																			<div class="form-group">
+																				<label>Auxilio de Transporte</label>
+																				<input id="auxiliotransporte" type="number" min="0" class="form-control" name="address1" placeholder="" value="" th:field="${nuevoTrabajador.nominaTrabajador.auxilioTransporte}">
+																				<span class="form-text text-muted">Ingrese el valor del auxilio de transporte.</span>
+																			</div>
+																		</div>
+																		<div class="col-xl-6">
+																			<div class="form-group">
+																				<label>Fecha de Ingreso</label>
+																				<input id="fechaIngreso" type="date" min="0" class="form-control" name="fechaIngreso" placeholder="" value="" th:field="${nuevoTrabajador.fechaIngreso}">
+																				<span class="form-text text-muted">Ingrese la fecha de ingreso del trabajador</span>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="row">
+																		<div class="col-xl-6">
+																			<div class="form-group">
+																				<label>Descuento Mensual</label>
+																				<input id="descuentos" type="number" min="0" class="form-control" name="postcode" placeholder="" value="" th:field="${nuevoTrabajador.nominaTrabajador.descuentosSalario}">
+																				<span class="form-text text-muted">Ingrese si hay descuentos mensuales desde un inicio.</span>
+																			</div>
+																		</div>
+																		<div class="col-xl-6">
+																			<div class="form-group">
+																				<label>Ganancias Extra</label>
+																				<input id="extras" type="number" min="0" class="form-control" name="state" placeholder="" value="" th:field="${nuevoTrabajador.nominaTrabajador.gananciasExtra}">
+																				<span class="form-text text-muted">Incluya el valor de valores extra si hay desde un inicio.</span>
+																			</div>
+																		</div>
+																	</div>
+																	<!-- <div class="row">
+																		<div class="col-xl-6">
+																			<div class="form-group">
+																				<label>Cédula Ciudadanía</label>
+																				<input type="file" class="form-control" name="state" placeholder="" value="">
+																				<span class="form-text text-muted">Fotocopia cédula 150%.</span>
+																			</div>
+																		</div>
+
+																		<div class="col-xl-6">
+																			<div class="form-group">
+																				<label>Certificado Salud</label>
+																				<input type="file" class="form-control" name="state" placeholder="" value="">
+																				<span class="form-text text-muted">Certificado EPS.</span>
+																			</div>
+																		</div>
+
+																	</div>-->
+																</div>
+															</div>
+														</div>
+
+														<!--end: Form Wizard Step 3-->
+
+														<!--begin: Form Wizard Step 4-->
+														<div class="kt-wizard-v4__content" data-ktwizard-type="step-content">
+															<div class="kt-heading kt-heading--md">Revisar Detalles y Procesar Información</div>
+															<div class="kt-form__section kt-form__section--first">
+																<div class="kt-wizard-v4__review">
+																	<div class="kt-wizard-v4__review-item">
+																		<div class="kt-wizard-v4__review-title">
+																			Detalles de Perfil
+																		</div>
+																		<div class="kt-wizard-v4__review-content">
+																			Nombres: <span id="nombresText"> </span><br>
+																			Apellidos: <span id="apellidosText">  </span><br>
+																			Identificación: <span id="identificacionText">  </span><br>
+																			Dirección: <span id="direccionText">  </span><br>
+																			Teléfono: <span id="telefonoText">  </span><br>
+																			Correo: <span id="correoText">  </span><br>
+																		</div>
+																	</div>
+																	<div class="kt-wizard-v4__review-item">
+																		<div class="kt-wizard-v4__review-title">
+																			Cuenta
+																		</div>
+																		<div class="kt-wizard-v4__review-content">
+																			Nombre de Usuario: <span id="usernameText"> </span><br>
+																			Rol: <span id="rolText"> </span><br>
+																		</div>
+																	</div>
+																	<div class="kt-wizard-v4__review-item">
+																		<div class="kt-wizard-v4__review-title">
+																			Información Laboral
+																		</div>
+																		<div class="kt-wizard-v4__review-content">
+																			Salario Base: <span id="salariobaseText"> </span><br>
+																			Auxilio de Transporte: <span id="auxilioTransporteText"> </span><br>
+																			Descuentos: <span id="descuentosText"> </span><br>
+																			Extras: <span id="extrasText"> </span><br>
+																		</div>
+																	</div>
+																	
+																	<!-- <div class="kt-wizard-v4__review-item">
+																		<div class="kt-wizard-v4__review-title">
+																			Revisa
+																		</div>
+																		<div class="kt-wizard-v4__review-content">
+																			<button type="submit" class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u">Procesar Información</button>
+																		</div>
+																	</div>  -->
+																	
+																</div>
+															</div>
+															
+															
+															
+														</div>
+
+														<!--end: Form Wizard Step 4-->
+
+														<!--begin: Form Actions-->
+														<div class="kt-form__actions">
+														    
+															<!-- <div id="opcAtras" class="btn btn-secondary btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-prev">
+																Anterior
+															</div>-->
+															<div class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-submit">
+																Procesar Información
+															</div>  
+															<!-- <div id="opcAdelante" class="btn btn-brand btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-next" onClick="validar()">
+																Siguiente
+															</div>-->
+														</div> 
+														
+														<script>
+														
+														function completar()
+														{
+															document.getElementById("nombresText").textContent = document.getElementById('nombres').value;
+															document.getElementById("apellidosText").textContent = document.getElementById('apellidos').value;
+															document.getElementById("identificacionText").textContent = document.getElementById('identificacion').value;
+															document.getElementById("direccionText").textContent = document.getElementById('direccion').value;
+															document.getElementById("telefonoText").textContent = document.getElementById('telefono').value;
+															document.getElementById("correoText").textContent = document.getElementById('correo').value;
+															
+															if(document.getElementById('username').value != "")
+															{
+																document.getElementById("usernameText").textContent = document.getElementById('username').value;
+															}
+															else
+															{
+																ap = document.getElementById('apellidos').value.split(" ");
+																document.getElementById("usernameText").textContent = document.getElementById('nombres').value.charAt(0) + ap[0] + ap[1].charAt(0);
+															}
+															
+															var sel = document.getElementById("rol");
+															var text= sel.options[sel.selectedIndex].text;
+															document.getElementById("rolText").textContent = text;
+															
+															document.getElementById("salariobaseText").textContent = document.getElementById('salariobase').value;
+															document.getElementById("auxilioTransporteText").textContent = document.getElementById('auxiliotransporte').value;
+															document.getElementById("descuentosText").textContent = document.getElementById('descuentos').value;
+															document.getElementById("extrasText").textContent = document.getElementById('extras').value;
+														}
+														
+														</script>
+
+														<!--end: Form Actions -->
+													</form>
+
+													<!--end: Form Wizard Form-->
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- end:: Content -->
+						</div>
+					</div>
+
+				<!-- begin:: Footer -->
+							<div class="kt-footer  kt-footer--extended  kt-grid__item"
+								id="kt_footer"
+								th:style="'background-image: url(' + @{/media/bg/bg-2.jpg}  + ');'">
+								<div class="kt-footer__bottom">
+									<div class="kt-container ">
+										<div class="kt-footer__wrapper">
+											<div class="kt-footer__logo">
+												<a class="kt-header__brand-logo"
+													href="?page=index&amp;demo=demo2"> <img alt="Logo"
+													src="/media/logos/logo.png"
+													class="kt-header__brand-logo-sticky"
+													th:src="@{/media/logos/logo.png}">
+												</a>
+												<div class="kt-footer__copyright"></div>
+											</div>
+											<div class="kt-footer__menu">
+												<a th:href="@{/privacidad}">Privacidad</a> 
+												<a href="https://edscogua.online/" target="_blank">Contacto</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+				<!-- end:: Footer -->
+				</div>
+			</div>
+		</div>
+
+		<!-- end:: Page -->
+
+		<!-- begin::Quick Panel -->
+		<div id="kt_quick_panel" class="kt-quick-panel">
+			<a href="#" class="kt-quick-panel__close" id="kt_quick_panel_close_btn"><i class="flaticon2-delete"></i></a>
+			<div class="kt-quick-panel__nav">
+				<ul class="nav nav-tabs nav-tabs-line nav-tabs-bold nav-tabs-line-3x nav-tabs-line-brand  kt-notification-item-padding-x" role="tablist">
+					<li class="nav-item active">
+						<a class="nav-link active" data-toggle="tab" href="#kt_quick_panel_tab_notifications" role="tab">Notificaciones</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" data-toggle="tab" href="#kt_quick_panel_tab_logs" role="tab">Auditoría</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<!-- end::Quick Panel -->
+
+		<!-- begin::Scrolltop -->
+		<div id="kt_scrolltop" class="kt-scrolltop">
+			<i class="fa fa-arrow-up"></i>
+		</div>
+
+		<!-- begin::Global Config(global config for global JS sciprts) -->
+		<script>
+			var KTAppOptions = {
+				"colors": {
+					"state": {
+						"brand": "#366cf3",
+						"light": "#ffffff",
+						"dark": "#282a3c",
+						"primary": "#5867dd",
+						"success": "#34bfa3",
+						"info": "#36a3f7",
+						"warning": "#ffb822",
+						"danger": "#fd3995"
+					},
+					"base": {
+						"label": ["#c5cbe3", "#a1a8c3", "#3d4465", "#3e4466"],
+						"shape": ["#f0f3ff", "#d9dffa", "#afb4d4", "#646c9a"]
+					}
+				}
+			};
+		</script>
+
+		<!-- end::Global Config -->
+
+		<!--begin::Global Theme Bundle(used by all pages) -->
+		<script src="/plugins/global/plugins.bundle.js" th:src="@{/plugins/global/plugins.bundle.js}" type="text/javascript"></script>
+		<script src="/js/scripts.bundle.js" th:src="@{/js/scripts.bundle.js}" type="text/javascript"></script>
+
+		<!--end::Global Theme Bundle -->
+
+		<!--begin::Page Scripts(used by this page) -->
+		<script src="/js/pages/custom/user/add-user.js" th:src="@{/js/pages/custom/user/add-user.js}" type="text/javascript"></script>
+
+		<!--end::Page Scripts -->
+	</body>
+
+	<!-- end::Body -->
+	</html>

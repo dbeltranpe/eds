@@ -54,17 +54,17 @@ public class CustomLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
 
 		else if (roles.contains("ROLE_ISLERO"))
 		{
-			url = "/islero";
+			url = "/inicio";
 		}
 
 		else if (roles.contains("ROLE_GEROP"))
 		{
-			url = "/gerop";
+			url = "/dashBoardClientes";
 		}
 
 		else if (roles.contains("ROLE_AUXPATIO"))
 		{
-			url = "/auxpatio";
+			url = "/inicio";
 		}
 
 		return url;

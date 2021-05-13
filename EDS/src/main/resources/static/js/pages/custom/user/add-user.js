@@ -36,7 +36,8 @@ var KTUserAdd = function () {
 			ignore: ":hidden",
 
 			// Validation rules
-			rules: {
+			rules: 
+			{
 				// Step 1
 				profile_avatar: {
 					//required: true
@@ -81,8 +82,49 @@ var KTUserAdd = function () {
 
 		btn.on('click', function(e) {
 			e.preventDefault();
+			
+			var mensaje = "";
+			
+			if(document.getElementById('nombres').value == "")
+			{
+				mensaje += "&#8226; El nombre no puede ser vacío<br>"
+			}
+			if(document.getElementById('apellidos').value== "")
+			{
+				mensaje += "&#8226; Los apellidos no pueden ser vacíos<br>"
+			}
+			if(document.getElementById('identificacion').value.length < 5)
+			{
+				mensaje += "&#8226; La identificación es debe tener como mínimo 5 dígitos<br>"
+			}
+			if(document.getElementById('direccion').value== "")
+			{
+				mensaje += "&#8226; La dirección no puede ser vacía<br>"
+			}
+			if(document.getElementById('telefono').value.length < 5)
+			{
+				mensaje += "&#8226; El número telefónico debe tener como mínimo 5 dígitos<br>"
+			}
+			
+            var address = document.getElementById('correo').value;
+            var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-			if (validator.form()) {
+            if (re.test(address) == false)
+			{
+				mensaje += "&#8226; El correo no es válido<br>"
+			}
+			if(document.getElementById('username').value.length < 4 && document.getElementById('username').value != "")
+			{
+				mensaje += "&#8226; Si se ingresa un nombre de usuario debe tener 4 caracteres como mínimo<br>"
+			}
+			if(document.getElementById('salariobase').value == 0)
+			{
+				mensaje += "&#8226; El salario no puede ser 0, ingresar el valor<br>"
+			}
+															
+
+			if (mensaje == "") 
+			{
 				// See: src\js\framework\base\app.js
 				KTApp.progress(btn);
 				//KTApp.block(formEl);
@@ -95,13 +137,26 @@ var KTUserAdd = function () {
 
 						swal.fire({
 							"title": "",
-							"text": "The application has been successfully submitted!",
+							"text": "Se ha enviado el formulario",
 							"type": "success",
 							"confirmButtonClass": "btn btn-secondary"
 						});
 					}
 				});
+				
 			}
+			else
+			{
+				KTApp.unprogress(btn);
+				swal.fire({
+						"title": "",
+						"html": mensaje,
+						"type": "error",
+						"buttonStyling": false,
+						"confirmButtonClass": "btn btn-brand btn-sm btn-bold"
+					});
+			}
+			
 		});
 	}
 
