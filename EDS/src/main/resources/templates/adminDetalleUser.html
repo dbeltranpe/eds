@@ -1,35 +1,50 @@
 <!DOCTYPE html>
+
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <!-- begin::Head -->
 <head>
-	<base href="../../../">
-	<meta charset="utf-8" />
-	<title>Gestión de Trabajadores</title>
-	<meta name="description" content="User profile block example">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<base href="">
+<meta charset="utf-8" />
+<title>Sistema E.D.S.</title>
+<meta name="description" content="Latest updates and statistic charts">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-	<!--begin::Fonts -->
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700">
+<!--begin::Fonts -->
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700">
 
-	<!--end::Fonts -->
+<!--end::Fonts -->
 
-	<!--begin::Global Theme Styles(used by all pages) -->
-	<link href="/plugins/global/plugins.bundle.css" th:href="@{/plugins/global/plugins.bundle.css}" rel="stylesheet" type="text/css" />
-	<link href="/css/style.bundle.css" th:href="@{/css/style.bundle.css}" rel="stylesheet" type="text/css" />
+<!--begin::Page Vendors Styles(used by this page) -->
+<link href="/plugins/custom/fullcalendar/fullcalendar.bundle.css"
+	rel="stylesheet" type="text/css"
+	th:href="@{/plugins/custom/fullcalendar/fullcalendar.bundle.css}">
 
-	<!--end::Global Theme Styles -->
+<!--end::Page Vendors Styles -->
 
-	<!--begin::Layout Skins(used by all pages) -->
+<!--begin::Global Theme Styles(used by all pages) -->
+<link href="/plugins/global/plugins.bundle.css" rel="stylesheet"
+	type="text/css" th:href="@{/plugins/global/plugins.bundle.css}">
+<link href="/css/style.bundle.css" rel="stylesheet" type="text/css"
+	th:href="@{/css/style.bundle.css}">
 
-	<!--end::Layout Skins -->
-	<link rel="shortcut icon" href="/media/logos/favicon.ico" th:href="@{/media/logos/favicon.ico}" />
+<!--end::Global Theme Styles -->
+
+<!--begin::Layout Skins(used by all pages) -->
+
+<!--end::Layout Skins -->
+<link rel="shortcut icon" href="/media/logos/favicon.ico"
+	th:href="@{/media/logos/favicon.ico}">
 </head>
 
 <!-- end::Head -->
 
 <!-- begin::Body -->
-<body th:style="'background-image: url( ' + @{/media/demos/demo4/footer.jpg} + '); background-position: center top; background-size: 100% 350px;'" class="kt-page--loading-enabled kt-page--loading kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header--minimize-menu kt-header-mobile--fixed kt-subheader--enabled kt-subheader--transparent kt-page--loading">
+<body
+	th:style="'background-image: url( ' + @{/media/demos/demo4/footer.jpg} +  '); background-position: center top; background-size: 100% 350px;'"
+	class="kt-page--loading-enabled kt-page--loading kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header--minimize-menu kt-header-mobile--fixed kt-subheader--enabled kt-subheader--transparent kt-page--loading">
 
 	<!-- begin::Page loader -->
 
@@ -38,39 +53,52 @@
 	<!-- begin:: Page -->
 
 	<!-- begin:: Header Mobile -->
-	<div id="kt_header_mobile" class="kt-header-mobile  kt-header-mobile--fixed ">
+	<div id="kt_header_mobile"
+		class="kt-header-mobile  kt-header-mobile--fixed ">
 		<div class="kt-header-mobile__logo">
-			<a href="index.html">
-				<img alt="Logo" src="/media/logos/logo.png" 
-				th:src="@{/media/logos/logo.png}"/>
+			<a href="index.html"> <img alt="Logo" src="/media/logos/logo.png"
+				th:src="@{/media/logos/logo.png}">
 			</a>
 		</div>
 		<div class="kt-header-mobile__toolbar">
-			<button class="kt-header-mobile__toolbar-toggler" id="kt_header_mobile_toggler"><span></span></button>
-			<button class="kt-header-mobile__toolbar-topbar-toggler" id="kt_header_mobile_topbar_toggler"><i class="flaticon-more-1"></i></button>
+			<button class="kt-header-mobile__toolbar-toggler"
+				id="kt_header_mobile_toggler">
+				<span></span>
+			</button>
+			<button class="kt-header-mobile__toolbar-topbar-toggler"
+				id="kt_header_mobile_topbar_toggler">
+				<i class="flaticon-more-1"></i>
+			</button>
 		</div>
 	</div>
 
 	<!-- end:: Header Mobile -->
 	<div class="kt-grid kt-grid--hor kt-grid--root">
-		<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-page">
-			<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" id="kt_wrapper">
+		<div
+			class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-page">
+			<div
+				class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper"
+				id="kt_wrapper">
 
 				<!-- begin:: Header -->
-				<div id="kt_header" class="kt-header  kt-header--fixed " data-ktheader-minimize="on">
+				<div id="kt_header" class="kt-header  kt-header--fixed "
+					data-ktheader-minimize="on">
 					<div class="kt-container ">
 
 						<!-- begin:: Brand -->
 						<div class="kt-header__brand   kt-grid__item" id="kt_header_brand">
-							<a class="kt-header__brand-logo" href="?page=index">
-								<img alt="Logo" src="/media/logos/logo.png" th:src="@{/media/logos/logo.png}" class="kt-header__brand-logo-default" />
-								<img alt="Logo" src="/media/logos/logo.png" th:src="@{/media/logos/logo.png}" class="kt-header__brand-logo-sticky" />
+							<a class="kt-header__brand-logo" href="?page=index"> <img
+								alt="Logo" src="/media/logos/logo.png"
+								th:src="@{/media/logos/logo.png}"
+								class="kt-header__brand-logo-default" /> <img alt="Logo"
+								src="/media/logos/logo.png" th:src="@{/media/logos/logo.png}"
+								class="kt-header__brand-logo-sticky" />
 							</a>
 						</div>
 
 						<!-- end:: Brand -->
 
-			<!-- begin: Header Menu -->
+						<!-- begin: Header Menu -->
 						<button class="kt-header-menu-wrapper-close"
 							id="kt_header_menu_mobile_close_btn">
 							<i class="la la-close"></i>
@@ -82,14 +110,35 @@
 								class="kt-header-menu kt-header-menu-mobile ">
 								<ul class="kt-menu__nav ">
 
-									<li
-										class="kt-menu__item  kt-menu__item--open kt-menu__item--here kt-menu__item--submenu kt-menu__item--rel kt-menu__item--open kt-menu__item--here"
+									<li th:if="${trabajador.usuario.authority[0].authority == 'ROLE_ADMIN'}"
+										class="kt-menu__item"
 										data-ktmenu-submenu-toggle="click" aria-haspopup="true"><a
-										href="#" th:href= "@{/admin}" class="kt-menu__link kt-menu__toggle"><span
-											class="kt-menu__link-text">Dashboard</span><i
+										th:href="@{/admin}" class="kt-menu__link"><span
+											class="kt-menu__link-text">Dashboard Administración</span><i
 											class="kt-menu__ver-arrow la la-angle-right"></i></a></li>
-
-									<li
+									
+									<li th:if="${trabajador.usuario.authority[0].authority == 'ROLE_GEROP'}"
+										class="kt-menu__item"
+										data-ktmenu-submenu-toggle="click" aria-haspopup="true"><a
+										th:href="@{/dashBoardClientes}" class="kt-menu__link"><span
+											class="kt-menu__link-text">Dashboard Clientes</span><i
+											class="kt-menu__ver-arrow la la-angle-right"></i></a></li>
+											
+									<li th:if="${(trabajador.usuario.authority[0].authority == 'ROLE_ISLERO') || (trabajador.usuario.authority[0].authority == 'ROLE_AUXPATIO')}"
+										class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel  "
+										data-ktmenu-submenu-toggle="click" aria-haspopup="true"><a
+										th:href="@{/inicio}" class="kt-menu__link"><span
+											class="kt-menu__link-text">Inicio</span><i
+											class="kt-menu__ver-arrow la la-angle-right"></i></a></li>
+											
+									<li th:if="${(trabajador.usuario.authority[0].authority == 'ROLE_ISLERO') || (trabajador.usuario.authority[0].authority == 'ROLE_AUXPATIO')}"
+										class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel  "
+										data-ktmenu-submenu-toggle="click" aria-haspopup="true"><a
+										th:href="@{/calculoOP}" class="kt-menu__link"><span
+											class="kt-menu__link-text">Cálculo de Gasolina</span><i
+											class="kt-menu__ver-arrow la la-angle-right"></i></a></li>
+						
+									<li th:if="${trabajador.usuario.authority[0].authority == 'ROLE_ADMIN'}"
 										class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel"
 										data-ktmenu-submenu-toggle="click" aria-haspopup="true"><a
 										href="javascript:;" class="kt-menu__link kt-menu__toggle"><span
@@ -118,8 +167,8 @@
 													</g>
 												</svg></span><span class="kt-menu__link-text">Cálculo de Nómina</span></a></li>
 
-												<li class="kt-menu__item " aria-haspopup="true"><a
-													href="#" th:href="@{/adminDesprendiblesNomina}" class="kt-menu__link "><span
+													<!-- 	<li class="kt-menu__item " aria-haspopup="true"><a
+													href="#" th:href="@{/adminHorasExtras}" class="kt-menu__link "><span
 														class="kt-menu__link-icon"><svg
 																xmlns="http://www.w3.org/2000/svg"
 																xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
@@ -135,9 +184,8 @@
 																	d="M3.79274528,6.57253826 L12,12.5 L20.2072547,6.57253826 C20.4311176,6.4108595 20.7436609,6.46126971 20.9053396,6.68513259 C20.9668779,6.77033951 21,6.87277228 21,6.97787787 L21,17 C21,18.1045695 20.1045695,19 19,19 L5,19 C3.8954305,19 3,18.1045695 3,17 L3,6.97787787 C3,6.70173549 3.22385763,6.47787787 3.5,6.47787787 C3.60510559,6.47787787 3.70753836,6.51099993 3.79274528,6.57253826 Z"
 																	fill="#000000" />
 													</g>
-												</svg></span><span class="kt-menu__link-text">Desprendibles de
-															Nómina</span></a></li>
-
+												</svg></span><span class="kt-menu__link-text">Consulta Horas Extras</span></a></li>  --> 
+												
 												<li class="kt-menu__item " aria-haspopup="true"><a
 													href="#" th:href="@{/adminConsultaNomina}" class="kt-menu__link "><span
 														class="kt-menu__link-icon"><svg
@@ -167,11 +215,11 @@
 														<rect fill="#000000" opacity="0.3" x="10" y="17" width="7"
 																	height="2" rx="1" />
 													</g>
-												</svg></span><span class="kt-menu__link-text">Consulta</span></a></li>
+												</svg></span><span class="kt-menu__link-text">Consulta de Nómina</span></a></li>
 											</ul>
 										</div></li>
 
-									<li
+									<li th:if="${(trabajador.usuario.authority[0].authority == 'ROLE_ADMIN') || (trabajador.usuario.authority[0].authority == 'ROLE_AUXPATIO')}"
 										class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel"
 										data-ktmenu-submenu-toggle="click" aria-haspopup="true"><a
 										href="javascript:;" class="kt-menu__link kt-menu__toggle"><span
@@ -181,7 +229,7 @@
 											class="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--left">
 											<ul class="kt-menu__subnav">
 
-												<li class="kt-menu__item " aria-haspopup="true"><a
+												<li class="kt-menu__item " aria-haspopup="true" th:if="${(trabajador.usuario.authority[0].authority == 'ROLE_ADMIN')}"><a
 													href="#" th:href="@{/adminAdicionTrabajador}" class="kt-menu__link "><span
 														class="kt-menu__link-icon"><svg
 																xmlns="http://www.w3.org/2000/svg"
@@ -197,7 +245,7 @@
 													</g>
 												</svg></span><span class="kt-menu__link-text">Adición Trabajador</span></a></li>
 
-												<li class="kt-menu__item " aria-haspopup="true"><a
+												<li class="kt-menu__item " aria-haspopup="true" th:if="${(trabajador.usuario.authority[0].authority == 'ROLE_ADMIN') || (trabajador.usuario.authority[0].authority == 'ROLE_AUXPATIO')}"><a
 													href="#" th:href="@{/adminListUser}" class="kt-menu__link "><span
 														class="kt-menu__link-icon"><svg
 																xmlns="http://www.w3.org/2000/svg"
@@ -215,29 +263,10 @@
 																	fill="#000000" />
 													</g>
 												</svg></span><span class="kt-menu__link-text">Consulta & Detalle</span></a></li>
-
-												<li class="kt-menu__item " aria-haspopup="true"><a
-													href="#" th:href="@{/horarios}" class="kt-menu__link "><span
-														class="kt-menu__link-icon"><svg
-																xmlns="http://www.w3.org/2000/svg"
-																xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
-																height="24px" viewBox="0 0 24 24" version="1.1"
-																class="kt-svg-icon">
-													<g stroke="none" stroke-width="1" fill="none"
-																	fill-rule="evenodd">
-														<polygon points="0 0 24 0 24 24 0 24"></polygon>
-														<path
-																	d="M18,14 C16.3431458,14 15,12.6568542 15,11 C15,9.34314575 16.3431458,8 18,8 C19.6568542,8 21,9.34314575 21,11 C21,12.6568542 19.6568542,14 18,14 Z M9,11 C6.790861,11 5,9.209139 5,7 C5,4.790861 6.790861,3 9,3 C11.209139,3 13,4.790861 13,7 C13,9.209139 11.209139,11 9,11 Z"
-																	fill="#000000" fill-rule="nonzero" opacity="0.3"></path>
-														<path
-																	d="M17.6011961,15.0006174 C21.0077043,15.0378534 23.7891749,16.7601418 23.9984937,20.4 C24.0069246,20.5466056 23.9984937,21 23.4559499,21 L19.6,21 C19.6,18.7490654 18.8562935,16.6718327 17.6011961,15.0006174 Z M0.00065168429,20.1992055 C0.388258525,15.4265159 4.26191235,13 8.98334134,13 C13.7712164,13 17.7048837,15.2931929 17.9979143,20.2 C18.0095879,20.3954741 17.9979143,21 17.2466999,21 C13.541124,21 8.03472472,21 0.727502227,21 C0.476712155,21 -0.0204617505,20.45918 0.00065168429,20.1992055 Z"
-																	fill="#000000" fill-rule="nonzero"></path>
-													</g>
-												</svg></span><span class="kt-menu__link-text">Horarios</span></a></li>
 											</ul>
 										</div></li>
 										
-										<li
+										<li th:if="${(trabajador.usuario.authority[0].authority == 'ROLE_ADMIN') || (trabajador.usuario.authority[0].authority == 'ROLE_GEROP')}"
 										class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel"
 										data-ktmenu-submenu-toggle="click" aria-haspopup="true"><a
 										href="javascript:;" class="kt-menu__link kt-menu__toggle"><span
@@ -246,10 +275,28 @@
 										<div
 											class="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--left">
 											<ul class="kt-menu__subnav">
+												<li class="kt-menu__item " aria-haspopup="true" th:if="${(trabajador.usuario.authority[0].authority == 'ROLE_ADMIN')}">
+													<a href="#" th:href="@{/dashBoardClientes}"
+													class="kt-menu__link "><span class="kt-menu__link-icon"><svg
+																xmlns="http://www.w3.org/2000/svg"
+																xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+																height="24px" viewBox="0 0 24 24" version="1.1"
+																class="kt-svg-icon">
+													<g stroke="none" stroke-width="1" fill="none"
+																	fill-rule="evenodd">
+														<rect x="0" y="0" width="24" height="24" />
+														<path
+																	d="M4,9.67471899 L10.880262,13.6470401 C10.9543486,13.689814 11.0320333,13.7207107 11.1111111,13.740321 L11.1111111,21.4444444 L4.49070127,17.526473 C4.18655139,17.3464765 4,17.0193034 4,16.6658832 L4,9.67471899 Z M20,9.56911707 L20,16.6658832 C20,17.0193034 19.8134486,17.3464765 19.5092987,17.526473 L12.8888889,21.4444444 L12.8888889,13.6728275 C12.9050191,13.6647696 12.9210067,13.6561758 12.9368301,13.6470401 L20,9.56911707 Z"
+																	fill="#000000" />
+														<path
+																	d="M4.21611835,7.74669402 C4.30015839,7.64056877 4.40623188,7.55087574 4.5299008,7.48500698 L11.5299008,3.75665466 C11.8237589,3.60013944 12.1762411,3.60013944 12.4700992,3.75665466 L19.4700992,7.48500698 C19.5654307,7.53578262 19.6503066,7.60071528 19.7226939,7.67641889 L12.0479413,12.1074394 C11.9974761,12.1365754 11.9509488,12.1699127 11.9085461,12.2067543 C11.8661433,12.1699127 11.819616,12.1365754 11.7691509,12.1074394 L4.21611835,7.74669402 Z"
+																	fill="#000000" opacity="0.3" />
+													</g>
+												</svg></span><span class="kt-menu__link-text">Dashboard Clientes</span></a></li>
 
 												<li class="kt-menu__item " aria-haspopup="true"><a
-													href="#" th:href="@{/adicionCliente}" class="kt-menu__link "><span
-														class="kt-menu__link-icon"><svg
+													href="#" th:href="@{/adicionCliente}"
+													class="kt-menu__link "><span class="kt-menu__link-icon"><svg
 																xmlns="http://www.w3.org/2000/svg"
 																xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
 																height="24px" viewBox="0 0 24 24" version="1.1"
@@ -289,28 +336,11 @@
 
 						<!-- end: Header Menu -->
 
-						
+
 						<!-- begin:: Header Topbar -->
 						<div class="kt-header__topbar kt-grid__item">
 
-							
-							<!--begin: Quick panel toggler -->
-							<div class="kt-header__topbar-item kt-header__topbar-item--quick-panel" data-toggle="kt-tooltip" title="Panel" data-placement="right">
-								<div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,0px">
-									<span class="kt-header__topbar-icon" id="kt_quick_panel_toggler_btn">
-										<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
-											<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-												<rect x="0" y="0" width="24" height="24" />
-												<rect fill="#000000" x="4" y="4" width="7" height="7" rx="1.5" />
-												<path d="M5.5,13 L9.5,13 C10.3284271,13 11,13.6715729 11,14.5 L11,18.5 C11,19.3284271 10.3284271,20 9.5,20 L5.5,20 C4.67157288,20 4,19.3284271 4,18.5 L4,14.5 C4,13.6715729 4.67157288,13 5.5,13 Z M14.5,4 L18.5,4 C19.3284271,4 20,4.67157288 20,5.5 L20,9.5 C20,10.3284271 19.3284271,11 18.5,11 L14.5,11 C13.6715729,11 13,10.3284271 13,9.5 L13,5.5 C13,4.67157288 13.6715729,4 14.5,4 Z M14.5,13 L18.5,13 C19.3284271,13 20,13.6715729 20,14.5 L20,18.5 C20,19.3284271 19.3284271,20 18.5,20 L14.5,20 C13.6715729,20 13,19.3284271 13,18.5 L13,14.5 C13,13.6715729 13.6715729,13 14.5,13 Z" fill="#000000" opacity="0.3" />
-											</g>
-										</svg> </span>
-									</div>
-								</div>
-
-								<!--end: Quick panel toggler -->
-
-								<!--begin: User bar -->
+							<!--begin: User bar -->
 								<div class="kt-header__topbar-item kt-header__topbar-item--user">
 									<div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,0px">
 										<span class="kt-header__topbar-welcome">Hola,</span>
@@ -337,7 +367,7 @@
 
 										<!--begin: Navigation -->
 										<div class="kt-notification">
-											<a th:href="@{/detalleUser}" class="kt-notification__item">
+											<a th:href="@{'/adminDetalleUser/' + ${trabajador.id} }" class="kt-notification__item">
 												<div class="kt-notification__item-icon">
 													<i class="flaticon2-calendar-3 kt-font-success"></i>
 												</div>
@@ -377,54 +407,45 @@
 								</div>
 
 								<!--end: User bar -->
-							</div>
-
-							<!-- end:: Header Topbar -->
 						</div>
+
+						<!-- end:: Header Topbar -->
 					</div>
+				</div>
 
-					<!-- end:: Header -->
-					<div class="kt-body kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-grid--stretch" id="kt_body">
-						<div class="kt-content kt-content--fit-top  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
+				<!-- end:: Header -->
+				<div
+					class="kt-body kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-grid--stretch"
+					id="kt_body">
+					<div
+						class="kt-content kt-content--fit-top  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor"
+						id="kt_content">
 
-							<!-- begin:: Subheader -->
-							<div class="kt-subheader   kt-grid__item" id="kt_subheader">
-								<div class="kt-container ">
-									<div class="kt-subheader__main">
-										<h3 class="kt-subheader__title">
-											<button class="kt-subheader__mobile-toggle kt-subheader__mobile-toggle--left" id="kt_subheader_mobile_toggle"><span></span></button>
-										Consulta & Detalle </h3>
-										<div class="kt-subheader__breadcrumbs">
-											<a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
-											<span class="kt-subheader__breadcrumbs-separator"></span>
-											<a href="" class="kt-subheader__breadcrumbs-link">
-											Detalle Trabajador </a>
-											<span class="kt-subheader__breadcrumbs-separator"></span>
-										</div>
+						<!-- begin:: Subheader -->
+						<div class="kt-subheader   kt-grid__item" id="kt_subheader">
+							<div class="kt-container ">
+								<div class="kt-subheader__main">
+									<h3 class="kt-subheader__title">Mi Perfil</h3>
+									<div class="kt-subheader__breadcrumbs">
+										<a href="#" class="kt-subheader__breadcrumbs-home"><i
+											class="flaticon2-shelter"></i></a> <span
+											class="kt-subheader__breadcrumbs-separator"></span> <a
+											href="" class="kt-subheader__breadcrumbs-link"> Detalle de Trabajador
+										</a>
 									</div>
-									<div class="kt-subheader__toolbar">
-										<div class="kt-subheader__wrapper">
-											<a href="#" class="btn kt-subheader__btn-secondary">
-												Visitar Sitio Web
-											</a>
-											<div class="dropdown dropdown-inline" data-toggle="kt-tooltip" title="Acciones Rápidas" data-placement="top">
-												<a href="#" class="btn btn-danger kt-subheader__btn-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-													Opciones
-												</a>
-												<div class="dropdown-menu dropdown-menu-right">
-													<!--<a class="dropdown-item" href="#"><i class="la la-plus"></i> Adición Trabajador</a>-->
-													<div class="dropdown-divider"></div>
-													<a class="dropdown-item" href="#"><i class="la la-cog"></i> Configuración</a>
-												</div>
-											</div>
-										</div>
+								</div>
+								<div class="kt-subheader__toolbar">
+									<div class="kt-subheader__wrapper">
+										<a href="https://edscogua.online/" class="btn kt-subheader__btn-secondary">
+											Visitar Sitio Web </a>
 									</div>
 								</div>
 							</div>
+						</div>
 
-							<!-- end:: Subheader -->
-							
-							<div class="modal fade" id="kt_modal_4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<!-- end:: Subheader -->
+						
+						<div class="modal fade" id="kt_modal_4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 												<div class="modal-dialog modal-lg" role="document">
 													<div class="modal-content">
 														<div class="modal-header">
@@ -450,8 +471,8 @@
 														</form>
 													</div>
 												</div>
-						    </div>
-
+					 </div>
+						    
 							<!-- begin:: Content -->
 							<div class="kt-container  kt-grid__item kt-grid__item--fluid">
 
@@ -493,15 +514,25 @@
 													  <div th:if="${param.passError}" class="alert alert-danger" role="alert">La contraseña actual indicada no es la correcta y por ende no se ha cambiado la contraseña</div>
 										              <div th:if="${param.passExito}" class="alert alert-success" role="alert">Ha modificado correctamente la contraseña.</div>
 														
-														<div th:if="${userDetalle.usuario.enabled}">
-														   <form  method="post" th:action="@{'/retirarTrabajador/' + ${userDetalle.id}}">
+														<div th:if="${trabajador.usuario.authority[0].authority == 'ROLE_ADMIN'}">
+															<div th:if="${userDetalle.usuario.enabled}">
+															   <form  method="post" th:action="@{'/retirarTrabajador/' + ${userDetalle.id}}">
+																	<button type="submit" class="btn btn-primary" style="width:100%">
+																		Retirar Trabajador
+																	</button>
+																</form>
+															</div>
+															<div th:unless="${userDetalle.usuario.enabled}">
+															   El trabajador está inhabilitado
+															</div>
+														</div>
+														<br>
+														<div th:if="${trabajador.usuario.authority[0].authority == 'ROLE_ADMIN'}">
+														   <form  method="get" th:action="@{'/adminEditarTrabajador/' + ${userDetalle.id}}">
 																<button type="submit" class="btn btn-primary" style="width:100%">
-																	Retirar Trabajador
+																	Editar Trabajador
 																</button>
 															</form>
-														</div>
-														<div th:unless="${userDetalle.usuario.enabled}">
-														   El trabajador está inhabilitado
 														</div>
 														
 													</div>
@@ -673,19 +704,19 @@
 																		<div class="kt-widget28__tab-items">
 																			<div class="kt-widget28__tab-item">
 																				<span>Salario Base</span>
-																				<span th:text="${'$' + #numbers.formatDecimal(userDetalle.nominaTrabajador.salarioBase, 0, 'COMMA', 2, 'POINT')}"></span>
+																				<span th:text="${'$' + #numbers.formatDecimal(userDetalle.nominaTrabajador.salarioBase, 1, 'COMMA', 2, 'POINT')}"></span>
 																			</div>
 																			<div class="kt-widget28__tab-item">
 																				<span>Auxilio Transporte</span>
-																				<span th:text="${'$' + #numbers.formatDecimal(userDetalle.nominaTrabajador.auxilioTransporte, 0, 'COMMA', 2, 'POINT')}"></span>
+																				<span th:text="${'$' + #numbers.formatDecimal(userDetalle.nominaTrabajador.auxilioTransporte, 1, 'COMMA', 2, 'POINT')}"></span>
 																			</div>
 																			<div class="kt-widget28__tab-item">
 																				<span>Descuentos</span>
-																				<span th:text="${'$' + #numbers.formatDecimal(userDetalle.nominaTrabajador.descuentosSalario, 0, 'COMMA', 2, 'POINT') }"></span>
+																				<span th:text="${'$' + #numbers.formatDecimal(userDetalle.nominaTrabajador.descuentosSalario, 1, 'COMMA', 2, 'POINT') }"></span>
 																			</div>
 																			<div class="kt-widget28__tab-item">
 																				<span>Extras</span>
-																				<span th:text="${'$' + #numbers.formatDecimal(userDetalle.nominaTrabajador.gananciasExtra, 0, 'COMMA', 2, 'POINT')}"></span>
+																				<span th:text="${'$' + #numbers.formatDecimal(userDetalle.nominaTrabajador.gananciasExtra, 1, 'COMMA', 2, 'POINT')}"></span>
 																			</div>
 																		</div>
 																	</div>
@@ -737,176 +768,7 @@
 
 											</div>
 										</div>
-										<div class="row">
-											<div class="col-xl-12">
-												<!--Begin::Portlet-->
-												<div class="kt-portlet kt-portlet--height-fluid">
-													<div class="kt-portlet__head">
-														<div class="kt-portlet__head-label">
-															<h3 class="kt-portlet__head-title">
-																Flujo Trabajo
-															</h3>
-														</div>
-														<div class="kt-portlet__head-toolbar">
-															<div class="dropdown dropdown-inline">
-																<button type="button" class="btn btn-clean btn-sm btn-icon btn-icon-md" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-																	<i class="flaticon-more-1"></i>
-																</button>
-																<div class="dropdown-menu dropdown-menu-right dropdown-menu-fit dropdown-menu-md">
-
-																	<!--begin::Nav-->
-																	<ul class="kt-nav">
-																		<li class="kt-nav__head">
-																			Export Options
-																			<span data-toggle="kt-tooltip" data-placement="right" title="Click to learn more...">
-																				<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon kt-svg-icon--brand kt-svg-icon--md1">
-																					<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-																						<rect x="0" y="0" width="24" height="24" />
-																						<circle fill="#000000" opacity="0.3" cx="12" cy="12" r="10" />
-																						<rect fill="#000000" x="11" y="10" width="2" height="7" rx="1" />
-																						<rect fill="#000000" x="11" y="7" width="2" height="2" rx="1" />
-																					</g>
-																				</svg> </span>
-																			</li>
-																			<li class="kt-nav__separator"></li>
-																			<li class="kt-nav__item">
-																				<a href="#" class="kt-nav__link">
-																					<i class="kt-nav__link-icon flaticon2-drop"></i>
-																					<span class="kt-nav__link-text">Activity</span>
-																				</a>
-																			</li>
-																			<li class="kt-nav__item">
-																				<a href="#" class="kt-nav__link">
-																					<i class="kt-nav__link-icon flaticon2-calendar-8"></i>
-																					<span class="kt-nav__link-text">FAQ</span>
-																				</a>
-																			</li>
-																			<li class="kt-nav__item">
-																				<a href="#" class="kt-nav__link">
-																					<i class="kt-nav__link-icon flaticon2-telegram-logo"></i>
-																					<span class="kt-nav__link-text">Settings</span>
-																				</a>
-																			</li>
-																			<li class="kt-nav__item">
-																				<a href="#" class="kt-nav__link">
-																					<i class="kt-nav__link-icon flaticon2-new-email"></i>
-																					<span class="kt-nav__link-text">Support</span>
-																					<span class="kt-nav__link-badge">
-																						<span class="kt-badge kt-badge--success kt-badge--rounded">5</span>
-																					</span>
-																				</a>
-																			</li>
-																			<li class="kt-nav__separator"></li>
-																			<li class="kt-nav__foot">
-																				<a class="btn btn-label-danger btn-bold btn-sm" href="#">Upgrade plan</a>
-																				<a class="btn btn-clean btn-bold btn-sm" href="#" data-toggle="kt-tooltip" data-placement="right" title="Click to learn more...">Learn more</a>
-																			</li>
-																		</ul>
-
-																		<!--end::Nav-->
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="kt-portlet__body">
-
-															<!--Begin::Timeline 3 -->
-															<div class="kt-timeline-v2">
-																<div class="kt-timeline-v2__items  kt-padding-top-25 kt-padding-bottom-30">
-																	<div class="kt-timeline-v2__item">
-																		<span class="kt-timeline-v2__item-time">10:00</span>
-																		<div class="kt-timeline-v2__item-cricle">
-																			<i class="fa fa-genderless kt-font-danger"></i>
-																		</div>
-																		<div class="kt-timeline-v2__item-text  kt-padding-top-5">
-																			Lorem ipsum dolor sit amit,consectetur eiusmdd tempor<br>
-																			incididunt ut labore et dolore magna
-																		</div>
-																	</div>
-																	<div class="kt-timeline-v2__item">
-																		<span class="kt-timeline-v2__item-time">12:45</span>
-																		<div class="kt-timeline-v2__item-cricle">
-																			<i class="fa fa-genderless kt-font-success"></i>
-																		</div>
-																		<div class="kt-timeline-v2__item-text kt-timeline-v2__item-text--bold">
-																			AEOL Meeting With
-																		</div>
-																		<div class="kt-list-pics kt-list-pics--sm kt-padding-l-20">
-																			<a href="#"><img src="/media/users/100_4.jpg" th:src="@{/media/users/100_4.jpg}" title=""></a>
-																			<a href="#"><img src="/media/users/100_13.jpg" th:src="@{/media/users/100_13.jpg}" title=""></a>
-																			<a href="#"><img src="/media/users/100_11.jpg" th:src="@{/media/users/100_11.jpg}" title=""></a>
-																			<a href="#"><img src="/media/users/100_14.jpg" th:src="@{/media/users/100_14.jpg}" title=""></a>
-																		</div>
-																	</div>
-																	<div class="kt-timeline-v2__item">
-																		<span class="kt-timeline-v2__item-time">14:00</span>
-																		<div class="kt-timeline-v2__item-cricle">
-																			<i class="fa fa-genderless kt-font-brand"></i>
-																		</div>
-																		<div class="kt-timeline-v2__item-text kt-padding-top-5">
-																			Make Deposit <a href="#" class="kt-link kt-link--brand kt-font-bolder">USD 700</a> To ESL.
-																		</div>
-																	</div>
-																	<div class="kt-timeline-v2__item">
-																		<span class="kt-timeline-v2__item-time">16:00</span>
-																		<div class="kt-timeline-v2__item-cricle">
-																			<i class="fa fa-genderless kt-font-warning"></i>
-																		</div>
-																		<div class="kt-timeline-v2__item-text kt-padding-top-5">
-																			Lorem ipsum dolor sit amit,consectetur eiusmdd tempor<br>
-																			incididunt ut labore et dolore magna elit enim at minim<br>
-																			veniam quis nostrud
-																		</div>
-																	</div>
-																	<div class="kt-timeline-v2__item">
-																		<span class="kt-timeline-v2__item-time">17:00</span>
-																		<div class="kt-timeline-v2__item-cricle">
-																			<i class="fa fa-genderless kt-font-info"></i>
-																		</div>
-																		<div class="kt-timeline-v2__item-text kt-padding-top-5">
-																			Placed a new order in <a href="#" class="kt-link kt-link--brand kt-font-bolder">SIGNATURE MOBILE</a> marketplace.
-																		</div>
-																	</div>
-																	<div class="kt-timeline-v2__item">
-																		<span class="kt-timeline-v2__item-time">16:00</span>
-																		<div class="kt-timeline-v2__item-cricle">
-																			<i class="fa fa-genderless kt-font-brand"></i>
-																		</div>
-																		<div class="kt-timeline-v2__item-text kt-padding-top-5">
-																			Lorem ipsum dolor sit amit,consectetur eiusmdd tempor<br>
-																			incididunt ut labore et dolore magna elit enim at minim<br>
-																			veniam quis nostrud
-																		</div>
-																	</div>
-																	<div class="kt-timeline-v2__item">
-																		<span class="kt-timeline-v2__item-time">17:00</span>
-																		<div class="kt-timeline-v2__item-cricle">
-																			<i class="fa fa-genderless kt-font-danger"></i>
-																		</div>
-																		<div class="kt-timeline-v2__item-text kt-padding-top-5">
-																			Received a new feedback on <a href="#" class="kt-link kt-link--brand kt-font-bolder">FinancePro App</a> product.
-																		</div>
-																	</div>
-																	<div class="kt-timeline-v2__item">
-																		<span class="kt-timeline-v2__item-time">15:30</span>
-																		<div class="kt-timeline-v2__item-cricle">
-																			<i class="fa fa-genderless kt-font-danger"></i>
-																		</div>
-																		<div class="kt-timeline-v2__item-text kt-padding-top-5">
-																			New notification message has been received on <a href="#" class="kt-link kt-link--brand kt-font-bolder">LoopFin Pro</a> product.
-																		</div>
-																	</div>
-																</div>
-															</div>
-
-															<!--End::Timeline 3 -->
-														</div>
-													</div>
-
-													<!--End::Portlet-->
-
-												</div>
-											</div>
+										
 										</div>
 
 										<!--End:: App Content-->
@@ -921,322 +783,36 @@
 
 
 						<!-- begin:: Footer -->
-						<div class="kt-footer  kt-footer--extended  kt-grid__item" id="kt_footer" th:style="'background-image: url( ' + @{/media/bg/bg-2.jpg} + ');'">
-							<div class="kt-footer__bottom">
-								<div class="kt-container ">
-									<div class="kt-footer__wrapper">
-										<div class="kt-footer__logo">
-											<a class="kt-header__brand-logo" href="?page=index&amp;demo=demo2">
-												<img alt="Logo" src="/media/logos/logo.png" th:src="@{/media/logos/logo.png}" class="kt-header__brand-logo-sticky">
-											</a>
-											<div class="kt-footer__copyright">
+										<div class="kt-footer  kt-footer--extended  kt-grid__item"
+											id="kt_footer"
+											th:style="'background-image: url(' + @{/media/bg/bg-2.jpg}  + ');'">
+											<div class="kt-footer__bottom">
+												<div class="kt-container ">
+													<div class="kt-footer__wrapper">
+														<div class="kt-footer__logo">
+															<a class="kt-header__brand-logo"
+																href="?page=index&amp;demo=demo2"> <img alt="Logo"
+																src="/media/logos/logo.png"
+																class="kt-header__brand-logo-sticky"
+																th:src="@{/media/logos/logo.png}">
+															</a>
+															<div class="kt-footer__copyright"></div>
+														</div>
+														<div class="kt-footer__menu">
+															<a th:href="@{/privacidad}">Privacidad</a> 
+															<a href="https://edscogua.online/" target="_blank">Contacto</a>
+														</div>
+													</div>
+												</div>
 											</div>
 										</div>
-										<div class="kt-footer__menu">
-											<a href="#" target="_blank">Privacidad</a>
-											<a href="#" target="_blank">Contacto</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<!-- end:: Footer -->
+			
+							<!-- end:: Footer -->
 					</div>
 				</div>
 			</div>
 
 			<!-- end:: Page -->
-
-
-			<!-- begin::Quick Panel -->
-			<div id="kt_quick_panel" class="kt-quick-panel">
-				<a href="#" class="kt-quick-panel__close" id="kt_quick_panel_close_btn"><i class="flaticon2-delete"></i></a>
-				<div class="kt-quick-panel__nav">
-					<ul class="nav nav-tabs nav-tabs-line nav-tabs-bold nav-tabs-line-3x nav-tabs-line-brand  kt-notification-item-padding-x" role="tablist">
-						<li class="nav-item active">
-							<a class="nav-link active" data-toggle="tab" href="#kt_quick_panel_tab_notifications" role="tab">Notificaciones</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" data-toggle="tab" href="#kt_quick_panel_tab_logs" role="tab">Auditoría</a>
-						</li>
-					</ul>
-				</div>
-				<div class="kt-quick-panel__content">
-					<div class="tab-content">
-						<div class="tab-pane fade show kt-scroll active" id="kt_quick_panel_tab_notifications" role="tabpanel">
-							<div class="kt-notification">
-								<a href="#" class="kt-notification__item">
-									<div class="kt-notification__item-icon">
-										<i class="flaticon2-line-chart kt-font-success"></i>
-									</div>
-									<div class="kt-notification__item-details">
-										<div class="kt-notification__item-title">
-											New order has been received
-										</div>
-										<div class="kt-notification__item-time">
-											2 hrs ago
-										</div>
-									</div>
-								</a>
-								<a href="#" class="kt-notification__item">
-									<div class="kt-notification__item-icon">
-										<i class="flaticon2-box-1 kt-font-brand"></i>
-									</div>
-									<div class="kt-notification__item-details">
-										<div class="kt-notification__item-title">
-											New customer is registered
-										</div>
-										<div class="kt-notification__item-time">
-											3 hrs ago
-										</div>
-									</div>
-								</a>
-								<a href="#" class="kt-notification__item">
-									<div class="kt-notification__item-icon">
-										<i class="flaticon2-chart2 kt-font-danger"></i>
-									</div>
-									<div class="kt-notification__item-details">
-										<div class="kt-notification__item-title">
-											Application has been approved
-										</div>
-										<div class="kt-notification__item-time">
-											3 hrs ago
-										</div>
-									</div>
-								</a>
-								<a href="#" class="kt-notification__item">
-									<div class="kt-notification__item-icon">
-										<i class="flaticon2-image-file kt-font-warning"></i>
-									</div>
-									<div class="kt-notification__item-details">
-										<div class="kt-notification__item-title">
-											New file has been uploaded
-										</div>
-										<div class="kt-notification__item-time">
-											5 hrs ago
-										</div>
-									</div>
-								</a>
-								<a href="#" class="kt-notification__item">
-									<div class="kt-notification__item-icon">
-										<i class="flaticon2-drop kt-font-info"></i>
-									</div>
-									<div class="kt-notification__item-details">
-										<div class="kt-notification__item-title">
-											New user feedback received
-										</div>
-										<div class="kt-notification__item-time">
-											8 hrs ago
-										</div>
-									</div>
-								</a>
-								<a href="#" class="kt-notification__item">
-									<div class="kt-notification__item-icon">
-										<i class="flaticon2-pie-chart-2 kt-font-success"></i>
-									</div>
-									<div class="kt-notification__item-details">
-										<div class="kt-notification__item-title">
-											System reboot has been successfully completed
-										</div>
-										<div class="kt-notification__item-time">
-											12 hrs ago
-										</div>
-									</div>
-								</a>
-								<a href="#" class="kt-notification__item">
-									<div class="kt-notification__item-icon">
-										<i class="flaticon2-favourite kt-font-danger"></i>
-									</div>
-									<div class="kt-notification__item-details">
-										<div class="kt-notification__item-title">
-											New order has been placed
-										</div>
-										<div class="kt-notification__item-time">
-											15 hrs ago
-										</div>
-									</div>
-								</a>
-								<a href="#" class="kt-notification__item kt-notification__item--read">
-									<div class="kt-notification__item-icon">
-										<i class="flaticon2-safe kt-font-primary"></i>
-									</div>
-									<div class="kt-notification__item-details">
-										<div class="kt-notification__item-title">
-											Company meeting canceled
-										</div>
-										<div class="kt-notification__item-time">
-											19 hrs ago
-										</div>
-									</div>
-								</a>
-								<a href="#" class="kt-notification__item">
-									<div class="kt-notification__item-icon">
-										<i class="flaticon2-psd kt-font-success"></i>
-									</div>
-									<div class="kt-notification__item-details">
-										<div class="kt-notification__item-title">
-											New report has been received
-										</div>
-										<div class="kt-notification__item-time">
-											23 hrs ago
-										</div>
-									</div>
-								</a>
-								<a href="#" class="kt-notification__item">
-									<div class="kt-notification__item-icon">
-										<i class="flaticon-download-1 kt-font-danger"></i>
-									</div>
-									<div class="kt-notification__item-details">
-										<div class="kt-notification__item-title">
-											Finance report has been generated
-										</div>
-										<div class="kt-notification__item-time">
-											25 hrs ago
-										</div>
-									</div>
-								</a>
-								<a href="#" class="kt-notification__item">
-									<div class="kt-notification__item-icon">
-										<i class="flaticon-security kt-font-warning"></i>
-									</div>
-									<div class="kt-notification__item-details">
-										<div class="kt-notification__item-title">
-											New customer comment recieved
-										</div>
-										<div class="kt-notification__item-time">
-											2 days ago
-										</div>
-									</div>
-								</a>
-								<a href="#" class="kt-notification__item">
-									<div class="kt-notification__item-icon">
-										<i class="flaticon2-pie-chart kt-font-warning"></i>
-									</div>
-									<div class="kt-notification__item-details">
-										<div class="kt-notification__item-title">
-											New customer is registered
-										</div>
-										<div class="kt-notification__item-time">
-											3 days ago
-										</div>
-									</div>
-								</a>
-							</div>
-						</div>
-						<div class="tab-pane fade kt-scroll" id="kt_quick_panel_tab_logs" role="tabpanel">
-							<div class="kt-notification-v2">
-								<a href="#" class="kt-notification-v2__item">
-									<div class="kt-notification-v2__item-icon">
-										<i class="flaticon-bell kt-font-brand"></i>
-									</div>
-									<div class="kt-notification-v2__itek-wrapper">
-										<div class="kt-notification-v2__item-title">
-											5 new user generated report
-										</div>
-										<div class="kt-notification-v2__item-desc">
-											Reports based on sales
-										</div>
-									</div>
-								</a>
-								<a href="#" class="kt-notification-v2__item">
-									<div class="kt-notification-v2__item-icon">
-										<i class="flaticon2-box kt-font-danger"></i>
-									</div>
-									<div class="kt-notification-v2__itek-wrapper">
-										<div class="kt-notification-v2__item-title">
-											2 new items submited
-										</div>
-										<div class="kt-notification-v2__item-desc">
-											by Grog John
-										</div>
-									</div>
-								</a>
-								<a href="#" class="kt-notification-v2__item">
-									<div class="kt-notification-v2__item-icon">
-										<i class="flaticon-psd kt-font-brand"></i>
-									</div>
-									<div class="kt-notification-v2__itek-wrapper">
-										<div class="kt-notification-v2__item-title">
-											79 PSD files generated
-										</div>
-										<div class="kt-notification-v2__item-desc">
-											Reports based on sales
-										</div>
-									</div>
-								</a>
-								<a href="#" class="kt-notification-v2__item">
-									<div class="kt-notification-v2__item-icon">
-										<i class="flaticon2-supermarket kt-font-warning"></i>
-									</div>
-									<div class="kt-notification-v2__itek-wrapper">
-										<div class="kt-notification-v2__item-title">
-											$2900 worth producucts sold
-										</div>
-										<div class="kt-notification-v2__item-desc">
-											Total 234 items
-										</div>
-									</div>
-								</a>
-								<a href="#" class="kt-notification-v2__item">
-									<div class="kt-notification-v2__item-icon">
-										<i class="flaticon-paper-plane-1 kt-font-success"></i>
-									</div>
-									<div class="kt-notification-v2__itek-wrapper">
-										<div class="kt-notification-v2__item-title">
-											4.5h-avarage response time
-										</div>
-										<div class="kt-notification-v2__item-desc">
-											Fostest is Barry
-										</div>
-									</div>
-								</a>
-								<a href="#" class="kt-notification-v2__item">
-									<div class="kt-notification-v2__item-icon">
-										<i class="flaticon2-information kt-font-danger"></i>
-									</div>
-									<div class="kt-notification-v2__itek-wrapper">
-										<div class="kt-notification-v2__item-title">
-											Database server is down
-										</div>
-										<div class="kt-notification-v2__item-desc">
-											10 mins ago
-										</div>
-									</div>
-								</a>
-								<a href="#" class="kt-notification-v2__item">
-									<div class="kt-notification-v2__item-icon">
-										<i class="flaticon2-mail-1 kt-font-brand"></i>
-									</div>
-									<div class="kt-notification-v2__itek-wrapper">
-										<div class="kt-notification-v2__item-title">
-											System report has been generated
-										</div>
-										<div class="kt-notification-v2__item-desc">
-											Fostest is Barry
-										</div>
-									</div>
-								</a>
-								<a href="#" class="kt-notification-v2__item">
-									<div class="kt-notification-v2__item-icon">
-										<i class="flaticon2-hangouts-logo kt-font-warning"></i>
-									</div>
-									<div class="kt-notification-v2__itek-wrapper">
-										<div class="kt-notification-v2__item-title">
-											4.5h-avarage response time
-										</div>
-										<div class="kt-notification-v2__item-desc">
-											Fostest is Barry
-										</div>
-									</div>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<!-- end::Quick Panel -->
 
 			<!-- begin::Scrolltop -->
 			<div id="kt_scrolltop" class="kt-scrolltop">

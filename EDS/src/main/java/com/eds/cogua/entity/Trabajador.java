@@ -1,5 +1,7 @@
 package com.eds.cogua.entity;
 
+import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Trabajador
@@ -42,6 +46,10 @@ public class Trabajador
 	@Column(name="telefono")
 	private String telefono;
 	
+	@Column(name="FECHA_INGRESO")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date fechaIngreso;
+	
 	@JoinColumn(name="id_usuario",unique=true)
 	@OneToOne(cascade = CascadeType.ALL)
 	private Usuario usuario;
@@ -50,12 +58,58 @@ public class Trabajador
 	@OneToOne(cascade = CascadeType.ALL)
 	private NominaTrabajador nominaTrabajador;
 	
+	@Column(name="CD_USU_CRE")
+	private String cdUsuCre;
+	
+	@Column(name="CD_FE_CRE")
+	private Date cdFeCre;
+	
+	@Column(name="CD_USU_MO")
+	private String cdUsuMo;
+	
+	@Column(name="CD_FE_MO")
+	private Date cdFeMo;
+	
+	
 	public Trabajador()
 	{
 		usuario = new Usuario();
 		usuario.setEnabled(true);
-		
 		nominaTrabajador = new NominaTrabajador();
+		cdFeCre = new Date();
+		cdFeMo = new Date();
+	}
+
+	public String getCdUsuCre() {
+		return cdUsuCre;
+	}
+
+	public void setCdUsuCre(String cdUsuCre) {
+		this.cdUsuCre = cdUsuCre;
+	}
+
+	public Date getCdFeCre() {
+		return cdFeCre;
+	}
+
+	public void setCdFeCre(Date cdFeCre) {
+		this.cdFeCre = cdFeCre;
+	}
+
+	public String getCdUsuMo() {
+		return cdUsuMo;
+	}
+
+	public void setCdUsuMo(String cdUsuMo) {
+		this.cdUsuMo = cdUsuMo;
+	}
+
+	public Date getCdFeMo() {
+		return cdFeMo;
+	}
+
+	public void setCdFeMo(Date cdFeMo) {
+		this.cdFeMo = cdFeMo;
 	}
 
 	public Long getId() 
@@ -167,6 +221,17 @@ public class Trabajador
 	{
 		this.nominaTrabajador = nominaTrabajador;
 	}
+	
+	public Date getFechaIngreso() 
+	{
+		return fechaIngreso;
+	}
+
+	public void setFechaIngreso(Date fechaIngreso) 
+	{
+		this.fechaIngreso = fechaIngreso;
+	}
+
 
 
 }

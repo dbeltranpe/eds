@@ -1,5 +1,6 @@
 package com.eds.cogua.entity;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -20,7 +21,7 @@ public class RegistroNomina
 	private Long id;
 	
 	@Column(name="FECHA")
-	private Date fecha;
+	private LocalDate fecha;
 	
 	@JoinColumn(name="ID_TRABAJADOR",unique=true)
 	@OneToOne(cascade = CascadeType.ALL)
@@ -112,11 +113,11 @@ public class RegistroNomina
 		this.id = id;
 	}
 
-	public Date getFecha() {
+	public LocalDate getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Date fecha) {
+	public void setFecha(LocalDate fecha) {
 		this.fecha = fecha;
 	}
 

@@ -137,6 +137,13 @@
 										th:href="@{/calculoOP}" class="kt-menu__link"><span
 											class="kt-menu__link-text">Cálculo de Gasolina</span><i
 											class="kt-menu__ver-arrow la la-angle-right"></i></a></li>
+											
+											<li th:if="${(trabajador.usuario.authority[0].authority == 'ROLE_ISLERO') || (trabajador.usuario.authority[0].authority == 'ROLE_AUXPATIO')}"
+										class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel  "
+										data-ktmenu-submenu-toggle="click" aria-haspopup="true"><a
+										th:href="@{/reporteOP}" class="kt-menu__link"><span
+											class="kt-menu__link-text">Reconciliación Mensual</span><i
+											class="kt-menu__ver-arrow la la-angle-right"></i></a></li>
 						
 									<li th:if="${trabajador.usuario.authority[0].authority == 'ROLE_ADMIN'}"
 										class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel"
@@ -425,12 +432,12 @@
 						<div class="kt-subheader   kt-grid__item" id="kt_subheader">
 							<div class="kt-container ">
 								<div class="kt-subheader__main">
-									<h3 class="kt-subheader__title">Gestión de Trabajadores</h3>
+									<h3 class="kt-subheader__title">Inventario de Combustibles</h3>
 									<div class="kt-subheader__breadcrumbs">
 										<a href="#" class="kt-subheader__breadcrumbs-home"><i
 											class="flaticon2-shelter"></i></a> <span
 											class="kt-subheader__breadcrumbs-separator"></span> <a
-											href="" class="kt-subheader__breadcrumbs-link"> Consulta & Detalle
+											href="" class="kt-subheader__breadcrumbs-link"> Generación de Reporte
 										</a>
 									</div>
 								</div>
@@ -471,114 +478,132 @@
 														</form>
 													</div>
 												</div>
-						    </div>
+					 </div>
 						    
-						<!-- begin:: Content -->
-						<div class="kt-container  kt-grid__item kt-grid__item--fluid">
-						
-						<div id="search">
-						<div class="kt-section__content kt-section__content--solid--">
-														<div class="kt-searchbar">
-															<div class="input-group">
-																<div class="input-group-prepend"><span class="input-group-text" id="basic-addon1"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
-																			<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-																				<rect x="0" y="0" width="24" height="24" />
-																				<path d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />
-																				<path d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z" fill="#000000" fill-rule="nonzero" />
-																			</g>
-																		</svg></span></div>
-																
-																<input id="search-input" type="search" class="form-control" placeholder="Buscar">
-															</div>
-														</div>
+							<!-- begin:: Content -->
+							<div class="kt-container  kt-grid__item kt-grid__item--fluid">
+								<div class="row">
+									<div class="col-lg-12">
+										<!--begin::Portlet-->
+										<div class="kt-portlet kt-portlet--last kt-portlet--head-lg kt-portlet--responsive-mobile" id="kt_page_portlet">
+											<div class="kt-portlet__head kt-portlet__head--lg">
+												<div class="kt-portlet__head-label">
+													<h3 class="kt-portlet__head-title">TABLA DE RECONCILIACIÓN MENSUAL DE INVENTARIO DE COMBUSTIBLES</h3>
+												</div>
+												<div class="kt-portlet__head-toolbar">
+													<a th:href="@{/inicio}" class="btn btn-clean kt-margin-r-10">
+														<i class="la la-arrow-left"></i>
+														<span class="kt-hidden-mobile">Regresar</span>
+													</a>
+													<div class="btn-group">
+														<a id="dynamic-url" download="OPPDF.pdf" class="btn btn-brand" style="color:white">
+															<span class="kt-hidden-mobile">Descargar Reporte</span>
+														</a>
 													</div>
-							  <div>
-							  &nbsp;
-							  </div>
-
-
-								<div th:each="trabajadore: ${trabajadorList}">
-										<!--begin:: Portlet-->
-										<div class="content">
-										<div class="kt-portlet">
+												</div>
+											</div>
 											<div class="kt-portlet__body">
-												<div class="kt-widget kt-widget--user-profile-3">
-													<div class="kt-widget__top">
-														<div class="kt-widget__media kt-hidden-">
-															<img src="/media/users/100_1.jpg"
-																th:src="@{/media/users/default.jpg}" alt="image">
+												
+													<div class="row">
+														<div class="col-xl-2"></div>
+														<div class="col-xl-8">
+															<div class="kt-separator kt-separator--border-dashed kt-separator--space-lg"></div>
+															<div class="kt-section">
+																<div class="kt-section__body">
+																	<h3 class="kt-section__title kt-section__title-lg">Parámetros del Reporte</h3>
+																	
+																	<div class="form-group row">
+																		<label class="col-3 col-form-label">Mes</label>
+																		<div class="col-9">
+																			<select id="mes" class="form-control">
+																				<option value="1">Enero</option>
+																				<option value="2">Febrero</option>
+																				<option value="3">Marzo</option>
+																				<option value="4">Abril</option>
+																				<option value="5">Mayo</option>
+																				<option value="6">Junio</option>
+																				<option value="7">Julio</option>
+																				<option value="8">Agosto</option>
+																				<option value="9">Septiembre</option>
+																				<option value="10">Octubre</option>
+																				<option value="11">Noviembre</option>
+																				<option value="12">Diciembre</option>
+																			</select>
+																		</div>
+																	</div>
+																	
+																	<div class="form-group row">
+																		<label class="col-3 col-form-label">Mes</label>
+																		<div class="col-9">
+																			<select id="anio" class="form-control">
+																				<option value="2021">2021</option>
+																				<option value="2022">2022</option>
+																				<option value="2023">2023</option>
+																			</select>
+																		</div>
+																	</div>
+																	
+																	<div class="form-group row">
+																		<label class="col-3 col-form-label">Tanque</label>
+																		<div class="col-9">
+																			<select id="tanque" class="form-control">
+																				<option value="1">Gasolina Corriente</option>
+																				<option value="2">ACPM</option>
+																			</select>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<div class="kt-separator kt-separator--border-dashed kt-separator--space-lg"></div>
 														</div>
-														<div
-															class="kt-widget__pic kt-widget__pic--danger kt-font-danger kt-font-boldest kt-font-light kt-hidden">
-															JM</div>
-														<div class="kt-widget__content">
-															<div class="kt-widget__head">
-																<p class="title kt-widget__username" th:text="${trabajadore.nombres} + ' ' + ${trabajadore.apellidos}"> 
-																<i class="flaticon2-correct kt-font-success"></i>
-																</p>
-																<div class="kt-widget__action">
-																	<a class="btn btn-brand btn-sm btn-upper" th:href="@{'/horarioTrabajador/' + ${trabajadore.id}}">Horario</a>
-																	<a th:if="${trabajador.usuario.authority[0].authority == 'ROLE_ADMIN'}" class="btn btn-success btn-sm btn-upper" th:href="@{'/adminDetalleUser/' + ${trabajadore.id}}">Ver Detalle</a>
-																</div>
-															</div>
-															<div class="kt-widget__subhead">
-																<a href="#" class="description" th:text=${trabajadore.correo}><i class="flaticon2-new-email"></i>
-																</a>
-																<a href="#" th:text=${trabajadore.usuario.username}><i class="flaticon2-calendar-3"></i></a>
-															</div>
-															<div class="kt-widget__info">
-																<div class="kt-widget__desc">
-																	Identificación del trabajador: <a th:text=${trabajadore.identificacion}></a> <br>
-																	Dirección: <a th:text=${trabajadore.direccion}></a> 
-																</div>
-															</div>
+														<div class="col-xl-2"></div>
+													</div>
+											</div>
+										</div>
+
+										<!--end::Portlet-->
+									</div>
+								</div>
+							</div>
+
+							<!-- end:: Content -->
+						</div>
+					</div>
+					
+					
+				<!-- begin:: Footer -->
+										<div class="kt-footer  kt-footer--extended  kt-grid__item"
+											id="kt_footer"
+											th:style="'background-image: url(' + @{/media/bg/bg-2.jpg}  + ');'">
+											<div class="kt-footer__bottom">
+												<div class="kt-container ">
+													<div class="kt-footer__wrapper">
+														<div class="kt-footer__logo">
+															<a class="kt-header__brand-logo"
+																href="?page=index&amp;demo=demo2"> <img alt="Logo"
+																src="/media/logos/logo.png"
+																class="kt-header__brand-logo-sticky"
+																th:src="@{/media/logos/logo.png}">
+															</a>
+															<div class="kt-footer__copyright"></div>
+														</div>
+														<div class="kt-footer__menu">
+															<a th:href="@{/privacidad}">Privacidad</a> 
+															<a href="https://edscogua.online/" target="_blank">Contacto</a>
 														</div>
 													</div>
 												</div>
 											</div>
-										</div> 
 										</div>
-										<!--end:: Portlet-->
-									</div>
-									</div>
-
-						</div>
-
-						<!-- end:: Content -->
-					</div>
-				</div>
-
-					<!-- begin:: Footer -->
-				<div class="kt-footer  kt-footer--extended  kt-grid__item"
-					id="kt_footer"
-					th:style="'background-image: url(' + @{/media/bg/bg-2.jpg}  + ');'">
-					<div class="kt-footer__bottom">
-						<div class="kt-container ">
-							<div class="kt-footer__wrapper">
-								<div class="kt-footer__logo">
-									<a class="kt-header__brand-logo"
-										href="?page=index&amp;demo=demo2"> <img alt="Logo"
-										src="/media/logos/logo.png"
-										class="kt-header__brand-logo-sticky"
-										th:src="@{/media/logos/logo.png}">
-									</a>
-									<div class="kt-footer__copyright"></div>
-								</div>
-								<div class="kt-footer__menu">
-									<a th:href="@{/privacidad}">Privacidad</a> 
-									<a href="https://edscogua.online/" target="_blank">Contacto</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<!-- end:: Footer -->
+			
+							<!-- end:: Footer -->
+							
 			</div>
 		</div>
 	</div>
 
 	<!-- end:: Page -->
+
 
 	<!-- begin::Scrolltop -->
 	<div id="kt_scrolltop" class="kt-scrolltop">
@@ -654,6 +679,30 @@
 	
 		};
 	});
+	</script>
+	
+	<script>
+	
+	var mesInput = $('#mes');
+	var anioInput = $('#anio');
+	var tanqueInput = $('#tanque');
+	var url = $('#dynamic-url');
+	
+	url.attr('href', '/reporteOPPDF/' + anioInput.val() + '/' + mesInput.val() + '/' + tanqueInput.val());
+	
+	mesInput.on('change', function() {
+		url.attr('href', '/reporteOPPDF/' + anioInput.val() + '/' + mesInput.val() + '/' + tanqueInput.val());
+	});
+
+	anioInput.on('change', function() {
+		url.attr('href', '/reporteOPPDF/' + anioInput.val() + '/' + mesInput.val() + '/' + tanqueInput.val());
+	});
+	
+	tanqueInput.on('change', function() {
+		url.attr('href', '/reporteOPPDF/' + anioInput.val() + '/' + mesInput.val() + '/' + tanqueInput.val());
+	});
+
+	
 	</script>
 
 	<!-- end::Global Config -->

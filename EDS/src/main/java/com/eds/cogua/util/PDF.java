@@ -2,6 +2,7 @@ package com.eds.cogua.util;
 
 import java.util.Map;
 
+import com.eds.cogua.entity.CalculoCombustible;
 import com.eds.cogua.entity.RegistroNomina;
 import com.lowagie.text.pdf.BaseFont;
 import com.lowagie.text.pdf.PdfContentByte;
@@ -10,18 +11,22 @@ import com.lowagie.text.pdf.PdfStamper;
 import java.awt.Color;
 import java.io.ByteArrayOutputStream;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.ZoneId;
 import java.time.format.TextStyle;
 import java.time.temporal.TemporalAdjusters;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
 
 public class PDF 
 {
 	private Map<String,String> dicNomina;
+	
+	String[] mes = {"","ENERO","FEBRERO","MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"};
 	
 	public PDF()
 	{
@@ -144,16 +149,18 @@ public class PDF
 		/*
 		 * Datos de la Cabecera
 		 */
-		dicNomina.put("empleado", pRegistroNomina.getTrabajador().getNombres() + pRegistroNomina.getTrabajador().getApellidos());
+		dicNomina.put("empleado", pRegistroNomina.getTrabajador().getNombres() + " " + pRegistroNomina.getTrabajador().getApellidos());
 		dicNomina.put("cc", pRegistroNomina.getTrabajador().getIdentificacion() + "");
 		dicNomina.put("cargo", "Empleado");
 		
-		LocalDate date = pRegistroNomina.getFecha().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		//LocalDate date = pRegistroNomina.getFecha().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		LocalDate date = pRegistroNomina.getFecha();
+		System.out.println(date);
 		LocalDate lastDay = date.with(TemporalAdjusters.lastDayOfMonth());
 		int year = date.getYear();
 		Month month = date.getMonth();
 		String monthName = month.getDisplayName(TextStyle.FULL, new Locale("es", "ES"));
-		dicNomina.put("periodoPagar", "Del 1 al " + lastDay + " de " + monthName + " de " + year);
+		dicNomina.put("periodoPagar", "Del 1 al " + lastDay.getDayOfMonth() + " de " + monthName + " de " + year);
 		
 		dicNomina.put("salarioBase", String.format(Locale.US, "%,.2f", pRegistroNomina.getVrSalario()) );
 		dicNomina.put("dias", pRegistroNomina.getNroDiasTrabajadores() + "");
@@ -204,21 +211,19 @@ public class PDF
 			tx += t[i] + " ";
 		}
 		tx = tx.trim();
-
-		dicNomina.put("descPagar", tx + " pesos " + valor2 );
+		
+		String descPagar = tx + " pesos " + valor2;
+		dicNomina.put("descPagar", descPagar.toUpperCase());
 		
 	}
 	
 	public byte[] pdfDesprendibleNomina(RegistroNomina pRegistroNomina) throws Exception
 	{
-		//poblarDesprendibleNomina(pRegistroNomina);
+		poblarDesprendibleNomina(pRegistroNomina);
 		
 		String oldFile = "src/main/resources/pdf/DesprendibleNomina.pdf";
-		//String newFile = "C://Users/dbeltran/Desktop/Desprendible.pdf";
-		
 		PdfReader reader = new PdfReader(oldFile);
 		
-		//FileOutputStream fs = new FileOutputStream(newFile);
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		PdfStamper pdfStamper = new PdfStamper(reader, baos);
 		PdfContentByte cb = pdfStamper.getOverContent(1);
@@ -227,49 +232,46 @@ public class PDF
 		cb.setColorFill(Color.BLACK);
 		cb.setFontAndSize(bf, 10);
 
-		
 		cb.beginText();
 		
 		/*
 		 * Datos de la Cabecera
 		 */
-		cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "EMPLEADO", 150, 538, 0);
-		cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "CEDULA", 150, 522, 0);
-		cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "CARGO", 150, 507, 0);
-		cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "PERIODO PAGAR", 240, 490, 0);
-		cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "SALARIO BASE", 240, 475, 0);
-		cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "DIAS", 440, 490, 0);
-		
+		cb.showTextAligned(PdfContentByte.ALIGN_LEFT, dicNomina.get("empleado"), 150, 538, 0);
+		cb.showTextAligned(PdfContentByte.ALIGN_LEFT, dicNomina.get("cc"), 150, 522, 0);
+		cb.showTextAligned(PdfContentByte.ALIGN_LEFT, dicNomina.get("cargo"), 150, 507, 0);
+		cb.showTextAligned(PdfContentByte.ALIGN_LEFT, dicNomina.get("periodoPagar"), 170, 490, 0);
+		cb.showTextAligned(PdfContentByte.ALIGN_LEFT, dicNomina.get("salarioBase"), 240, 475, 0);
+		cb.showTextAligned(PdfContentByte.ALIGN_LEFT, dicNomina.get("dias"), 440, 490, 0);
 		
 		/*
 		 * Devengos
 		 */
-		cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "SALARIO", 222, 427, 0);
-		cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "AUXILIO TRAN", 222, 412, 0);
-		cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "RECARGO NOC", 222, 398, 0);
-		cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "HORA DIURNA", 222, 383, 0);
-		cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "HORA NOCT", 222, 368, 0);
-		cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "HORA EXDOM", 222, 352, 0);
-		cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "HORA NOCDOM", 222, 337, 0);
-		
+		cb.showTextAligned(PdfContentByte.ALIGN_LEFT, dicNomina.get("salario"), 222, 427, 0);
+		cb.showTextAligned(PdfContentByte.ALIGN_LEFT, dicNomina.get("auxTransporte"), 222, 412, 0);
+		cb.showTextAligned(PdfContentByte.ALIGN_LEFT, dicNomina.get("RN"), 222, 398, 0);
+		cb.showTextAligned(PdfContentByte.ALIGN_LEFT, dicNomina.get("HDRD"), 222, 383, 0);
+		cb.showTextAligned(PdfContentByte.ALIGN_LEFT, dicNomina.get("HNRD"), 222, 368, 0);
+		cb.showTextAligned(PdfContentByte.ALIGN_LEFT, dicNomina.get("HED"), 222, 352, 0);
+		cb.showTextAligned(PdfContentByte.ALIGN_LEFT, dicNomina.get("HEND"), 222, 337, 0);
 		
 		/*
 		 * Descuentos
 		 */
-		cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "SALARIO", 445, 427, 0);
-		cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "AUXILIO TRAN", 445, 413, 0);
-		cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "RECARGO NOC", 445, 398, 0);
-		cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "HORA DIURNA", 445, 383, 0);
-		cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "HORA NOCTURNA", 445, 368, 0);
-		cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "HOREA EXDOM", 445, 353, 0);
+		cb.showTextAligned(PdfContentByte.ALIGN_LEFT, dicNomina.get("aporteSalud"), 445, 427, 0);
+		cb.showTextAligned(PdfContentByte.ALIGN_LEFT, dicNomina.get("aportePension"), 445, 413, 0);
+		cb.showTextAligned(PdfContentByte.ALIGN_LEFT, dicNomina.get("aporteCoop"), 445, 398, 0);
+		cb.showTextAligned(PdfContentByte.ALIGN_LEFT, dicNomina.get("cuotaCredito"), 445, 383, 0);
+		cb.showTextAligned(PdfContentByte.ALIGN_LEFT, dicNomina.get("descuadres"), 445, 368, 0);
+		//cb.showTextAligned(PdfContentByte.ALIGN_LEFT, dicNomina.get("polExequial"), 445, 353, 0);
 		
 		/*
 		 * Datos Totales
 		 */
-		cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "DEVENGOS", 224, 261, 0);
-		cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "DESCUENT", 447, 261, 0);
-		cb.showTextAligned(PdfContentByte.ALIGN_LEFT, "PAGAR", 443, 244, 0);
-		cb.showTextAligned(PdfContentByte.ALIGN_CENTER, "TEXTO TOTAL", 300, 229, 0);
+		cb.showTextAligned(PdfContentByte.ALIGN_LEFT, dicNomina.get("totalDevengos"), 224, 261, 0);
+		cb.showTextAligned(PdfContentByte.ALIGN_LEFT, dicNomina.get("totalDescuentos"), 447, 261, 0);
+		cb.showTextAligned(PdfContentByte.ALIGN_LEFT, dicNomina.get("totalPagar"), 443, 244, 0);
+		cb.showTextAligned(PdfContentByte.ALIGN_CENTER, dicNomina.get("descPagar"), 300, 229, 0);
 		
 		
 		cb.endText();
@@ -280,6 +282,65 @@ public class PDF
 		byte[] bytes = baos.toByteArray();
 		return (bytes);
 	}
+	
+	public byte[] pdfOP(int pAnio, int pMes, int pTanque, List<CalculoCombustible> pDetalleCompustible) throws Exception
+	{
+		String oldFile = "src/main/resources/pdf/OPPDF.pdf";
+		PdfReader reader = new PdfReader(oldFile);
+		
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		PdfStamper pdfStamper = new PdfStamper(reader, baos);
+		PdfContentByte cb = pdfStamper.getOverContent(1);
+
+		BaseFont bf = BaseFont.createFont("c:/windows/fonts/arial.ttf", BaseFont.CP1252,BaseFont.NOT_EMBEDDED);
+		cb.setColorFill(Color.BLACK);
+		cb.setFontAndSize(bf, 10);
+
+		cb.beginText();
+		
+		cb.showTextAligned(PdfContentByte.ALIGN_LEFT, mes[pMes], 160, 718, 0);
+		cb.showTextAligned(PdfContentByte.ALIGN_LEFT, String.valueOf(pAnio), 340, 718, 0);
+		
+		String tanque = (pTanque == 1)? "GASOLINA":"ACPM";
+		cb.showTextAligned(PdfContentByte.ALIGN_CENTER, tanque, 552, 720, 0);
+		
+		double totalCantidadVendida = 0.0;
+		double totalDiferencia = 0.0;
+		double totalCompras = 0.0;
+		
+		for (int i = 0; i < pDetalleCompustible.size(); i++) 
+		{
+			cb.showTextAligned(PdfContentByte.ALIGN_CENTER, pDetalleCompustible.get(i).getMedidaAnterior() + "", 110, 608 - (i*17), 0);
+			cb.showTextAligned(PdfContentByte.ALIGN_CENTER, pDetalleCompustible.get(i).getCombustibleRecibido() + "", 227, 608 - (i*17), 0);
+			cb.showTextAligned(PdfContentByte.ALIGN_CENTER, pDetalleCompustible.get(i).getCantidadVendida() + "", 302, 608 - (i*17), 0);
+			cb.showTextAligned(PdfContentByte.ALIGN_CENTER, pDetalleCompustible.get(i).getIventarioLibros() + "", 407, 608 - (i*17), 0);
+			cb.showTextAligned(PdfContentByte.ALIGN_CENTER, pDetalleCompustible.get(i).getMedidaFinalGalones() + "", 493, 608 - (i*17), 0);
+			cb.showTextAligned(PdfContentByte.ALIGN_CENTER, pDetalleCompustible.get(i).getDiferencia() + "", 552, 608 - (i*17), 0);
+			
+			totalCantidadVendida += pDetalleCompustible.get(i).getCantidadVendida();
+			totalDiferencia += pDetalleCompustible.get(i).getDiferencia();
+			totalCompras += pDetalleCompustible.get(i).getCombustibleRecibido();
+		}
+		
+
+		double totalPerdidaGanancia = (totalDiferencia*100)/totalCompras;
+		
+		DecimalFormat df = new DecimalFormat("##.00");
+		cb.showTextAligned(PdfContentByte.ALIGN_CENTER, String.format("%.2f", totalCantidadVendida)+"", 302, 78, 0);
+		cb.showTextAligned(PdfContentByte.ALIGN_CENTER, String.format("%.2f", totalDiferencia)+"", 552, 78, 0);
+		cb.showTextAligned(PdfContentByte.ALIGN_CENTER, String.format("%.2f", totalCompras)+"", 225, 45, 0);
+		cb.showTextAligned(PdfContentByte.ALIGN_CENTER, String.format("%.2f", totalPerdidaGanancia) +"", 407, 30, 0);
+		
+	
+		cb.endText();
+		baos.close();
+		pdfStamper.close();
+		reader.close();
+		
+		byte[] bytes = baos.toByteArray();
+		return (bytes);
+	}
+	
 	
 	public static void main(String[] args) 
 	{

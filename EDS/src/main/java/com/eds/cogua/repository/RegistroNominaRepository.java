@@ -1,6 +1,8 @@
 package com.eds.cogua.repository;
 
 import java.util.Date;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -25,5 +27,11 @@ public interface RegistroNominaRepository extends CrudRepository<RegistroNomina,
             @Param("P_ID_TRABAJADOR")int pIdTrabajador,
             @Param("P_USUARIO")String pUsuario
     );
+	
+	@Query(nativeQuery=true, value="SELECT USUARIO, FECHA, TX_DESC FROM VI_LOG_NOMINA")
+    public  List<Object[]> logNomina();
+    
+	@Query(nativeQuery=true, value="SELECT MES, ANIO, VALOR_NETO_PAGAR FROM vi_pagos_nominales_mensuales")
+    public  List<Object[]> pagosNominalesMensuales();
 	
 }

@@ -14,16 +14,16 @@ public class NominaTrabajador
 	@Column(name="id_nmn_trabajador")
 	private Long id;
 	
-	@Column(name="salarioBase")
+	@Column(name="salario_base")
 	private float salarioBase;
 	
-	@Column(name="auxilioTransporte")
+	@Column(name="auxilio_transporte")
 	private float auxilioTransporte;
 	
-	@Column(name="descuentosSalario")
+	@Column(name="descuentos_salario")
 	private float descuentosSalario;
 	
-	@Column(name="gananciasExtra")
+	@Column(name="ganancias_extra")
 	private float gananciasExtra;
 	
 	
@@ -42,7 +42,7 @@ public class NominaTrabajador
 		return salarioBase;
 	}
 
-	public void setSalarioBase(float salarioBase)
+	public void setSalarioBase(float salarioBase) 
 	{
 		this.salarioBase = salarioBase;
 	}

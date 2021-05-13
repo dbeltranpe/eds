@@ -117,7 +117,7 @@ var KTUserAdd = function () {
 			{
 				mensaje += "&#8226; Si se ingresa un nombre de usuario debe tener 4 caracteres como mínimo<br>"
 			}
-			if(document.getElementById('salariobase').value = 0)
+			if(document.getElementById('salariobase').value == 0)
 			{
 				mensaje += "&#8226; El salario no puede ser 0, ingresar el valor<br>"
 			}
@@ -143,6 +143,7 @@ var KTUserAdd = function () {
 						});
 					}
 				});
+				
 			}
 			else
 			{

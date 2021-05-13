@@ -6,7 +6,7 @@
 <head>
 <base href="">
 <meta charset="utf-8" />
-<title>Sistema E.D.S.</title>
+<title>Inicio E.D.S.</title>
 <meta name="description" content="Latest updates and statistic charts">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -137,6 +137,13 @@
 										th:href="@{/calculoOP}" class="kt-menu__link"><span
 											class="kt-menu__link-text">Cálculo de Gasolina</span><i
 											class="kt-menu__ver-arrow la la-angle-right"></i></a></li>
+											
+									<li th:if="${(trabajador.usuario.authority[0].authority == 'ROLE_ISLERO') || (trabajador.usuario.authority[0].authority == 'ROLE_AUXPATIO')}"
+										class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel  "
+										data-ktmenu-submenu-toggle="click" aria-haspopup="true"><a
+										th:href="@{/reporteOP}" class="kt-menu__link"><span
+											class="kt-menu__link-text">Reconciliación Mensual</span><i
+											class="kt-menu__ver-arrow la la-angle-right"></i></a></li>
 						
 									<li th:if="${trabajador.usuario.authority[0].authority == 'ROLE_ADMIN'}"
 										class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel"
@@ -167,7 +174,7 @@
 													</g>
 												</svg></span><span class="kt-menu__link-text">Cálculo de Nómina</span></a></li>
 
-													<!-- 	<li class="kt-menu__item " aria-haspopup="true"><a
+												<li class="kt-menu__item " aria-haspopup="true"><a
 													href="#" th:href="@{/adminHorasExtras}" class="kt-menu__link "><span
 														class="kt-menu__link-icon"><svg
 																xmlns="http://www.w3.org/2000/svg"
@@ -184,7 +191,7 @@
 																	d="M3.79274528,6.57253826 L12,12.5 L20.2072547,6.57253826 C20.4311176,6.4108595 20.7436609,6.46126971 20.9053396,6.68513259 C20.9668779,6.77033951 21,6.87277228 21,6.97787787 L21,17 C21,18.1045695 20.1045695,19 19,19 L5,19 C3.8954305,19 3,18.1045695 3,17 L3,6.97787787 C3,6.70173549 3.22385763,6.47787787 3.5,6.47787787 C3.60510559,6.47787787 3.70753836,6.51099993 3.79274528,6.57253826 Z"
 																	fill="#000000" />
 													</g>
-												</svg></span><span class="kt-menu__link-text">Consulta Horas Extras</span></a></li>  --> 
+												</svg></span><span class="kt-menu__link-text">Consulta Horas Extras</span></a></li>
 
 												<li class="kt-menu__item " aria-haspopup="true"><a
 													href="#" th:href="@{/adminConsultaNomina}" class="kt-menu__link "><span
@@ -425,12 +432,12 @@
 						<div class="kt-subheader   kt-grid__item" id="kt_subheader">
 							<div class="kt-container ">
 								<div class="kt-subheader__main">
-									<h3 class="kt-subheader__title">Gestión de Trabajadores</h3>
+									<h3 class="kt-subheader__title">Gestión de Combustible</h3>
 									<div class="kt-subheader__breadcrumbs">
 										<a href="#" class="kt-subheader__breadcrumbs-home"><i
 											class="flaticon2-shelter"></i></a> <span
 											class="kt-subheader__breadcrumbs-separator"></span> <a
-											href="" class="kt-subheader__breadcrumbs-link"> Consulta & Detalle
+											href="" class="kt-subheader__breadcrumbs-link"> Cálculo de Gasolina
 										</a>
 									</div>
 								</div>
@@ -475,80 +482,151 @@
 						    
 						<!-- begin:: Content -->
 						<div class="kt-container  kt-grid__item kt-grid__item--fluid">
-						
-						<div id="search">
-						<div class="kt-section__content kt-section__content--solid--">
-														<div class="kt-searchbar">
-															<div class="input-group">
-																<div class="input-group-prepend"><span class="input-group-text" id="basic-addon1"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
-																			<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-																				<rect x="0" y="0" width="24" height="24" />
-																				<path d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />
-																				<path d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z" fill="#000000" fill-rule="nonzero" />
-																			</g>
-																		</svg></span></div>
-																
-																<input id="search-input" type="search" class="form-control" placeholder="Buscar">
-															</div>
-														</div>
-													</div>
-							  <div>
-							  &nbsp;
-							  </div>
 
+							<!--begin:: Portlet-->
 
-								<div th:each="trabajadore: ${trabajadorList}">
-										<!--begin:: Portlet-->
-										<div class="content">
-										<div class="kt-portlet">
-											<div class="kt-portlet__body">
-												<div class="kt-widget kt-widget--user-profile-3">
-													<div class="kt-widget__top">
-														<div class="kt-widget__media kt-hidden-">
-															<img src="/media/users/100_1.jpg"
-																th:src="@{/media/users/default.jpg}" alt="image">
-														</div>
-														<div
-															class="kt-widget__pic kt-widget__pic--danger kt-font-danger kt-font-boldest kt-font-light kt-hidden">
-															JM</div>
-														<div class="kt-widget__content">
-															<div class="kt-widget__head">
-																<p class="title kt-widget__username" th:text="${trabajadore.nombres} + ' ' + ${trabajadore.apellidos}"> 
-																<i class="flaticon2-correct kt-font-success"></i>
-																</p>
-																<div class="kt-widget__action">
-																	<a class="btn btn-brand btn-sm btn-upper" th:href="@{'/horarioTrabajador/' + ${trabajadore.id}}">Horario</a>
-																	<a th:if="${trabajador.usuario.authority[0].authority == 'ROLE_ADMIN'}" class="btn btn-success btn-sm btn-upper" th:href="@{'/adminDetalleUser/' + ${trabajadore.id}}">Ver Detalle</a>
+							<!--end:: Portlet-->
+
+							<!--Begin:: Portlet-->
+							<div class="kt-portlet kt-portlet--tabs">
+								<div class="kt-portlet__head">
+									<div class="kt-portlet__head-toolbar">
+										<ul
+											class="nav nav-tabs nav-tabs-space-lg nav-tabs-line nav-tabs-bold nav-tabs-line-3x nav-tabs-line-brand"
+											role="tablist">
+											<li class="nav-item"><a class="nav-link active"
+												data-toggle="tab" href="#kt_apps_contacts_view_tab_2"
+												role="tab"> <i class="flaticon2-calendar-3"></i>
+													Detallle OP
+											</a></li>
+										</ul>
+									</div>
+								</div>
+								<div class="kt-portlet__body">
+									<div class="tab-content  kt-margin-t-20">
+
+										<!--Begin:: Tab Content-->
+										<div class="tab-pane active" id="kt_apps_contacts_view_tab_2"
+											role="tabpanel">
+											<form class="kt-form kt-form--label-right"
+												th:action="@{'/actualizar_OP/' + ${detalleOP.id}}"
+												method="post">
+												<div class="kt-form__body">
+													<div class="kt-section kt-section--first">
+														<div class="kt-section__body">
+															<div class="row">
+																<label class="col-xl-3"></label>
+																<div class="col-lg-9 col-xl-6">
+																	<h3 class="kt-section__title kt-section__title-sm">Información
+																		OP:</h3>
 																</div>
 															</div>
-															<div class="kt-widget__subhead">
-																<a href="#" class="description" th:text=${trabajadore.correo}><i class="flaticon2-new-email"></i>
-																</a>
-																<a href="#" th:text=${trabajadore.usuario.username}><i class="flaticon2-calendar-3"></i></a>
+															<div class="form-group row">
+																<label class="col-xl-3 col-lg-3 col-form-label">Combustible Recibido</label>
+																<div class="col-lg-9 col-xl-6">
+																	<input type="number" class="form-control" min="0"
+																		th:value="${detalleOP.combustibleRecibido}"
+																		th:field="${detalleOP.combustibleRecibido}"
+																		required="required"/>
+																</div>
 															</div>
-															<div class="kt-widget__info">
-																<div class="kt-widget__desc">
-																	Identificación del trabajador: <a th:text=${trabajadore.identificacion}></a> <br>
-																	Dirección: <a th:text=${trabajadore.direccion}></a> 
+															<div class="form-group row">
+																<label class="col-xl-3 col-lg-3 col-form-label">Cantidad Vendida</label>
+																<div class="col-lg-9 col-xl-6">
+																	<input type="number" class="form-control" step="0.01" min="0"
+																		th:value="${detalleOP.cantidadVendida}"
+																		th:field="${detalleOP.cantidadVendida}"
+																		required="required"/>
+																</div>
+															</div>
+															<div class="form-group row">
+																<label class="col-xl-3 col-lg-3 col-form-label">Medida Tanque Corriente</label>
+																<div class="col-lg-9 col-xl-6">
+																	<input class="form-control" type="number"
+																		th:value="${detalleOP.medidaTanque1}"
+																		th:field="${detalleOP.medidaTanque1}"
+																		required="required" min="0" step="0.01">
+																</div>
+															</div>
+															<div class="form-group row">
+																<label class="col-xl-3 col-lg-3 col-form-label">Medida Tanque 1 ACPM</label>
+																<div class="col-lg-9 col-xl-6">
+																	<div class="input-group">
+																		<input type="number" class="form-control"
+																			th:value="${detalleOP.medidaTanque2}"
+																			th:field="${detalleOP.medidaTanque2}"
+																			placeholder="correo" aria-describedby="basic-addon1"
+																			required="required" min="0" step="0.01">
+																	</div>
+																</div>
+															</div>
+															<div class="form-group row">
+																<label class="col-xl-3 col-lg-3 col-form-label">Medida Tanque 2 ACPM</label>
+																<div class="col-lg-9 col-xl-6">
+																	<div class="input-group">
+																		<input type="number" class="form-control"
+																			th:value="${detalleOP.medidaTanque3}"
+																			th:field="${detalleOP.medidaTanque3}"
+																			placeholder="correo" aria-describedby="basic-addon1"
+																			required="required" min="0" step="0.01">
+																	</div>
+																</div>
+															</div>
+															<div class="form-group row">
+																<label class="col-xl-3 col-lg-3 col-form-label">
+																	Fecha de Cálculo </label>
+																<div class="col-lg-9 col-xl-6">
+																	<div class="input-group">
+																		<input type="date" class="form-control"
+																			th:value="${detalleOP.fecha}"
+																			th:field="${detalleOP.fecha}"
+																			aria-describedby="basic-addon1" required="required">
+																	</div>
 																</div>
 															</div>
 														</div>
 													</div>
 												</div>
-											</div>
-										</div> 
+												<div
+													class="kt-separator kt-separator--space-lg kt-separator--fit kt-separator--border-solid"></div>
+												<div class="kt-form__actions">
+													<div class="row">
+														<div class="col-xl-3"></div>
+														<div class="col-lg-9 col-xl-6">
+															<button type="submit" class="btn btn-brand btn-bold">Guardar
+																Cambios</button>
+														</div>
+													</div>
+												</div>
+											</form>
 										</div>
-										<!--end:: Portlet-->
-									</div>
-									</div>
 
+										<!--End:: Tab Content-->
+
+										<!--Begin:: Tab Content-->
+
+
+										<!--End:: Tab Content-->
+
+										<!--Begin:: Tab Content-->
+
+										<!--End:: Tab Content-->
+
+										<!--Begin:: Tab Content-->
+
+										<!--End:: Tab Content-->
+									</div>
+								</div>
+							</div>
+
+							<!--End:: Portlet-->
 						</div>
 
 						<!-- end:: Content -->
 					</div>
 				</div>
 
-					<!-- begin:: Footer -->
+						<!-- begin:: Footer -->
 				<div class="kt-footer  kt-footer--extended  kt-grid__item"
 					id="kt_footer"
 					th:style="'background-image: url(' + @{/media/bg/bg-2.jpg}  + ');'">
@@ -580,80 +658,89 @@
 
 	<!-- end:: Page -->
 
+
 	<!-- begin::Scrolltop -->
 	<div id="kt_scrolltop" class="kt-scrolltop">
 		<i class="fa fa-arrow-up"></i>
 	</div>
 
-	<!-- end::Scrolltop -->
 
 	<!-- begin::Global Config(global config for global JS sciprts) -->
 	<script>
-			var KTAppOptions = {
-				"colors": {
-					"state": {
-						"brand": "#366cf3",
-						"light": "#ffffff",
-						"dark": "#282a3c",
-						"primary": "#5867dd",
-						"success": "#34bfa3",
-						"info": "#36a3f7",
-						"warning": "#ffb822",
-						"danger": "#fd3995"
-					},
-					"base": {
-						"label": ["#c5cbe3", "#a1a8c3", "#3d4465", "#3e4466"],
-						"shape": ["#f0f3ff", "#d9dffa", "#afb4d4", "#646c9a"]
-					}
+		var KTAppOptions = {
+			"colors" : {
+				"state" : {
+					"brand" : "#366cf3",
+					"light" : "#ffffff",
+					"dark" : "#282a3c",
+					"primary" : "#5867dd",
+					"success" : "#34bfa3",
+					"info" : "#36a3f7",
+					"warning" : "#ffb822",
+					"danger" : "#fd3995"
+				},
+				"base" : {
+					"label" : [ "#c5cbe3", "#a1a8c3", "#3d4465", "#3e4466" ],
+					"shape" : [ "#f0f3ff", "#d9dffa", "#afb4d4", "#646c9a" ]
 				}
-			};
-		</script>
-	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script>
-	$(document).ready(function(){
-		var $searchContainer = $("#search");
-		var $contentBoxes = $searchContainer.find(".content");
-		var $searchInput = $searchContainer.find("#search-input");
-		//var $searchBtn = $searchContainer.find("#search-btn");
-	
-		//$searchBtn.on("click", searchContent);
-		$searchInput.on("input", searchContent);
-	
-		function searchContent() 
-		{
-		  var userInput;
-	
-		  //Check if call comes from button or input change
-		  if ($(this).is(":button")) {
-		    userInput = $(this).siblings("input").val();
-		  } else {
-		    userInput = $(this).val();
-		  }
-	
-		  //make the input all lower case to make it compatible for searching
-		  userInput = userInput.toLowerCase();
-	
-		  //Loop through all the content to find matches to the user input
-		  $contentBoxes.each(function() {
-	
-		    var headerText = $(this).find(".title").text();
-		    var contentText = $(this).find(".description").text();
-		    //add the title and content of the contentbox to the searchable content, and make it lower case
-		    var searchableContent = headerText + " " + contentText;
-		    searchableContent = searchableContent.toLowerCase();
-	
-		    //hide content that doesn't match the user input
-		    if (!searchableContent.includes(userInput)) {
-		      $(this).hide();
-		    } else {
-		      $(this).show();
-		    }
-	
-		  });
-	
+			}
 		};
-	});
+	</script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			var $searchContainer = $("#search");
+			var $contentBoxes = $searchContainer.find(".content");
+			var $searchInput = $searchContainer.find("#search-input");
+			//var $searchBtn = $searchContainer.find("#search-btn");
+
+			//$searchBtn.on("click", searchContent);
+			$searchInput.on("input", searchContent);
+
+			function searchContent() {
+				var userInput;
+
+				//Check if call comes from button or input change
+				if ($(this).is(":button")) {
+					userInput = $(this).siblings("input").val();
+				} else {
+					userInput = $(this).val();
+				}
+
+				//make the input all lower case to make it compatible for searching
+				userInput = userInput.toLowerCase();
+
+				//Loop through all the content to find matches to the user input
+				$contentBoxes.each(function() {
+
+					var headerText = $(this).find(".title").text();
+					var contentText = $(this).find(".description").text();
+					//add the title and content of the contentbox to the searchable content, and make it lower case
+					var searchableContent = headerText + " " + contentText;
+					searchableContent = searchableContent.toLowerCase();
+
+					//hide content that doesn't match the user input
+					if (!searchableContent.includes(userInput)) {
+						$(this).hide();
+					} else {
+						$(this).show();
+					}
+
+				});
+
+			}
+			;
+		});
+	</script>
+	<script>
+		$(document).ready(function() {
+			if ($("#tanqueCorriente").val().length === "0") {
+				$("#tanqueACPM").prop("disabled", true);
+			} else if ($("#tanqueACPM").val().length === "0") {
+				$("#tanqueCorriente").prop("disabled", true);
+			}
+		});
 	</script>
 
 	<!-- end::Global Config -->
@@ -663,9 +750,19 @@
 		th:src="@{/plugins/global/plugins.bundle.js}" type="text/javascript"></script>
 	<script src="/js/scripts.bundle.js" th:src="@{/js/scripts.bundle.js}"
 		type="text/javascript"></script>
-	
 
 	<!--end::Global Theme Bundle -->
+
+	<!--begin::Page Vendors(used by this page) -->
+	<script src="/plugins/custom/datatables/datatables.bundle.js"
+		th:src="@{/plugins/custom/datatables/datatables.bundle.js}"
+		type="text/javascript"></script>
+
+	<!--begin::Page Scripts(used by this page) -->
+	<script src="/js/pages/crud/datatables/extensions/scroller2.js"
+		th:src="@{/js/pages/crud/datatables/extensions/scroller2.js}"
+		type="text/javascript"></script>
+
 </body>
 
 <!-- end::Body -->
